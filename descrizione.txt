@@ -1,0 +1,11 @@
+Questo tipo di astronave è usata dai soldati dell'esercito dei Verbatiani,
+ha una armatura che permette di sopportare pochi colpi, non riesce a superare
+galassie perchè i componenti del motore non sono cosi efficenti.
+Le basse prestazioni di questa astronave sono dovute perchè ne vengono prodotte 
+in grande scala per fare grandi eserciti.
+
+Questa astronave viene guidata da piloti molto abili che a volte in battaglia 
+dirigono l'attacco con grandi gruppi di greenSpaceship.
+
+
+
