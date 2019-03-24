@@ -424,7 +424,7 @@
             app:layout_constraintVertical_bias="0.975" />
 
         <ImageView
-            android:id="@+id/gunS"
+            android:id="@+id/G1"
             android:layout_width="154dp"
             android:layout_height="131dp"
             android:layout_marginStart="8dp"
@@ -440,7 +440,23 @@
             app:layout_constraintVertical_bias="0.186" />
 
         <ImageView
-            android:id="@+id/gunM"
+            android:id="@+id/R1"
+            android:layout_width="154dp"
+            android:layout_height="131dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/barrels"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.186" />
+
+        <ImageView
+            android:id="@+id/G2"
             android:layout_width="153dp"
             android:layout_height="152dp"
             android:layout_marginStart="8dp"
@@ -455,7 +471,37 @@
             app:layout_constraintVertical_bias="0.449" />
 
         <ImageView
-            android:id="@+id/gunH"
+            android:id="@+id/R2"
+            android:layout_width="153dp"
+            android:layout_height="152dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/barrelm"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.449" />
+
+        <ImageView
+            android:id="@+id/G3"
+            android:layout_width="153dp"
+            android:layout_height="152dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/barrelh"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.767" />
+
+        <ImageView
+            android:id="@+id/R3"
             android:layout_width="153dp"
             android:layout_height="152dp"
             android:layout_marginStart="8dp"
@@ -489,6 +535,26 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.031" />
 
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="112dp"
+            android:layout_height="58dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/gunLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.218"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.216" />
+
         <ImageView
             android:id="@+id/backG"
             android:layout_width="120dp"
@@ -509,7 +575,7 @@
             app:layout_constraintVertical_bias="0.818" />
 
         <ImageView
-            android:id="@+id/buy1"
+            android:id="@+id/buyG2"
             android:layout_width="120dp"
             android:layout_height="66dp"
             android:layout_marginStart="8dp"
@@ -528,7 +594,7 @@
             app:layout_constraintVertical_bias="0.818" />
 
         <ImageView
-            android:id="@+id/buy2"
+            android:id="@+id/buyG3"
             android:layout_width="120dp"
             android:layout_height="66dp"
             android:layout_marginStart="8dp"
@@ -547,7 +613,7 @@
             app:layout_constraintVertical_bias="0.818" />
 
         <ImageView
-            android:id="@+id/buy3"
+            android:id="@+id/buyR2"
             android:layout_width="120dp"
             android:layout_height="66dp"
             android:layout_marginStart="8dp"
@@ -557,6 +623,133 @@
             android:scaleType="fitXY"
             android:src="@drawable/casellacompra"
             android:text="Compra"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.836"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.818" />
+
+        <ImageView
+            android:id="@+id/buyR3"
+            android:layout_width="120dp"
+            android:layout_height="66dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/casellacompra"
+            android:text="Compra"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.836"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.818" />
+
+        <ImageView
+            android:id="@+id/selectionG1"
+            android:layout_width="120dp"
+            android:layout_height="66dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/casellaseleziona"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.836"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.818" />
+
+        <ImageView
+            android:id="@+id/selectionG2"
+            android:layout_width="120dp"
+            android:layout_height="66dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/casellaseleziona"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.836"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.818" />
+
+        <ImageView
+            android:id="@+id/selectionG3"
+            android:layout_width="120dp"
+            android:layout_height="66dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/casellaseleziona"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.836"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.818" />
+
+        <ImageView
+            android:id="@+id/selectionR1"
+            android:layout_width="120dp"
+            android:layout_height="66dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/casellaseleziona"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.836"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.818" />
+
+        <ImageView
+            android:id="@+id/selectionR2"
+            android:layout_width="120dp"
+            android:layout_height="66dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/casellaseleziona"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.836"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.818" />
+
+        <ImageView
+            android:id="@+id/selectionR3"
+            android:layout_width="120dp"
+            android:layout_height="66dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/casellaseleziona"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

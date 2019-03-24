@@ -9,10 +9,12 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Region;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Bundle;
@@ -127,9 +129,13 @@ public class GamePanel extends Activity implements SensorEventListener {
 
     private MediaPlayer explosionSound;
     private MediaPlayer lasershootSound;
+    private MediaPlayer gameSong;
+    private MediaPlayer gameOver;
 
     private boolean coinFlag = false;
     long millis = 1000L;
+
+    private int length;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,13 +148,35 @@ public class GamePanel extends Activity implements SensorEventListener {
         getWindowManager().getDefaultDisplay().getMetrics(ds);
         costants.SCREEN_WIDTH = ds.widthPixels;
         costants.SCREEN_HEIGHT = ds.heightPixels;
+
         db = new DatabaseHelper(this);
 
+        Cursor res = db.selectData();
+        if(res.getCount() != 0) {
+            while (res.moveToNext()) {
+                storage.green = res.getInt(3);
+                storage.red = res.getInt(4);
+                storage.ultimate = res.getInt(5);
+                storage.g1 = res.getInt(6);
+                storage.g2= res.getInt(7);
+                storage.g3= res.getInt(8);
+                storage.r1= res.getInt(9);
+                storage.r2 = res.getInt(10);
+                storage.r3= res.getInt(11);
+            }
+        }
 
         explosionSound = MediaPlayer.create(this,R.raw.explosion);
         lasershootSound = MediaPlayer.create(this,R.raw.lasershoot);
+        gameSong = MediaPlayer.create(this,R.raw.game);
+        gameOver = MediaPlayer.create(this,R.raw.gameover);
         lasershootSound.setVolume(0.0f,0.1f);
-        explosionSound.setVolume(0.0f,0.5f);
+        explosionSound.setVolume(0.0f,0.3f);
+        gameSong.setVolume(0.0f,0.5f);
+        gameOver.setVolume(0.0f,1f);
+
+        gameSong.start();
+        gameSong.setLooping(true);
 
         //TextView
         score = (TextView) findViewById(R.id.score);
@@ -279,11 +307,13 @@ public class GamePanel extends Activity implements SensorEventListener {
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    menu.setVisibility(View.VISIBLE);
-                    handler.removeCallbacks(runnable);
-                    handlerScore.removeCallbacks(runnableScore);
-                    handlerEnemy.removeCallbacks(runnableEnemy);
-                    handlerShoot.removeCallbacks(runnableShoot);
+                gameSong.pause();
+                length=gameSong.getCurrentPosition();
+                menu.setVisibility(View.VISIBLE);
+                handler.removeCallbacks(runnable);
+                handlerScore.removeCallbacks(runnableScore);
+                handlerEnemy.removeCallbacks(runnableEnemy);
+                handlerShoot.removeCallbacks(runnableShoot);
             }
         });
 
@@ -291,6 +321,8 @@ public class GamePanel extends Activity implements SensorEventListener {
         resume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                gameSong.seekTo(length);
+                gameSong.start();
                 menu.setVisibility(View.INVISIBLE);
                 menuFlag = true;
                 handler.postDelayed(runnable, 20);
@@ -304,6 +336,8 @@ public class GamePanel extends Activity implements SensorEventListener {
         restart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                gameSong.stop();
+                gameSong.reset();
                 finish();
                 startActivity(getIntent());
             }
@@ -563,6 +597,10 @@ public class GamePanel extends Activity implements SensorEventListener {
             gioco.removeView(enemy);
             if(lifeCount==3)
             {
+                enemies.remove(enemy);
+                gioco.removeView(enemy);
+                gameSong.stop();
+                gameOver.start();
                 gioco.removeView(player);
                 explosionPlayer.setVisibility(View.VISIBLE);
                 explosionPlayer.startAnimation();
@@ -579,8 +617,7 @@ public class GamePanel extends Activity implements SensorEventListener {
 
                 Cursor res = db.selectData();
                 if(res.getCount() == 0) {
-                    // show message
-                    db.insertData(1,storage.coinStorageF, storage.scoreT,1,0,0);
+                    db.insertData(1,storage.coinStorageF, storage.scoreT,1,0,0,1,0,0,1,0,0,0);
                 }
                 else
                 {
@@ -591,7 +628,6 @@ public class GamePanel extends Activity implements SensorEventListener {
                 String risultato="";
 
                 while (res.moveToNext()) {
-                    //coinViewAll.setText("Coin Totali " + res.getString(1) +"\nNe hai ottenuti "+ storage.coinStorageI );
                     risultato = "Coin Totali " + res.getString(1) +"\nNe hai ottenuti "+ storage.coinStorageI;
                 }
 
@@ -665,9 +701,66 @@ public class GamePanel extends Activity implements SensorEventListener {
 
     public void spawnBullet()
     {
-        Bullet bullet = new Bullet(this,player.getX()+177, player.getY());
-        bullets.add(bullet);
-        gioco.addView(bullet);
+        if(storage.g1 == 2 || storage.g2 == 2 || storage.g3 == 2)
+        {
+            Bullet bulletG = new Bullet(this,player.getX()+177, player.getY());
+            bullets.add(bulletG);
+            gioco.addView(bulletG);
+            if(storage.g1 == 2)
+            {
+                Drawable drawable = getResources().getDrawable(R.drawable.bullets);
+                bulletG.setImageDrawable(drawable);
+            }
+            if(storage.g2 == 2)
+            {
+                Drawable drawable = getResources().getDrawable(R.drawable.bulletm);
+                bulletG.setImageDrawable(drawable);
+            }
+            if(storage.g3 == 2)
+            {
+                Drawable drawable = getResources().getDrawable(R.drawable.bulleth);
+                bulletG.setImageDrawable(drawable);
+            }
+        }
+        else if(storage.r1 == 2 || storage.r2 == 2 || storage.r3 == 2)
+        {
+            Bullet bulletR1 = new Bullet(this,player.getX()+110, player.getY()+20);
+            Bullet bulletR2 = new Bullet(this,player.getX()+250, player.getY()+20);
+            bullets.add(bulletR1);
+            bullets.add(bulletR2);
+            gioco.addView(bulletR1);
+            gioco.addView(bulletR2);
+            if(storage.r1 == 2)
+            {
+                Drawable drawable = getResources().getDrawable(R.drawable.bullets);
+                bulletR1.setImageDrawable(drawable);
+                bulletR2.setImageDrawable(drawable);
+            }
+            if(storage.r2 == 2)
+            {
+                Drawable drawable = getResources().getDrawable(R.drawable.bulletm);
+                bulletR1.setImageDrawable(drawable);
+                bulletR2.setImageDrawable(drawable);
+            }
+            if(storage.r3 == 2)
+            {
+                Drawable drawable = getResources().getDrawable(R.drawable.bulleth);
+                bulletR1.setImageDrawable(drawable);
+                bulletR2.setImageDrawable(drawable);
+            }
+        }
+        else if(storage.ultimate == 2)
+        {
+            Bullet bulletU1 = new Bullet(this,player.getX()+80, player.getY()+20);
+            Bullet bulletU2 = new Bullet(this,player.getX()+500, player.getY()+20);
+            bullets.add(bulletU1);
+            bullets.add(bulletU2);
+            gioco.addView(bulletU1);
+            gioco.addView(bulletU2);
+            Drawable drawable = getResources().getDrawable(R.drawable.bulleth);
+            bulletU1.setImageDrawable(drawable);
+            bulletU2.setImageDrawable(drawable);
+        }
         lasershootSound.start();
     }
 

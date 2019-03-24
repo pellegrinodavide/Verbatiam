@@ -15,9 +15,7 @@ public class Bullet extends AppCompatImageView {
 
     public Bullet(Context context, float x, float y) {
         super(context);
-        Drawable drawable = getResources().getDrawable(R.drawable.bullets);
         this.setLayoutParams(new ConstraintLayout.LayoutParams(35, 70));
-        this.setImageDrawable(drawable);
         this.setX(x);
         this.setY(y);
         this.setMaxWidth(5);

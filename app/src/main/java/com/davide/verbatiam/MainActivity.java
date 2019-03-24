@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.Image;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
@@ -62,13 +63,24 @@ public class MainActivity extends Activity {
     //Layout dei guns
     private ConstraintLayout gunL;
     private ImageView exitG;
-    private ImageView gun1;
-    private ImageView gun2;
-    private ImageView gun3;
+    private ImageView g1;
+    private ImageView g2;
+    private ImageView g3;
+    private ImageView r1;
+    private ImageView r2;
+    private ImageView r3;
     private ImageView backButtonG;
-    private ImageView buyButtonG1;
     private ImageView buyButtonG2;
     private ImageView buyButtonG3;
+    private ImageView buyButtonR2;
+    private ImageView buyButtonR3;
+    private ImageView selectionG1;
+    private ImageView selectionG2;
+    private ImageView selectionG3;
+    private ImageView selectionR1;
+    private ImageView selectionR2;
+    private ImageView selectionR3;
+    private TextView textView;
 
     //Layout degli upgrade
     private ConstraintLayout upgradeL;
@@ -81,7 +93,6 @@ public class MainActivity extends Activity {
     //Handler usato per l'incemento della variabile "i" (fa partire il gioco)
     public Handler handlerCount = new Handler();
     public Runnable runnableCount;
-    private boolean handlerFlag = true;
     private int i = 0;
 
     //Classe importata per passare dati di riferimento
@@ -91,6 +102,10 @@ public class MainActivity extends Activity {
     private boolean dbFlag = false;
 
     private Costants costants = new Costants();
+
+    private boolean handlerFlag = true;
+
+    private MediaPlayer introSong;
 
 
     @Override
@@ -106,6 +121,11 @@ public class MainActivity extends Activity {
         costants.SCREEN_HEIGHT = ds.heightPixels;
 
         db = new DatabaseHelper(this);
+
+        introSong = MediaPlayer.create(this,R.raw.intro);
+        introSong.setVolume(0.0f,0.2f);
+        introSong.start();
+        introSong.setLooping(true);
 
         //3 tasti principali per interazione del menu
         startI = (ImageView) findViewById(R.id.start);
@@ -136,13 +156,24 @@ public class MainActivity extends Activity {
         //Layout collegato alle armi
         exitG = (ImageView) findViewById(R.id.gunExit);
         gunL = (ConstraintLayout) findViewById(R.id.gunLayout);
-        gun1 = (ImageView) findViewById(R.id.gunS);
-        gun2 = (ImageView) findViewById(R.id.gunM);
-        gun3 = (ImageView) findViewById(R.id.gunH);
+        g1 = (ImageView) findViewById(R.id.G1);
+        g2 = (ImageView) findViewById(R.id.G2);
+        g3 = (ImageView) findViewById(R.id.G3);
+        r1 = (ImageView) findViewById(R.id.R1);
+        r2 = (ImageView) findViewById(R.id.R2);
+        r3 = (ImageView) findViewById(R.id.R3);
+        textView = (TextView) findViewById(R.id.text2);
         backButtonG = (ImageView) findViewById(R.id.backG);
-        buyButtonG1 = (ImageView) findViewById(R.id.buy1);
-        buyButtonG2 = (ImageView) findViewById(R.id.buy2);
-        buyButtonG3 = (ImageView) findViewById(R.id.buy3);
+        buyButtonG2 = (ImageView) findViewById(R.id.buyG2);
+        buyButtonG3 = (ImageView) findViewById(R.id.buyG3);
+        buyButtonR2 = (ImageView) findViewById(R.id.buyR2);
+        buyButtonR3 = (ImageView) findViewById(R.id.buyR3);
+        selectionG1 = (ImageView) findViewById(R.id.selectionG1);
+        selectionG2 = (ImageView) findViewById(R.id.selectionG2);
+        selectionG3 = (ImageView) findViewById(R.id.selectionG3);
+        selectionR1 = (ImageView) findViewById(R.id.selectionR1);
+        selectionR2 = (ImageView) findViewById(R.id.selectionR2);
+        selectionR3 = (ImageView) findViewById(R.id.selectionR3);
 
         //Layout collegato allo shop
         shopL = (ConstraintLayout) findViewById(R.id.shopLayout);
@@ -160,6 +191,12 @@ public class MainActivity extends Activity {
                 storage.green = res.getInt(3);
                 storage.red = res.getInt(4);
                 storage.ultimate = res.getInt(5);
+                storage.g1 = res.getInt(6);
+                storage.g2= res.getInt(7);
+                storage.g3= res.getInt(8);
+                storage.r1= res.getInt(9);
+                storage.r2 = res.getInt(10);
+                storage.r3= res.getInt(11);
             }
         }
 
@@ -167,19 +204,51 @@ public class MainActivity extends Activity {
         {
             storage.green = 2;
             db.updateGreen(storage.green);
+            if(storage.g2 == 0 && storage.g3 == 0)
+            {
+                storage.g1 = 2;
+                db.updateG1(storage.g1);
+            }
         }
 
         if(storage.green == 2)
         {
-            drawableCostants.setPos(0);
+            if(storage.g1 == 2)
+            {
+                drawableCostants.setPos(0);
+            }
+            if(storage.g2 == 2)
+            {
+                drawableCostants.setPos(1);
+            }
+            if(storage.g3 == 2)
+            {
+                drawableCostants.setPos(2);
+            }
         }
         if(storage.red == 2)
         {
-            drawableCostants.setPos(1);
+            if(storage.r2 == 0 && storage.r3 == 0)
+            {
+                storage.r1 = 2;
+                db.updateR1(storage.r1);
+            }
+            if(storage.r1 == 2)
+            {
+                drawableCostants.setPos(3);
+            }
+            if(storage.r2 == 2)
+            {
+                drawableCostants.setPos(4);
+            }
+            if(storage.r3 == 2)
+            {
+                drawableCostants.setPos(5);
+            }
         }
         if(storage.ultimate == 2)
         {
-            drawableCostants.setPos(2);
+            drawableCostants.setPos(6);
         }
 
 
@@ -206,6 +275,7 @@ public class MainActivity extends Activity {
                                 handlerFlag = false;
                                 i = 0;
                                 caricamentoBar.setProgress(i);
+                                introSong.stop();
                             }
                             else if(caricamentoBar.getProgress() < 100 && count() < 100)
                             {
@@ -426,6 +496,26 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 shopL.setVisibility(View.INVISIBLE);
                 gunL.setVisibility(View.VISIBLE);
+                if(storage.green == 2)
+                {
+                    textView.setText("Green");
+                    r1.setVisibility(View.INVISIBLE);
+                    r2.setVisibility(View.INVISIBLE);
+                    r3.setVisibility(View.INVISIBLE);
+                    g1.setVisibility(View.VISIBLE);
+                    g2.setVisibility(View.VISIBLE);
+                    g3.setVisibility(View.VISIBLE);
+                }
+                else if(storage.red == 2)
+                {
+                    textView.setText("Red");
+                    r1.setVisibility(View.VISIBLE);
+                    r2.setVisibility(View.VISIBLE);
+                    r3.setVisibility(View.VISIBLE);
+                    g1.setVisibility(View.INVISIBLE);
+                    g2.setVisibility(View.INVISIBLE);
+                    g3.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
@@ -437,47 +527,196 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 shopL.setVisibility(View.VISIBLE);
                 gunL.setVisibility(View.INVISIBLE);
+                if(storage.green == 2)
+                {
+                    r1.setVisibility(View.INVISIBLE);
+                    r2.setVisibility(View.INVISIBLE);
+                    r3.setVisibility(View.INVISIBLE);
+                    g1.setVisibility(View.VISIBLE);
+                    g2.setVisibility(View.VISIBLE);
+                    g3.setVisibility(View.VISIBLE);
+                    backButtonG.setVisibility(View.INVISIBLE);
+                    buyButtonG3.setVisibility(View.INVISIBLE);
+                    buyButtonG2.setVisibility(View.INVISIBLE);
+
+                    //Ritorna alla posizione originale
+                    g1.setX(336);
+                    g1.setY(306);
+
+                    //Ritorna alla posizione originale
+                    g2.setX(339);
+                    g2.setY(685);
+
+                    //Ritorna alla posizione originale
+                    g3.setX(336);
+                    g3.setY(1155);
+                }
+                else if(storage.red == 2)
+                {
+                    r1.setVisibility(View.VISIBLE);
+                    r2.setVisibility(View.VISIBLE);
+                    r3.setVisibility(View.VISIBLE);
+                    g1.setVisibility(View.INVISIBLE);
+                    g2.setVisibility(View.INVISIBLE);
+                    g3.setVisibility(View.INVISIBLE);
+                    backButtonG.setVisibility(View.INVISIBLE);
+                    buyButtonR3.setVisibility(View.INVISIBLE);
+                    buyButtonR2.setVisibility(View.INVISIBLE);
+
+                    //Ritorna alla posizione originale
+                    r1.setX(336);
+                    r1.setY(306);
+
+                    //Ritorna alla posizione originale
+                    r2.setX(339);
+                    r2.setY(685);
+
+                    //Ritorna alla posizione originale
+                    r3.setX(336);
+                    r3.setY(1155);
+                }
             }
         });
 
-        gun1.setOnClickListener(new View.OnClickListener() {
+        g1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gun1.setVisibility(View.VISIBLE);
-                gun2.setVisibility(View.INVISIBLE);
-                gun3.setVisibility(View.INVISIBLE);
+                g1.setVisibility(View.VISIBLE);
+                g2.setVisibility(View.INVISIBLE);
+                g3.setVisibility(View.INVISIBLE);
                 backButtonG.setVisibility(View.VISIBLE);
-                buyButtonG1.setVisibility(View.VISIBLE);
+
+                if(storage.g1 >= 1)
+                {
+                    selectionG1.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    selectionG1.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
-        gun2.setOnClickListener(new View.OnClickListener() {
+        g2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gun1.setVisibility(View.INVISIBLE);
-                gun2.setVisibility(View.VISIBLE);
-                gun3.setVisibility(View.INVISIBLE);
+                g1.setVisibility(View.INVISIBLE);
+                g2.setVisibility(View.VISIBLE);
+                g3.setVisibility(View.INVISIBLE);
                 backButtonG.setVisibility(View.VISIBLE);
-                buyButtonG2.setVisibility(View.VISIBLE);
 
                 //Va alla posizione della astronave verde
-                gun2.setX(336);
-                gun2.setY(300);
+                g2.setX(336);
+                g2.setY(300);
+
+                if(storage.g2 >= 1)
+                {
+                    buyButtonG2.setVisibility(View.INVISIBLE);
+                    selectionG2.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    buyButtonG2.setVisibility(View.VISIBLE);
+                    selectionG2.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
-        gun3.setOnClickListener(new View.OnClickListener() {
+        g3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gun1.setVisibility(View.INVISIBLE);
-                gun2.setVisibility(View.INVISIBLE);
-                gun3.setVisibility(View.VISIBLE);
+                g1.setVisibility(View.INVISIBLE);
+                g2.setVisibility(View.INVISIBLE);
+                g3.setVisibility(View.VISIBLE);
                 backButtonG.setVisibility(View.VISIBLE);
                 buyButtonG3.setVisibility(View.VISIBLE);
 
                 //Va alla posizione della astronave verde
-                gun3.setX(336);
-                gun3.setY(306);
+                g3.setX(336);
+                g3.setY(306);
+
+                if(storage.g3 >= 1)
+                {
+                    buyButtonG3.setVisibility(View.INVISIBLE);
+                    selectionG3.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    buyButtonG3.setVisibility(View.VISIBLE);
+                    selectionG3.setVisibility(View.INVISIBLE);
+                }
+
+            }
+        });
+
+        r1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                r1.setVisibility(View.VISIBLE);
+                r2.setVisibility(View.INVISIBLE);
+                r3.setVisibility(View.INVISIBLE);
+                backButtonG.setVisibility(View.VISIBLE);
+
+                if(storage.r1 >= 1)
+                {
+                    selectionR1.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    selectionR1.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        r2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                r1.setVisibility(View.INVISIBLE);
+                r2.setVisibility(View.VISIBLE);
+                r3.setVisibility(View.INVISIBLE);
+                backButtonG.setVisibility(View.VISIBLE);
+                buyButtonG2.setVisibility(View.VISIBLE);
+
+                //Va alla posizione della astronave verde
+                r2.setX(336);
+                r2.setY(300);
+
+                if(storage.r2 >= 1)
+                {
+                    buyButtonR2.setVisibility(View.INVISIBLE);
+                    selectionR2.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    buyButtonR2.setVisibility(View.VISIBLE);
+                    selectionR2.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        r3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                r1.setVisibility(View.INVISIBLE);
+                r2.setVisibility(View.INVISIBLE);
+                r3.setVisibility(View.VISIBLE);
+                backButtonG.setVisibility(View.VISIBLE);
+                buyButtonG3.setVisibility(View.VISIBLE);
+
+                //Va alla posizione della astronave verde
+                r3.setX(336);
+                r3.setY(306);
+
+                if(storage.r3 >= 1)
+                {
+                    buyButtonR3.setVisibility(View.INVISIBLE);
+                    selectionR3.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    buyButtonR3.setVisibility(View.VISIBLE);
+                    selectionR3.setVisibility(View.INVISIBLE);
+                }
 
             }
         });
@@ -485,29 +724,134 @@ public class MainActivity extends Activity {
         backButtonG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gun1.setVisibility(View.VISIBLE);
-                gun2.setVisibility(View.VISIBLE);
-                gun3.setVisibility(View.VISIBLE);
+
                 backButtonG.setVisibility(View.INVISIBLE);
-                buyButtonG1.setVisibility(View.INVISIBLE);
                 buyButtonG3.setVisibility(View.INVISIBLE);
                 buyButtonG2.setVisibility(View.INVISIBLE);
+                buyButtonR3.setVisibility(View.INVISIBLE);
+                buyButtonR2.setVisibility(View.INVISIBLE);
+                selectionG1.setVisibility(View.INVISIBLE);
+                selectionG2.setVisibility(View.INVISIBLE);
+                selectionG3.setVisibility(View.INVISIBLE);
+                selectionR1.setVisibility(View.INVISIBLE);
+                selectionR2.setVisibility(View.INVISIBLE);
+                selectionR3.setVisibility(View.INVISIBLE);
 
-                //Ritorna alla posizione originale
-                gun1.setX(336);
-                gun1.setY(306);
+                if(storage.green == 2)
+                {
+                    r1.setVisibility(View.INVISIBLE);
+                    r2.setVisibility(View.INVISIBLE);
+                    r3.setVisibility(View.INVISIBLE);
+                    g1.setVisibility(View.VISIBLE);
+                    g2.setVisibility(View.VISIBLE);
+                    g3.setVisibility(View.VISIBLE);
 
-                //Ritorna alla posizione originale
-                gun2.setX(339);
-                gun2.setY(685);
+                    //Ritorna alla posizione originale
+                    g1.setX(336);
+                    g1.setY(306);
 
-                //Ritorna alla posizione originale
-                gun3.setX(336);
-                gun3.setY(1155);
+                    //Ritorna alla posizione originale
+                    g2.setX(339);
+                    g2.setY(685);
+
+                    //Ritorna alla posizione originale
+                    g3.setX(336);
+                    g3.setY(1155);
+                }
+                else if(storage.red == 2)
+                {
+                    r1.setVisibility(View.VISIBLE);
+                    r2.setVisibility(View.VISIBLE);
+                    r3.setVisibility(View.VISIBLE);
+                    g1.setVisibility(View.INVISIBLE);
+                    g2.setVisibility(View.INVISIBLE);
+                    g3.setVisibility(View.INVISIBLE);
+
+                    //Ritorna alla posizione originale
+                    r1.setX(336);
+                    r1.setY(306);
+
+                    //Ritorna alla posizione originale
+                    r2.setX(339);
+                    r2.setY(685);
+
+                    //Ritorna alla posizione originale
+                    r3.setX(336);
+                    r3.setY(1155);
+                }
+
             }
         });
 
+        buyButtonG2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buyG2();
+            }
+        });
 
+        buyButtonG3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buyG3();
+            }
+        });
+
+        buyButtonR2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buyR2();
+            }
+        });
+
+        buyButtonR3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buyR3();
+            }
+        });
+
+        selectionG1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selezionaG1();
+            }
+        });
+
+        selectionG2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selezionaG2();
+            }
+        });
+
+        selectionG3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selezionaG3();
+            }
+        });
+
+        selectionR1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selezionaR1();
+            }
+        });
+
+        selectionR2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selezionaR2();
+            }
+        });
+
+        selectionR3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selezionaR3();
+            }
+        });
     }
 
     public void buyRed()
@@ -529,9 +873,10 @@ public class MainActivity extends Activity {
             db.updateData(currentCoin);
             textcoin.setText(currentCoin+"");
 
+            storage.r1 = 1;
             storage.red = 1;
             db.updateRed(storage.red);
-
+            db.updateR1(storage.r1);
         }
         else
         {
@@ -581,18 +926,9 @@ public class MainActivity extends Activity {
 
                 storage.ultimate = 1;
                 db.updateUltimate(storage.ultimate);
-
-                Cursor res = db.selectData();
-                while (res.moveToNext())
-                {
-                    System.out.println(res.getInt(3)+"");
-                    System.out.println(res.getInt(4)+"");
-                    System.out.println(res.getInt(5)+"");
-                }
             }
 
             db.updateGreen(storage.green);
-            drawableCostants.setPos(0);
         }
         else
         {
@@ -613,18 +949,9 @@ public class MainActivity extends Activity {
 
                 storage.ultimate = 1;
                 db.updateUltimate(storage.ultimate);
-
-                Cursor res = db.selectData();
-                while (res.moveToNext())
-                {
-                    System.out.println(res.getInt(3)+"");
-                    System.out.println(res.getInt(4)+"");
-                    System.out.println(res.getInt(5)+"");
-                }
             }
 
             db.updateRed(storage.red);
-            drawableCostants.setPos(1);
         }
         else
         {
@@ -645,22 +972,334 @@ public class MainActivity extends Activity {
 
                 storage.red = 1;
                 db.updateRed(storage.red);
-
-                Cursor res = db.selectData();
-                while (res.moveToNext())
-                {
-                    System.out.println(res.getInt(3)+"");
-                    System.out.println(res.getInt(4)+"");
-                    System.out.println(res.getInt(5)+"");
-                }
             }
 
             db.updateUltimate(storage.ultimate);
+        }
+        else
+        {
+            System.out.println("Messaggio di errore");
+        }
+    }
+
+    /*
+        green = gratis
+        red = 8000
+        ultimate = 20000
+        g1 = gratis
+        g2 = 2000
+        g3 = 4000
+        r1 = gratis
+        r2 = 10000
+        r3 = 14000
+        u2 = 20000
+    * */
+
+    public void selezionaG1()
+    {
+        if(storage.g1 == 1)
+        {
+            storage.g1 = 2;
+
+            if(storage.g2 == 2 || storage.g3 == 2 || storage.r1 == 2 || storage.r2 == 2 || storage.r3 == 2)
+            {
+                storage.g2 = 1;
+                db.updateG2(storage.g2);
+
+                storage.g3 = 1;
+                db.updateG2(storage.g3);
+
+                storage.r1 = 1;
+                db.updateR1(storage.r1);
+                storage.r2 = 1;
+                db.updateR2(storage.r2);
+                storage.r3 = 1;
+                db.updateR3(storage.r3);
+            }
+
+            db.updateG1(storage.g1);
+            drawableCostants.setPos(0);
+        }
+        else
+        {
+            System.out.println("Messaggio di errore");
+        }
+    }
+
+    public void selezionaG2()
+    {
+        if(storage.g2 == 1)
+        {
+            storage.g2 = 2;
+
+            if(storage.g1 == 2 || storage.g3 == 2 || storage.r1 == 2 || storage.r2 == 2 || storage.r3 == 2)
+            {
+                storage.g1 = 1;
+                db.updateG1(storage.g1);
+
+                storage.g3 = 1;
+                db.updateG3(storage.g3);
+
+                storage.r1 = 1;
+                db.updateR1(storage.r1);
+                storage.r2 = 1;
+                db.updateR2(storage.r2);
+                storage.r3 = 1;
+                db.updateR3(storage.r3);
+            }
+
+            db.updateG2(storage.g2);
+            drawableCostants.setPos(1);
+        }
+        else
+        {
+            System.out.println("Messaggio di errore");
+        }
+    }
+
+    public void selezionaG3()
+    {
+        if(storage.g3 == 1)
+        {
+            storage.g3 = 2;
+
+            if(storage.g2 == 2 || storage.g1 == 2 || storage.r1 == 2 || storage.r2 == 2 || storage.r3 == 2)
+            {
+                storage.g2 = 1;
+                db.updateG2(storage.g2);
+
+                storage.g1 = 1;
+                db.updateG1(storage.g1);
+
+                storage.r1 = 1;
+                db.updateR1(storage.r1);
+                storage.r2 = 1;
+                db.updateR2(storage.r2);
+                storage.r3 = 1;
+                db.updateR3(storage.r3);
+            }
+
+            db.updateG3(storage.g3);
             drawableCostants.setPos(2);
         }
         else
         {
             System.out.println("Messaggio di errore");
+        }
+    }
+
+    public void selezionaR1()
+    {
+        if(storage.r1 == 1)
+        {
+            storage.r1 = 2;
+
+            if(storage.g2 == 2 || storage.g1 == 2 || storage.g3 == 2 || storage.r2 == 2 || storage.r3 == 2)
+            {
+                storage.g2 = 1;
+                db.updateG2(storage.g2);
+
+                storage.g1 = 1;
+                db.updateG1(storage.g1);
+
+                storage.g3 = 1;
+                db.updateG3(storage.g3);
+
+                storage.r2 = 1;
+                db.updateR2(storage.r2);
+
+                storage.r3 = 1;
+                db.updateR3(storage.r3);
+            }
+
+            db.updateR1(storage.r1);
+            drawableCostants.setPos(3);
+        }
+        else
+        {
+            System.out.println("Messaggio di errore");
+        }
+    }
+
+    public void selezionaR2()
+    {
+        if(storage.r2 == 1)
+        {
+            storage.r2 = 2;
+
+            if(storage.g2 == 2 || storage.g1 == 2 || storage.g3 == 2 || storage.r1 == 2 || storage.r3 == 2)
+            {
+                storage.g2 = 1;
+                db.updateG2(storage.g2);
+
+                storage.g1 = 1;
+                db.updateG1(storage.g1);
+
+                storage.g3 = 1;
+                db.updateG3(storage.g3);
+
+                storage.r1 = 1;
+                db.updateR1(storage.r1);
+
+                storage.r3 = 1;
+                db.updateR3(storage.r3);
+            }
+
+            db.updateR2(storage.r2);
+            drawableCostants.setPos(4);
+        }
+        else
+        {
+            System.out.println("Messaggio di errore");
+        }
+    }
+
+    public void selezionaR3()
+    {
+        if(storage.r3 == 1)
+        {
+            storage.r3 = 2;
+
+            if(storage.g2 == 2 || storage.g1 == 2 || storage.g3 == 2 || storage.r2 == 2 || storage.r1 == 2)
+            {
+                storage.g2 = 1;
+                db.updateG2(storage.g2);
+
+                storage.g1 = 1;
+                db.updateG1(storage.g1);
+
+                storage.g3 = 1;
+                db.updateG3(storage.g3);
+
+                storage.r2 = 1;
+                db.updateR2(storage.r2);
+
+                storage.r1 = 1;
+                db.updateR1(storage.r1);
+            }
+
+            db.updateR3(storage.r3);
+            drawableCostants.setPos(5);
+        }
+        else
+        {
+            System.out.println("Messaggio di errore");
+        }
+    }
+
+    public void buyG2()
+    {
+        long g2 = 2000L;
+        long currentCoin = 0L;
+
+        Cursor res = db.selectData();
+
+        while (res.moveToNext()) {
+            currentCoin = res.getLong(1);
+        }
+
+        if(currentCoin >= g2 && storage.g2 == 0)
+        {
+            currentCoin = currentCoin - g2;
+            storage.coinStorageF = storage.coinStorageF - g2;
+
+            db.updateData(currentCoin);
+            textcoin.setText(currentCoin+"");
+
+            storage.g2 = 1;
+            db.updateG2(storage.g2);
+            System.out.println("Acquistato");
+        }
+        else
+        {
+            System.out.println("Mi dispiace ma non puoi acquistare questa arma perchè non hai abbastanza soldi. \n L'arma costa 5000 coin mentre tu ne possiedi " + currentCoin + "\nOppure e' perche' hai gia' acquistato questa arma");
+        }
+    }
+
+    public void buyG3()
+    {
+        long g3 = 4000L;
+        long currentCoin = 0L;
+
+        Cursor res = db.selectData();
+
+        while (res.moveToNext()) {
+            currentCoin = res.getLong(1);
+        }
+
+        if(currentCoin >= g3 && storage.g3 == 0)
+        {
+            currentCoin = currentCoin - g3;
+            storage.coinStorageF = storage.coinStorageF - g3;
+
+            db.updateData(currentCoin);
+            textcoin.setText(currentCoin+"");
+
+            storage.g3 = 1;
+            db.updateG3(storage.g3);
+            System.out.println("Acquistato");
+        }
+        else
+        {
+            System.out.println("Mi dispiace ma non puoi acquistare questa arma perchè non hai abbastanza soldi. \n L'arma costa 5000 coin mentre tu ne possiedi " + currentCoin + "\nOppure e' perche' hai gia' acquistato questa arma");
+        }
+    }
+
+    public void buyR2()
+    {
+        long r2 = 10000L;
+        long currentCoin = 0L;
+
+        Cursor res = db.selectData();
+
+        while (res.moveToNext()) {
+            currentCoin = res.getLong(1);
+        }
+
+        if(currentCoin >= r2 && storage.r2 == 0)
+        {
+            currentCoin = currentCoin - r2;
+            storage.coinStorageF = storage.coinStorageF - r2;
+
+            db.updateData(currentCoin);
+            textcoin.setText(currentCoin+"");
+
+            storage.r2 = 1;
+            db.updateR2(storage.r2);
+            System.out.println("Acquistato");
+        }
+        else
+        {
+            System.out.println("Mi dispiace ma non puoi acquistare questa arma perchè non hai abbastanza soldi. \n L'arma costa 5000 coin mentre tu ne possiedi " + currentCoin + "\nOppure e' perche' hai gia' acquistato questa arma");
+        }
+    }
+
+    public void buyR3()
+    {
+        long r3 = 14000L;
+        long currentCoin = 0L;
+
+        Cursor res = db.selectData();
+
+        while (res.moveToNext()) {
+            currentCoin = res.getLong(1);
+        }
+
+        if(currentCoin >= r3 && storage.r3 == 0)
+        {
+            currentCoin = currentCoin - r3;
+            storage.coinStorageF = storage.coinStorageF - r3;
+
+            db.updateData(currentCoin);
+            textcoin.setText(currentCoin+"");
+
+            storage.r3 = 1;
+            db.updateR3(storage.r3);
+            System.out.println("Acquistato");
+        }
+        else
+        {
+            System.out.println("Mi dispiace ma non puoi acquistare questa arma perchè non hai abbastanza soldi. \n L'arma costa 5000 coin mentre tu ne possiedi " + currentCoin + "\nOppure e' perche' hai gia' acquistato questa arma");
         }
     }
 

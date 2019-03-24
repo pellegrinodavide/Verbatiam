@@ -14,13 +14,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_4="GREEN";
     public static final String COL_5="RED";
     public static final String COL_6="ULTIMATE";
-    /*public static final String COL_7="G1";
+    public static final String COL_7="G1";
     public static final String COL_8="G2";
     public static final String COL_9="G3";
     public static final String COL_10="R1";
     public static final String COL_11="R2";
     public static final String COL_12="R3";
-    public static final String COL_13="U2";*/
+    public static final String COL_13="U2";
 
     public DatabaseHelper( Context context) {
 
@@ -30,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE storage(ID INTEGER PRIMARY KEY, RESULT LONG, SCORE INT, GREEN INT DEFAULT 1, RED INT, ULTIMATE INT /*G1 INT DEFAULT 1, G2 INT, G3 INT, R1 INT DEFAULT 1, R2 INT, R3 INT , U2 INT*/)");
+        db.execSQL("CREATE TABLE storage(ID INTEGER PRIMARY KEY, RESULT LONG, SCORE INT, GREEN INT DEFAULT 1, RED INT, ULTIMATE INT, G1 INT DEFAULT 1, G2 INT, G3 INT, R1 INT DEFAULT 1, R2 INT, R3 INT , U2 INT)");
     }
 
     @Override
@@ -39,7 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(int id2,long result2, int score2, int green, int red, int ultimate)
+    public boolean insertData(int id2,long result2, int score2, int green, int red, int ultimate, int g1, int g2, int g3, int r1, int r2, int r3, int u2)
     {
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
@@ -49,13 +49,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_4,green);
         contentValues.put(COL_5,red);
         contentValues.put(COL_6,ultimate);
-        /*contentValues.put(COL_7="G1";
-        contentValues.put(COL_8="G2";
-        contentValues.put(COL_9="G3";
-        contentValues.put(COL_10="R1";
-        contentValues.put(COL_11="R2";
-        contentValues.put(COL_12="R3";
-        contentValues.put(COL_13="U2";*/
+        contentValues.put(COL_7,g1);
+        contentValues.put(COL_8,g2);
+        contentValues.put(COL_9,g3);
+        contentValues.put(COL_10,r1);
+        contentValues.put(COL_11,r2);
+        contentValues.put(COL_12,r3);
+        contentValues.put(COL_13,u2);
         long results = db.insert("storage",null, contentValues);
         if(results == -1)
         {
@@ -111,6 +111,62 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_6,ultimate2);
+        db.update("storage", contentValues, null, null);
+    }
+
+    public void updateG1(int g1) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_7,g1);
+        db.update("storage", contentValues, null, null);
+    }
+
+    public void updateG2(int g2) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_8,g2);
+        db.update("storage", contentValues, null, null);
+    }
+
+    public void updateG3(int g3) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_9,g3);
+        db.update("storage", contentValues, null, null);
+    }
+
+    public void updateR1(int r1) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_10,r1);
+        db.update("storage", contentValues, null, null);
+    }
+
+    public void updateR2(int r2) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_11,r2);
+        db.update("storage", contentValues, null, null);
+    }
+
+    public void updateR3(int r3) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_12,r3);
+        db.update("storage", contentValues, null, null);
+    }
+
+    public void updateU2(int u2) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_12,u2);
         db.update("storage", contentValues, null, null);
     }
 

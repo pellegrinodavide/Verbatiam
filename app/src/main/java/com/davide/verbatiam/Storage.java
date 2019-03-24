@@ -8,4 +8,6 @@ public class Storage {
     int green;
     int red;
     int ultimate;
+    int g1,g2,g3;
+    int r1,r2,r3;
 }

@@ -19,7 +19,7 @@ public class ShieldPlayer extends AppCompatImageView {
         this.setImageDrawable(drawable);
         this.setX(x);
         this.setY(y);
-        shieldRect = new Rect((int)this.getX(),(int)this.getY(),(int)this.getX()+550, (int)this.getY()+550);
+        shieldRect = new Rect((int)this.getX(),(int)this.getY(),(int)this.getX()+500, (int)this.getY()+500);
     }
 
     public Rect getRect()
@@ -29,7 +29,7 @@ public class ShieldPlayer extends AppCompatImageView {
 
     public Rect setRect(int left, int top, int right, int bottom)
     {
-        shieldRect.set(left + 80 ,top + 80,right + 300, bottom + 184);
+        shieldRect.set(left + 80 ,top + 80,right + 500, bottom + 500);
         return shieldRect;
     }
 }
