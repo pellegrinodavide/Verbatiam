@@ -965,16 +965,31 @@ public class MainActivity extends Activity {
         {
             storage.ultimate = 2;
 
-            if(storage.green == 2 || storage.red == 2)
+            if(storage.green == 2 || storage.red == 2 || storage.g1 == 2 || storage.g2 == 2 || storage.g3 == 2 || storage.r1 == 2 || storage.r2 == 2 || storage.r3 == 2)
             {
                 storage.green = 1;
                 db.updateGreen(storage.green);
 
                 storage.red = 1;
                 db.updateRed(storage.red);
+
+                storage.g1 = 1;
+                db.updateG1(storage.g1);
+                storage.g2 = 1;
+                db.updateG2(storage.g2);
+                storage.g3 = 1;
+                db.updateG2(storage.g3);
+
+                storage.r1 = 1;
+                db.updateR1(storage.r1);
+                storage.r2 = 1;
+                db.updateR2(storage.r2);
+                storage.r3 = 1;
+                db.updateR3(storage.r3);
             }
 
             db.updateUltimate(storage.ultimate);
+            drawableCostants.setPos(6);
         }
         else
         {

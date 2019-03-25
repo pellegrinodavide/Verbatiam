@@ -7,6 +7,9 @@ import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.solver.widgets.Rectangle;
 import android.support.v7.widget.AppCompatImageView;
+import android.view.View;
+import android.widget.ProgressBar;
+
 import java.util.Random;
 
 public class Enemy extends AppCompatImageView {

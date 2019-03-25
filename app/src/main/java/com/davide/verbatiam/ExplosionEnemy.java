@@ -47,7 +47,6 @@ public class ExplosionEnemy extends AppCompatImageView {
 
     public void startAnimation()
     {
-
         runExplosion.start();
     }
 }
