@@ -2,23 +2,19 @@ package com.davide.verbatiam;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.Region;
-import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.constraint.ConstraintLayout;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -26,6 +22,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -109,6 +106,7 @@ public class GamePanel extends Activity implements SensorEventListener {
     private Runnable runnableSpawnExplosion;
 
     private TextView score;
+    private int speedBullet = 15;
     private int contatore = 0;
     private int increaseEnemy = 3;
     private int increaseProgressBar = 3;
@@ -139,6 +137,15 @@ public class GamePanel extends Activity implements SensorEventListener {
 
     private int length;
 
+    private int bulletG1 = 25;
+    private int bulletG2 = 50;
+    private int bulletG3 = 75;
+    private int bulletR1 = 50;
+    private int bulletR2 = 100;
+    private int bulletR3 = 150;
+    private int bulletU1 = 200;
+    private int bulletU2 = 300;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,6 +163,7 @@ public class GamePanel extends Activity implements SensorEventListener {
         Cursor res = db.selectData();
         if(res.getCount() != 0) {
             while (res.moveToNext()) {
+                storage.coinStorageF = res.getLong(1);
                 storage.green = res.getInt(3);
                 storage.red = res.getInt(4);
                 storage.ultimate = res.getInt(5);
@@ -167,6 +175,16 @@ public class GamePanel extends Activity implements SensorEventListener {
                 storage.r3= res.getInt(11);
             }
         }
+
+        System.out.println("green " + storage.green);
+        System.out.println("red " + storage.red);
+        System.out.println("ultimate " + storage.ultimate);
+        System.out.println("g1 " + storage.g1);
+        System.out.println("g2 " + storage.g2);
+        System.out.println("g3 " + storage.g3);
+        System.out.println("r1 " + storage.r1);
+        System.out.println("r2 " + storage.r2);
+        System.out.println("r3 " + storage.r3);
 
         explosionSound = MediaPlayer.create(this,R.raw.explosion);
         lasershootSound = MediaPlayer.create(this,R.raw.lasershoot);
@@ -317,6 +335,29 @@ public class GamePanel extends Activity implements SensorEventListener {
                 handlerScore.removeCallbacks(runnableScore);
                 handlerEnemy.removeCallbacks(runnableEnemy);
                 handlerShoot.removeCallbacks(runnableShoot);
+
+                for(Enemy enemy: enemies)
+                {
+                    for (ExplosionEnemy explosionEnemy: explosionEnemies)
+                    {
+                        for(EnemyLife enemyLife: enemyLifes)
+                        {
+                            enemyLife.setSpeedY(0);
+                            enemy.setSpeedY(0);
+                            explosionEnemy.setSpeedY(0);
+                        }
+                    }
+
+                }
+                for(Shield shield : shields)
+                {
+                    shield.setSpeedY(0);
+                }
+
+                for(Bullet bullet: bullets)
+                {
+                    bullet.setSpeedY(0);
+                }
             }
         });
 
@@ -332,6 +373,29 @@ public class GamePanel extends Activity implements SensorEventListener {
                 handlerScore.postDelayed(runnableScore,30);
                 handlerEnemy.postDelayed(runnableEnemy, 20);
                 handlerShoot.postDelayed(runnableShoot, 20);
+
+                for(Enemy enemy: enemies)
+                {
+                    for (ExplosionEnemy explosionEnemy: explosionEnemies)
+                    {
+                        for(EnemyLife enemyLife: enemyLifes)
+                        {
+                            enemyLife.setSpeedY(increaseProgressBar);
+                            enemy.setSpeedY(increaseEnemy);
+                            explosionEnemy.setSpeedY(increaseEnemy);
+                        }
+                    }
+
+                }
+                for(Shield shield : shields)
+                {
+                    shield.setSpeedY(increaseEnemy);
+                }
+
+                for(Bullet bullet: bullets)
+                {
+                    bullet.setSpeedY(speedBullet);
+                }
             }
         });
 
@@ -356,7 +420,8 @@ public class GamePanel extends Activity implements SensorEventListener {
                 handlerShoot.removeCallbacks(runnableShoot);
                 handlerScore.removeCallbacks(runnableScore);
                 finish();
-                System.exit(0);
+                Intent intent = new Intent(GamePanel.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -414,7 +479,60 @@ public class GamePanel extends Activity implements SensorEventListener {
             }
         });
 
+        /*player.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
 
+                int xPosPlayer = (int)event.getX() - player.getWidth()/2;
+                int yPosPlayer = (int)(event.getY() - player.getHeight()/2)-150;
+
+                int xPosShield = (int)event.getX() - shieldPlayer.getWidth()/2;
+                int yPosShield = (int)(event.getY() - shieldPlayer.getHeight()/2)-150;
+
+                switch(event.getAction())
+                {
+                    case MotionEvent.ACTION_DOWN:
+                    case MotionEvent.ACTION_MOVE:
+                        player.setX(xPosPlayer);
+                        player.setY(yPosPlayer);
+                        player.setRect(xPosPlayer,yPosPlayer,xPosPlayer,yPosPlayer);
+                        shieldPlayer.setX(xPosShield);
+                        shieldPlayer.setY(yPosShield);
+                        shieldPlayer.setRect(xPosShield,yPosShield,xPosShield,yPosShield);
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        return false;
+                }
+                return true;
+            }
+        });*/
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+        gameSong.pause();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Sei sicuro di voler uscire dal gioco?");
+
+        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+                System.exit(0);
+            }
+        });
+
+        builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                gameSong.seekTo(length);
+                gameSong.start();
+            }
+        });
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+        builder.show();
     }
 
     public void backgroundScrool()
@@ -441,18 +559,18 @@ public class GamePanel extends Activity implements SensorEventListener {
             {
                 for (ExplosionEnemy explosionEnemy: explosionEnemies)
                 {
-                    for(EnemyLife enemyLife: enemyLifes)
-                    {
-                        enemyLife.setSpeedY(increaseProgressBar);
-                        enemy.setSpeedY(increaseEnemy);
-                        explosionEnemy.setSpeedY(increaseEnemy);
-                    }
+                    enemy.setSpeedY(increaseEnemy);
+                    explosionEnemy.setSpeedY(increaseEnemy);
                 }
-
             }
             for(Shield shield : shields)
             {
                 shield.setSpeedY(increaseEnemy);
+            }
+
+            for(EnemyLife enemyLife: enemyLifes)
+            {
+                enemyLife.setSpeedY(increaseProgressBar);
             }
         }
     }
@@ -487,10 +605,6 @@ public class GamePanel extends Activity implements SensorEventListener {
                 {
                     for(EnemyLife enemyLife: enemyLifes)
                     {
-                        if(enemyLife.getX() == enemy.getX() || enemyLife.getY() == enemy.getY())
-                        {
-                            deleteEnemyLife.add(enemyLife);
-                        }
                         for(final ExplosionEnemy explosionEnemy : explosionEnemies)
                         {
                             explosionEnemy.post(new Runnable() {
@@ -505,9 +619,44 @@ public class GamePanel extends Activity implements SensorEventListener {
                                 }
                             });
                         }
-                        coin = coin + 2;
                         deleteBullet.add(bullet);
                         deleteEnemy.add(enemy);
+                        System.out.println(enemyLife.getMax() + "||" + enemyLife.getProgress());
+                        if(enemyLife.getX() == enemy.getX() || enemyLife.getY() == enemy.getY())
+                        {
+                            deleteEnemyLife.add(enemyLife);
+                            coin = coin + 2;
+                            if(storage.g1 == 2)
+                            {
+                                enemyLife.setProgress(enemyLife.getProgress() - bulletG1);
+
+                            }
+                            if(storage.g2 == 2)
+                            {
+                                enemyLife.setProgress(enemyLife.getProgress() - bulletG2);
+                            }
+                            if(storage.g3 == 2)
+                            {
+                                enemyLife.setProgress(enemyLife.getProgress() - bulletG3);
+                            }
+                            if(storage.r1 == 2)
+                            {
+                                enemyLife.setProgress(enemyLife.getProgress() - bulletR1);
+                            }
+                            if(storage.r2 == 2)
+                            {
+                                enemyLife.setProgress(enemyLife.getProgress() - bulletR2);
+                            }
+                            if(storage.r3 == 2)
+                            {
+                                enemyLife.setProgress(enemyLife.getProgress() - bulletR3);
+                            }
+                            if(storage.ultimate == 2)
+                            {
+                                enemyLife.setProgress(enemyLife.getProgress() - bulletU1);
+                            }
+                        }
+
                     }
                 }
             }
@@ -517,17 +666,20 @@ public class GamePanel extends Activity implements SensorEventListener {
         {
             for(Enemy enemy: deleteEnemy)
             {
+                bullets.remove(bullet);
+                gioco.removeView(bullet);
                 for(EnemyLife enemyLife: deleteEnemyLife)
                 {
-                    enemy.stopHandler();
-                    bullet.stopHandler();
-                    enemyLife.stopHandler();
-                    enemies.remove(enemy);
-                    bullets.remove(bullet);
-                    enemyLifes.remove(enemyLife);
-                    gioco.removeView(enemyLife);
-                    gioco.removeView(enemy);
-                    gioco.removeView(bullet);
+                    if(enemyLife.getProgress() <= 0)
+                    {
+                        enemy.stopHandler();
+                        bullet.stopHandler();
+                        enemyLife.stopHandler();
+                        enemies.remove(enemy);
+                        enemyLifes.remove(enemyLife);
+                        gioco.removeView(enemyLife);
+                        gioco.removeView(enemy);
+                    }
                 }
             }
         }
@@ -656,8 +808,7 @@ public class GamePanel extends Activity implements SensorEventListener {
                     handlerCollisionEnemy.removeCallbacks(runnableCollisionEnemy);
                     handlerCollisionBullets.removeCallbacks(runnableCollisionBullets);
                     gameover.setVisibility(View.VISIBLE);
-                    storage.coinStorageI = coin;
-                    storage.coinStorageF = storage.coinStorageF + storage.coinStorageI;
+                    storage.coinStorageF = storage.coinStorageF + coin;
                     storage.scoreT = contatore;
 
                     Cursor res = db.selectData();
@@ -861,10 +1012,8 @@ public class GamePanel extends Activity implements SensorEventListener {
 
     public boolean onTouchEvent(MotionEvent event)
     {
-
         switch(event.getAction())
         {
-            //case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
                 int xPosPlayer = (int)event.getX() - player.getWidth()/2;
                 int yPosPlayer = (int)(event.getY() - player.getHeight()/2)-150;
@@ -953,42 +1102,6 @@ public class GamePanel extends Activity implements SensorEventListener {
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
-
-    public void writeMessage(View view)
-    {
-        String message = coinViewAll.getText().toString();
-        String file_name = "data";
-        try {
-            FileOutputStream fileOutputStream = openFileOutput(file_name,MODE_PRIVATE);
-            fileOutputStream.write(message.getBytes());
-            fileOutputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void readMessage(View view)
-    {
-        String message;
-        try {
-            FileInputStream fileInputStream = openFileInput("data");
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            StringBuffer stringBuffer = new StringBuffer();
-            while((message = bufferedReader.readLine()) != null)
-            {
-                stringBuffer.append(message + "\n");
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 }

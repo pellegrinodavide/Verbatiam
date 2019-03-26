@@ -12,6 +12,7 @@ public class Bullet extends AppCompatImageView {
     private Handler handler = new Handler();
     private Runnable runnable;
     private Rect boundsBullet;
+    private int speedY = 15;
 
     public Bullet(Context context, float x, float y) {
         super(context);
@@ -32,8 +33,18 @@ public class Bullet extends AppCompatImageView {
 
     public void updateY()
     {
-        this.setY(this.getY() - 15);
+        this.setY(this.getY() - speedY);
         boundsBullet.set((int)this.getX(),(int)this.getY() - 15,(int)this.getX()+35, (int)(this.getY()+70)-15);
+    }
+
+    public int getSpeedY()
+    {
+        return speedY;
+    }
+
+    public void setSpeedY(int speedY)
+    {
+        this.speedY = speedY;
     }
 
     public void stopHandler()

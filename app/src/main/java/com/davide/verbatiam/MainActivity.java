@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.provider.ContactsContract;
 import android.support.constraint.ConstraintLayout;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -123,7 +124,7 @@ public class MainActivity extends Activity {
         db = new DatabaseHelper(this);
 
         introSong = MediaPlayer.create(this,R.raw.intro);
-        introSong.setVolume(0.0f,0.2f);
+        introSong.setVolume(0.f,0.2f);
         introSong.start();
         introSong.setLooping(true);
 
@@ -200,6 +201,16 @@ public class MainActivity extends Activity {
             }
         }
 
+        System.out.println("green " + storage.green);
+        System.out.println("red " + storage.red);
+        System.out.println("ultimate " + storage.ultimate);
+        System.out.println("g1 " + storage.g1);
+        System.out.println("g2 " + storage.g2);
+        System.out.println("g3 " + storage.g3);
+        System.out.println("r1 " + storage.r1);
+        System.out.println("r2 " + storage.r2);
+        System.out.println("r3 " + storage.r3);
+
         if(storage.red == 0 && storage.ultimate == 0)
         {
             storage.green = 2;
@@ -232,9 +243,6 @@ public class MainActivity extends Activity {
             {
                 storage.r1 = 2;
                 db.updateR1(storage.r1);
-            }
-            if(storage.r1 == 2)
-            {
                 drawableCostants.setPos(3);
             }
             if(storage.r2 == 2)
@@ -854,6 +862,16 @@ public class MainActivity extends Activity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+    }
+
+    @Override
+    protected void onUserLeaveHint()
+    {
+        super.onUserLeaveHint();
+    }
+
     public void buyRed()
     {
         long redCoin = 5000L;
@@ -927,7 +945,6 @@ public class MainActivity extends Activity {
                 storage.ultimate = 1;
                 db.updateUltimate(storage.ultimate);
             }
-
             db.updateGreen(storage.green);
         }
         else
@@ -1016,11 +1033,15 @@ public class MainActivity extends Activity {
         {
             storage.g1 = 2;
 
-            if(storage.g2 == 2 || storage.g3 == 2 || storage.r1 == 2 || storage.r2 == 2 || storage.r3 == 2)
+            if(storage.ultimate == 2 || storage.red == 2 || storage.g2 == 2 || storage.g3 == 2 || storage.r1 == 2 || storage.r2 == 2 || storage.r3 == 2)
             {
+                storage.red = 1;
+                db.updateRed(storage.red);
+                storage.ultimate = 1;
+                db.updateUltimate(storage.ultimate);
+
                 storage.g2 = 1;
                 db.updateG2(storage.g2);
-
                 storage.g3 = 1;
                 db.updateG2(storage.g3);
 
@@ -1047,11 +1068,15 @@ public class MainActivity extends Activity {
         {
             storage.g2 = 2;
 
-            if(storage.g1 == 2 || storage.g3 == 2 || storage.r1 == 2 || storage.r2 == 2 || storage.r3 == 2)
+            if(storage.ultimate == 2 || storage.red == 2 || storage.g1 == 2 || storage.g3 == 2 || storage.r1 == 2 || storage.r2 == 2 || storage.r3 == 2)
             {
+                storage.red = 1;
+                db.updateRed(storage.red);
+                storage.ultimate = 1;
+                db.updateUltimate(storage.ultimate);
+
                 storage.g1 = 1;
                 db.updateG1(storage.g1);
-
                 storage.g3 = 1;
                 db.updateG3(storage.g3);
 
@@ -1078,11 +1103,15 @@ public class MainActivity extends Activity {
         {
             storage.g3 = 2;
 
-            if(storage.g2 == 2 || storage.g1 == 2 || storage.r1 == 2 || storage.r2 == 2 || storage.r3 == 2)
+            if(storage.ultimate == 2 || storage.red == 2 || storage.g2 == 2 || storage.g1 == 2 || storage.r1 == 2 || storage.r2 == 2 || storage.r3 == 2)
             {
+                storage.red = 1;
+                db.updateRed(storage.red);
+                storage.ultimate = 1;
+                db.updateUltimate(storage.ultimate);
+
                 storage.g2 = 1;
                 db.updateG2(storage.g2);
-
                 storage.g1 = 1;
                 db.updateG1(storage.g1);
 
@@ -1109,20 +1138,22 @@ public class MainActivity extends Activity {
         {
             storage.r1 = 2;
 
-            if(storage.g2 == 2 || storage.g1 == 2 || storage.g3 == 2 || storage.r2 == 2 || storage.r3 == 2)
+            if(storage.green >= 1 || storage.red >= 1 || storage.g2 >= 1 || storage.g1 >= 1 || storage.g3 >= 1 || storage.r2 >= 1 || storage.r3 >= 1)
             {
+                storage.green = 1;
+                db.updateGreen(storage.green);
+                storage.ultimate = 1;
+                db.updateUltimate(storage.ultimate);
+
                 storage.g2 = 1;
                 db.updateG2(storage.g2);
-
                 storage.g1 = 1;
                 db.updateG1(storage.g1);
-
                 storage.g3 = 1;
                 db.updateG3(storage.g3);
 
                 storage.r2 = 1;
                 db.updateR2(storage.r2);
-
                 storage.r3 = 1;
                 db.updateR3(storage.r3);
             }
@@ -1142,8 +1173,13 @@ public class MainActivity extends Activity {
         {
             storage.r2 = 2;
 
-            if(storage.g2 == 2 || storage.g1 == 2 || storage.g3 == 2 || storage.r1 == 2 || storage.r3 == 2)
+            if(storage.green >= 1 || storage.red >= 1 || storage.g2 >= 1 || storage.g1 >= 1 || storage.g3 >= 1 || storage.r1 >= 1 || storage.r3 >= 1 )
             {
+                storage.green = 1;
+                db.updateGreen(storage.green);
+                storage.ultimate = 1;
+                db.updateUltimate(storage.ultimate);
+
                 storage.g2 = 1;
                 db.updateG2(storage.g2);
 
@@ -1175,8 +1211,13 @@ public class MainActivity extends Activity {
         {
             storage.r3 = 2;
 
-            if(storage.g2 == 2 || storage.g1 == 2 || storage.g3 == 2 || storage.r2 == 2 || storage.r1 == 2)
+            if(storage.green == 2 || storage.red == 2 || storage.g2 == 2 || storage.g1 == 2 || storage.g3 == 2 || storage.r2 == 2 || storage.r1 == 2)
             {
+                storage.green = 1;
+                db.updateGreen(storage.green);
+                storage.ultimate = 1;
+                db.updateUltimate(storage.ultimate);
+
                 storage.g2 = 1;
                 db.updateG2(storage.g2);
 
