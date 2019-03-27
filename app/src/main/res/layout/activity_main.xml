@@ -7,6 +7,7 @@
     android:background="@drawable/sfondomenu"
     android:orientation="vertical"
     android:scaleType="fitXY"
+    android:id="@+id/mainLayout"
     tools:context=".MainActivity">
 
 
@@ -14,44 +15,38 @@
         android:id="@+id/start"
         android:layout_width="159dp"
         android:layout_height="67dp"
-        android:layout_marginStart="286dp"
-        android:layout_marginTop="172dp"
-        android:layout_marginEnd="286dp"
-        android:layout_marginBottom="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="212dp"
+        android:layout_marginEnd="8dp"
         android:src="@drawable/casellastart"
-        app:layout_constraintBottom_toTopOf="@+id/caricamentoText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.223" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/exit"
         android:layout_width="159dp"
         android:layout_height="67dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:src="@drawable/casellaexit"
-        app:layout_constraintBottom_toBottomOf="@+id/shopLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/shopLayout"
-        app:layout_constraintVertical_bias="0.556" />
+        app:layout_constraintBottom_toBottomOf="@+id/mainLayout"
+        app:layout_constraintEnd_toEndOf="@+id/mainLayout"
+        app:layout_constraintStart_toStartOf="@+id/mainLayout"
+        app:layout_constraintTop_toBottomOf="@+id/shop"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/shop"
         android:layout_width="159dp"
         android:layout_height="67dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/casellashop"
-        app:layout_constraintBottom_toBottomOf="@+id/shopLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/shopLayout"
-        app:layout_constraintVertical_bias="0.454" />
+        app:layout_constraintEnd_toEndOf="@+id/mainLayout"
+        app:layout_constraintStart_toStartOf="@+id/mainLayout"
+        app:layout_constraintTop_toBottomOf="@+id/start" />
 
     <ProgressBar
         android:id="@+id/caricamentoBar"
@@ -67,10 +62,10 @@
         android:progress="0"
         android:scaleType="fitXY"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/mainLayout"
+        app:layout_constraintEnd_toEndOf="@+id/mainLayout"
+        app:layout_constraintStart_toStartOf="@+id/mainLayout"
+        app:layout_constraintTop_toTopOf="@+id/mainLayout"
         app:layout_constraintVertical_bias="0.892" />
 
     <TextView
@@ -86,24 +81,21 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="20dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/mainLayout"
+        app:layout_constraintEnd_toEndOf="@+id/mainLayout"
+        app:layout_constraintStart_toStartOf="@+id/mainLayout"
+        app:layout_constraintTop_toTopOf="@+id/mainLayout"
         app:layout_constraintVertical_bias="0.835" />
 
     <ImageView
         android:id="@+id/layoutCoin"
         android:layout_width="168dp"
         android:layout_height="70dp"
-        android:scaleType="fitXY"
         android:src="@drawable/layoutcoin"
-        app:layout_constraintBottom_toTopOf="@+id/shipLayout"
-        app:layout_constraintEnd_toStartOf="@+id/shipLayout"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="@+id/mainLayout"
+        app:layout_constraintTop_toTopOf="@+id/mainLayout"
+        app:layout_constraintVertical_bias="100.0" />
 
     <TextView
         android:id="@+id/textCoin"
@@ -117,11 +109,11 @@
         android:textAlignment="textStart"
         android:textSize="18dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/mainLayout"
+        app:layout_constraintEnd_toEndOf="@+id/mainLayout"
         app:layout_constraintHorizontal_bias="0.169"
-        app:layout_constraintStart_toStartOf="@+id/shopLayout"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/mainLayout"
+        app:layout_constraintTop_toTopOf="@+id/mainLayout"
         app:layout_constraintVertical_bias="0.011" />
 
     <TextView
@@ -133,11 +125,11 @@
         android:scaleType="fitXY"
         android:textSize="18dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/shopLayout"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/mainLayout"
+        app:layout_constraintEnd_toEndOf="@+id/mainLayout"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/mainLayout"
+        app:layout_constraintTop_toTopOf="@+id/mainLayout"
         app:layout_constraintVertical_bias="0.034" />
 
     <TextView
@@ -151,25 +143,22 @@
         android:textAlignment="center"
         android:textSize="18dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/shopLayout"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/mainLayout"
+        app:layout_constraintEnd_toEndOf="@+id/mainLayout"
         app:layout_constraintHorizontal_bias="0.732"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/mainLayout"
+        app:layout_constraintTop_toTopOf="@+id/mainLayout"
         app:layout_constraintVertical_bias="0.034" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/shipLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
+        android:layout_width="411dp"
+        android:layout_height="730dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/shipMenu"
@@ -177,11 +166,11 @@
             android:layout_height="730dp"
             android:scaleType="fitXY"
             android:src="@drawable/menu"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/shipLayout"
+            app:layout_constraintEnd_toEndOf="@+id/shipLayout"
             app:layout_constraintHorizontal_bias="0.505"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/shipLayout"
+            app:layout_constraintTop_toTopOf="@+id/shipLayout"
             app:layout_constraintVertical_bias="1.0" />
 
         <ImageView
@@ -189,16 +178,13 @@
             android:layout_width="177dp"
             android:layout_height="61dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
             android:scaleType="fitXY"
             android:src="@drawable/casellaexit"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.51"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/shipMenu"
-            app:layout_constraintVertical_bias="0.975" />
+            app:layout_constraintBottom_toBottomOf="@+id/shipLayout"
+            app:layout_constraintEnd_toEndOf="@+id/shipLayout"
+            app:layout_constraintStart_toStartOf="@+id/shipLayout" />
 
         <ImageView
             android:id="@+id/greenS"
@@ -210,29 +196,26 @@
             android:layout_marginBottom="8dp"
             android:scaleType="fitXY"
             android:src="@drawable/greenship"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/redS"
+            app:layout_constraintEnd_toEndOf="@+id/shipLayout"
             app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.186" />
+            app:layout_constraintStart_toStartOf="@+id/shipLayout"
+            app:layout_constraintTop_toTopOf="@+id/shipLayout"
+            app:layout_constraintVertical_bias="1.0" />
 
         <ImageView
             android:id="@+id/redS"
             android:layout_width="154dp"
             android:layout_height="131dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="28dp"
             android:scaleType="fitXY"
             android:src="@drawable/redship"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/ultimateS"
+            app:layout_constraintEnd_toEndOf="@+id/shipLayout"
             app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.41" />
+            app:layout_constraintStart_toStartOf="@+id/shipLayout" />
 
         <ImageView
             android:id="@+id/ultimateS"
@@ -244,11 +227,11 @@
             android:layout_marginBottom="8dp"
             android:scaleType="fitXY"
             android:src="@drawable/ultimate"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/shipLayout"
+            app:layout_constraintEnd_toEndOf="@+id/shipLayout"
             app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/shipLayout"
+            app:layout_constraintTop_toTopOf="@+id/shipLayout"
             app:layout_constraintVertical_bias="0.699" />
 
         <TextView
@@ -265,10 +248,10 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/shipLayout"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/shipLayout"
             app:layout_constraintHorizontal_bias="0.568"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/shipLayout"
+            app:layout_constraintTop_toTopOf="@+id/shipLayout"
             app:layout_constraintVertical_bias="0.03" />
 
         <ImageView
@@ -282,11 +265,11 @@
             android:scaleType="fitXY"
             android:src="@drawable/casellatorna"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/shipLayout"
+            app:layout_constraintEnd_toEndOf="@+id/shipLayout"
             app:layout_constraintHorizontal_bias="0.207"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/shipLayout"
+            app:layout_constraintTop_toTopOf="@+id/shipLayout"
             app:layout_constraintVertical_bias="0.818" />
 
         <ImageView
@@ -300,11 +283,11 @@
             android:scaleType="fitXY"
             android:src="@drawable/casellaseleziona"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/shipLayout"
+            app:layout_constraintEnd_toEndOf="@+id/shipLayout"
             app:layout_constraintHorizontal_bias="0.836"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/shipLayout"
+            app:layout_constraintTop_toTopOf="@+id/shipLayout"
             app:layout_constraintVertical_bias="0.818" />
 
         <ImageView
@@ -318,11 +301,11 @@
             android:scaleType="fitXY"
             android:src="@drawable/casellacompra"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/shipLayout"
+            app:layout_constraintEnd_toEndOf="@+id/shipLayout"
             app:layout_constraintHorizontal_bias="0.836"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/shipLayout"
+            app:layout_constraintTop_toTopOf="@+id/shipLayout"
             app:layout_constraintVertical_bias="0.818" />
 
         <ImageView
@@ -336,11 +319,11 @@
             android:scaleType="fitXY"
             android:src="@drawable/casellacompra"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/shipLayout"
+            app:layout_constraintEnd_toEndOf="@+id/shipLayout"
             app:layout_constraintHorizontal_bias="0.836"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/shipLayout"
+            app:layout_constraintTop_toTopOf="@+id/shipLayout"
             app:layout_constraintVertical_bias="0.818" />
 
         <ImageView
@@ -354,11 +337,11 @@
             android:scaleType="fitXY"
             android:src="@drawable/casellaseleziona"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/shipLayout"
+            app:layout_constraintEnd_toEndOf="@+id/shipLayout"
             app:layout_constraintHorizontal_bias="0.836"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/shipLayout"
+            app:layout_constraintTop_toTopOf="@+id/shipLayout"
             app:layout_constraintVertical_bias="0.818" />
 
         <ImageView
@@ -372,27 +355,24 @@
             android:scaleType="fitXY"
             android:src="@drawable/casellaseleziona"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/shipLayout"
+            app:layout_constraintEnd_toEndOf="@+id/shipLayout"
             app:layout_constraintHorizontal_bias="0.836"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/shipLayout"
+            app:layout_constraintTop_toTopOf="@+id/shipLayout"
             app:layout_constraintVertical_bias="0.818" />
 
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/gunLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
+        android:layout_width="411dp"
+        android:layout_height="730dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/gunMenu"
@@ -762,16 +742,13 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/shopLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
+        android:layout_width="411dp"
+        android:layout_height="730dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/shopMenu"
@@ -785,6 +762,42 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="151dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="51dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="13dp"
+            android:text="Astronave Selezionata"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.172"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gunShop"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="151dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="51dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="13dp"
+            android:text="Arma Selezionata"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.918"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gunShop"
+            app:layout_constraintVertical_bias="0.666" />
 
         <ImageView
             android:id="@+id/shipShop"
@@ -823,24 +836,6 @@
             app:layout_constraintVertical_bias="0.41" />
 
         <ImageView
-            android:id="@+id/upgradeShop"
-            android:layout_width="300dp"
-            android:layout_height="102dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/casellasezionemiglioramenti"
-            android:text="Sezione Miglioramenti"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.589"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.605" />
-
-        <ImageView
             android:id="@+id/exitShop"
             android:layout_width="177dp"
             android:layout_height="61dp"
@@ -855,6 +850,36 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/shopMenu"
             app:layout_constraintVertical_bias="0.975" />
+
+        <ImageView
+            android:id="@+id/Ship404"
+            android:layout_width="122dp"
+            android:layout_height="86dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ship404"
+            app:layout_constraintBottom_toBottomOf="@+id/shopMenu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.205"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/shopMenu"
+            app:layout_constraintVertical_bias="0.704" />
+
+        <ImageView
+            android:id="@+id/Weapon404"
+            android:layout_width="122dp"
+            android:layout_height="79dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/weapon404"
+            app:layout_constraintBottom_toBottomOf="@+id/shopMenu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.794"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/shopMenu"
+            app:layout_constraintVertical_bias="0.704" />
 
     </android.support.constraint.ConstraintLayout>
 

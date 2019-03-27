@@ -2,6 +2,7 @@ package com.davide.verbatiam;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.lang.reflect.Array;
+import java.sql.Time;
 
 public class MainActivity extends Activity {
 
@@ -45,6 +47,8 @@ public class MainActivity extends Activity {
     private ConstraintLayout shopL;
     private ImageView shipSection;
     private ImageView gunSection;
+    private ImageView ship404;
+    private ImageView weapon404;
 
     //Layout dei guns
     private ConstraintLayout gunL;
@@ -86,6 +90,8 @@ public class MainActivity extends Activity {
     private boolean handlerFlag = true;
 
     private MediaPlayer introSong;
+
+    private Boolean firstTime = null;
 
 
     @Override
@@ -157,12 +163,18 @@ public class MainActivity extends Activity {
         //Layout collegato allo shop
         shopL = (ConstraintLayout) findViewById(R.id.shopLayout);
         exitS = (ImageView) findViewById(R.id.exitShop);
+        ship404 = (ImageView) findViewById(R.id.Ship404);
+        weapon404 = (ImageView) findViewById(R.id.Weapon404);
 
         //Caricamento del gioco quando si preme su start
         caricamentoBar = (ProgressBar) findViewById(R.id.caricamentoBar);
         caricamentoText = (TextView) findViewById(R.id.caricamentoText);
 
         Cursor res = db.selectData();
+        if(res.getCount() == 0) {
+            db.insertData(1,0, 0,1,0,0,1,0,0,0,0,0,0);
+        }
+
         if (res.getCount() != 0) {
             while (res.moveToNext()) {
                 textcoin.setText((res.getString(1)));
@@ -176,18 +188,18 @@ public class MainActivity extends Activity {
                 storage.r1 = res.getInt(9);
                 storage.r2 = res.getInt(10);
                 storage.r3 = res.getInt(11);
+
+                System.out.println("green " + storage.green);
+                System.out.println("red " + storage.red);
+                System.out.println("ultimate " + storage.ultimate);
+                System.out.println("g1 " + storage.g1);
+                System.out.println("g2 " + storage.g2);
+                System.out.println("g3 " + storage.g3);
+                System.out.println("r1 " + storage.r1);
+                System.out.println("r2 " + storage.r2);
+                System.out.println("r3 " + storage.r3);
             }
         }
-
-        System.out.println("green " + storage.green);
-        System.out.println("red " + storage.red);
-        System.out.println("ultimate " + storage.ultimate);
-        System.out.println("g1 " + storage.g1);
-        System.out.println("g2 " + storage.g2);
-        System.out.println("g3 " + storage.g3);
-        System.out.println("r1 " + storage.r1);
-        System.out.println("r2 " + storage.r2);
-        System.out.println("r3 " + storage.r3);
 
         if (storage.red == 0 && storage.ultimate == 0) {
             storage.green = 2;
@@ -196,15 +208,31 @@ public class MainActivity extends Activity {
                 storage.g1 = 2;
                 db.updateG1(storage.g1);
                 drawableCostants.setPos(0);
+                weapon404.setImageResource(R.drawable.barrels);
             }
+        }
+
+        if(storage.green == 2)
+        {
+            ship404.setImageResource(R.drawable.greenship);
+        }
+        else if(storage.red == 2)
+        {
+            ship404.setImageResource(R.drawable.redship);
+        }
+        else if(storage.ultimate == 2)
+        {
+            ship404.setImageResource(R.drawable.ultimate);
         }
 
         if (storage.green == 2) {
             if (storage.g2 == 2) {
                 drawableCostants.setPos(1);
+                weapon404.setImageResource(R.drawable.barrelm);
             }
             if (storage.g3 == 2) {
                 drawableCostants.setPos(2);
+                weapon404.setImageResource(R.drawable.barrelh);
             }
         }
         if (storage.red == 2) {
@@ -212,16 +240,20 @@ public class MainActivity extends Activity {
                 storage.r1 = 2;
                 db.updateR1(storage.r1);
                 drawableCostants.setPos(3);
+                weapon404.setImageResource(R.drawable.barrels);
             }
             if (storage.r2 == 2) {
                 drawableCostants.setPos(4);
+                weapon404.setImageResource(R.drawable.barrelm);
             }
             if (storage.r3 == 2) {
                 drawableCostants.setPos(5);
+                weapon404.setImageResource(R.drawable.barrelh);
             }
         }
         if (storage.ultimate == 2) {
             drawableCostants.setPos(6);
+            weapon404.setImageResource(R.drawable.barrelh);
         }
 
 
@@ -465,7 +497,6 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 weapon("ultimate");
-                drawableCostants.setPos(6);
             }
         });
 
@@ -780,7 +811,6 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 weapon("g1");
-                drawableCostants.setPos(0);
             }
         });
 
@@ -789,7 +819,6 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 weapon("g2");
-                drawableCostants.setPos(1);
             }
         });
 
@@ -798,7 +827,6 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 weapon("g3");
-                drawableCostants.setPos(2);
             }
         });
 
@@ -807,7 +835,6 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 weapon("r1");
-                drawableCostants.setPos(3);
             }
         });
 
@@ -816,7 +843,6 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 weapon("r2");
-                drawableCostants.setPos(4);
             }
         });
 
@@ -825,9 +851,32 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 weapon("r3");
-                drawableCostants.setPos(5);
             }
         });
+
+        if(isFirstTime() == true)
+        {
+            refresh();
+        }
+    }
+
+    public void refresh(){
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+    }
+
+    private boolean isFirstTime() {
+        if (firstTime == null) {
+            SharedPreferences mPreferences = this.getSharedPreferences("first_time", this.MODE_PRIVATE);
+            firstTime = mPreferences.getBoolean("firstTime", true);
+            if (firstTime) {
+                SharedPreferences.Editor editor = mPreferences.edit();
+                editor.putBoolean("firstTime", false);
+                editor.commit();
+            }
+        }
+        return firstTime;
     }
 
     //Il tasto fisico del cellulare per tornare indietro viene disattivato
@@ -860,10 +909,12 @@ public class MainActivity extends Activity {
             db.updateData(currentCoin);
             textcoin.setText(currentCoin + "");
 
-            storage.r1 = 1;
-            storage.red = 1;
+            storage.red = 2;
             db.updateRed(storage.red);
-            db.updateR1(storage.r1);
+            if (storage.r2 == 0 && storage.r3 == 0) {
+                storage.r1 = 2;
+                db.updateR1(storage.r1);
+            }
         } else {
             System.out.println("Mi dispiace ma non puoi acquistare questa nave, perchè non hai abbastanza soldi. \n L'astronave costa 5000 coin mentre tu ne possiedi " + currentCoin + "\nOppure e' perche' hai gia' acquistato questa astronave");
         }
@@ -1035,20 +1086,27 @@ public class MainActivity extends Activity {
     public void weapon(String s) {
         switch (s) {
             case "g1": g1();
+                break;
             case "g2": g2();
+                break;
             case "g3": g3();
+                break;
             case "r1": r1();
+                break;
             case "r2": r2();
+                break;
             case "r3": r3();
+                break;
             case "ultimate": ultimate();
+                break;
             case "green": green();
+                break;
             case "red": red();
         }
     }
 
     public void g1() {
-        if (storage.g1 == 1) {
-            storage.g1 = 2;
+        if (storage.g1 >= 1) {
             if (storage.g2 == 2) { storage.g2 = 1;db.updateG2(storage.g2); }
             if (storage.g3 == 2) { storage.g3 = 1;db.updateG3(storage.g3); }
             if (storage.r1 == 2) { storage.r1 = 1;db.updateR1(storage.r1); }
@@ -1056,12 +1114,16 @@ public class MainActivity extends Activity {
             if (storage.r3 == 2) { storage.r3 = 1;db.updateR3(storage.r3); }
             if (storage.red == 2) { storage.red = 1;db.updateRed(storage.red); }
             if (storage.ultimate == 2) { storage.ultimate = 1;db.updateUltimate(storage.ultimate); }
+
+            storage.g1 = 2;
+            db.updateG1(storage.g1);
+            drawableCostants.setPos(0);
+            weapon404.setImageResource(R.drawable.barrels);
         }
     }
 
     public void g2() {
-        if (storage.g2 == 1) {
-            storage.g2 = 2;
+        if (storage.g2 >= 1) {
             if (storage.g1 == 2) { storage.g1 = 1;db.updateG1(storage.g1); }
             if (storage.g3 == 2) { storage.g3 = 1;db.updateG3(storage.g3); }
             if (storage.r1 == 2) { storage.r1 = 1;db.updateR1(storage.r1); }
@@ -1069,12 +1131,16 @@ public class MainActivity extends Activity {
             if (storage.r3 == 2) { storage.r3 = 1;db.updateR3(storage.r3); }
             if (storage.red == 2) { storage.red = 1;db.updateRed(storage.red); }
             if (storage.ultimate == 2) { storage.ultimate = 1;db.updateUltimate(storage.ultimate); }
+
+            storage.g2 = 2;
+            db.updateG2(storage.g2);
+            drawableCostants.setPos(1);
+            weapon404.setImageResource(R.drawable.barrelm);
         }
     }
 
     public void g3() {
-        if (storage.g3 == 1) {
-            storage.g3 = 2;
+        if (storage.g3 >= 1) {
             if (storage.g1 == 2) { storage.g1 = 1;db.updateG1(storage.g1); }
             if (storage.g2 == 2) { storage.g2 = 1;db.updateG2(storage.g2); }
             if (storage.r1 == 2) { storage.r1 = 1;db.updateR1(storage.r1); }
@@ -1082,25 +1148,33 @@ public class MainActivity extends Activity {
             if (storage.r3 == 2) { storage.r3 = 1;db.updateR3(storage.r3); }
             if (storage.red == 2) { storage.red = 1;db.updateRed(storage.red); }
             if (storage.ultimate == 2) { storage.ultimate = 1;db.updateUltimate(storage.ultimate); }
+
+            storage.g3 = 2;
+            db.updateG3(storage.g3);
+            drawableCostants.setPos(2);
+            weapon404.setImageResource(R.drawable.barrelh);
         }
     }
 
     public void r1() {
-        if (storage.r1 == 1) {
-            storage.r1 = 2;
+        if (storage.r1 >= 1 && storage.red == 2) {
             if (storage.g1 == 2) { storage.g1 = 1;db.updateG1(storage.g1); }
             if (storage.g2 == 2) { storage.g2 = 1;db.updateG2(storage.g2); }
             if (storage.g3 == 2) { storage.g3 = 1;db.updateG3(storage.g3); }
             if (storage.r2 == 2) { storage.r2 = 1;db.updateR2(storage.r2); }
             if (storage.r3 == 2) { storage.r3 = 1;db.updateR3(storage.r3); }
-            if (storage.green == 2) { storage.green = 1;db.updateRed(storage.green); }
+            if (storage.green == 2) { storage.green = 1;db.updateGreen(storage.green); }
             if (storage.ultimate == 2) { storage.ultimate = 1;db.updateUltimate(storage.ultimate); }
+
+            storage.r1 = 2;
+            db.updateR1(storage.r1);
+            drawableCostants.setPos(3);
+            weapon404.setImageResource(R.drawable.barrels);
         }
     }
 
     public void r2() {
-        if (storage.r2 == 1) {
-            storage.r2 = 2;
+        if (storage.r2 >= 1 && storage.red == 2) {
             if (storage.g1 == 2) { storage.g1 = 1;db.updateG1(storage.g1); }
             if (storage.g2 == 2) { storage.g2 = 1;db.updateG2(storage.g2); }
             if (storage.g3 == 2) { storage.g3 = 1;db.updateG3(storage.g3); }
@@ -1108,67 +1182,79 @@ public class MainActivity extends Activity {
             if (storage.r3 == 2) { storage.r3 = 1;db.updateR3(storage.r3); }
             if (storage.green == 2) { storage.green = 1;db.updateGreen(storage.green); }
             if (storage.ultimate == 2) { storage.ultimate = 1;db.updateUltimate(storage.ultimate); }
+
+            storage.r2 = 2;
+            db.updateR2(storage.r2);
+            drawableCostants.setPos(4);
+            weapon404.setImageResource(R.drawable.barrelm);
         }
     }
 
     public void r3() {
-        if (storage.r3 == 1) {
+        if (storage.r3 >= 1 && storage.red == 2) {
+            if (storage.g1 == 2) { storage.g1 = 1;db.updateG1(storage.g1); }
+            if (storage.g2 == 2) { storage.g2 = 1;db.updateG2(storage.g2); }
+            if (storage.g3 == 2) { storage.g3 = 1;db.updateG3(storage.g3); }
+            if (storage.r1 == 2) { storage.r1 = 1;db.updateR1(storage.r1); }
+            if (storage.r2 == 2) { storage.r2 = 1;db.updateR2(storage.r2); }
+            if (storage.green == 2) { storage.green = 1;db.updateGreen(storage.green); }
+            if (storage.ultimate == 2) { storage.ultimate = 1;db.updateUltimate(storage.ultimate); }
+
             storage.r3 = 2;
+            db.updateR3(storage.r3);
+            drawableCostants.setPos(5);
+            weapon404.setImageResource(R.drawable.barrelh);
+        }
+    }
+
+    public void ultimate() {
+        if(storage.ultimate >= 1) {
             if (storage.g1 == 2) { storage.g1 = 1;db.updateG1(storage.g1); }
             if (storage.g2 == 2) { storage.g2 = 1;db.updateG2(storage.g2); }
             if (storage.g3 == 2) { storage.g3 = 1;db.updateG3(storage.g3); }
             if (storage.r1 == 2) { storage.r1 = 1;db.updateR1(storage.r1); }
             if (storage.r2 == 2) { storage.r2 = 1;db.updateR2(storage.r2); }
+            if (storage.r3 == 2) { storage.r3 = 1;db.updateR3(storage.r3); }
             if (storage.green == 2) { storage.green = 1;db.updateGreen(storage.green); }
-            if (storage.ultimate == 2) { storage.ultimate = 1;db.updateUltimate(storage.ultimate); }
-        }
-    }
+            if (storage.red == 2) { storage.red = 1;db.updateRed(storage.red); }
 
-    public void ultimate()
-    {
-        if(storage.ultimate == 1)
-        {
             storage.ultimate = 2;
-            if (storage.g1 == 2) { storage.g1 = 1;db.updateG1(storage.g1); }
-            if (storage.g2 == 2) { storage.g2 = 1;db.updateG2(storage.g2); }
-            if (storage.g3 == 2) { storage.g3 = 1;db.updateG3(storage.g3); }
-            if (storage.r1 == 2) { storage.r1 = 1;db.updateR1(storage.r1); }
-            if (storage.r2 == 2) { storage.r2 = 1;db.updateR2(storage.r2); }
-            if (storage.r3 == 2) { storage.r3 = 1;db.updateR3(storage.r3); }
-            if (storage.green == 2) { storage.green = 1;db.updateGreen(storage.green); }
-            if (storage.red == 2) { storage.red = 1;db.updateRed(storage.red); }
+            db.updateUltimate(storage.ultimate);
+            drawableCostants.setPos(6);
+            ship404.setImageResource(R.drawable.ultimate);
+            weapon404.setImageResource(R.drawable.barrelh);
         }
     }
 
-    public void green()
-    {
-        if(storage.green == 1)
-        {
+    public void green() {
+        if(storage.green >= 1) {
+            if (storage.r1 == 2) { storage.r1 = 1;db.updateR1(storage.r1); }
+            if (storage.r2 == 2) { storage.r2 = 1;db.updateR2(storage.r2); }
+            if (storage.r3 == 2) { storage.r3 = 1;db.updateR3(storage.r3); }
+            if (storage.ultimate == 2) { storage.ultimate = 1;db.updateUltimate(storage.ultimate); }
+            if (storage.red == 2) { storage.red = 1;db.updateRed(storage.red); }
+
             storage.green = 2;
-            if (storage.g1 == 2) { storage.g1 = 1;db.updateG1(storage.g1); }
-            if (storage.g2 == 2) { storage.g2 = 1;db.updateG2(storage.g2); }
-            if (storage.g3 == 2) { storage.g3 = 1;db.updateG3(storage.g3); }
-            if (storage.r1 == 2) { storage.r1 = 1;db.updateR1(storage.r1); }
-            if (storage.r2 == 2) { storage.r2 = 1;db.updateR2(storage.r2); }
-            if (storage.r3 == 2) { storage.r3 = 1;db.updateR3(storage.r3); }
-            if (storage.ultimate == 2) { storage.ultimate = 1;db.updateUltimate(storage.ultimate); }
-            if (storage.red == 2) { storage.red = 1;db.updateRed(storage.red); }
+            db.updateGreen(storage.green);
+            ship404.setImageResource(R.drawable.greenship);
         }
     }
 
-    public void red()
-    {
-        if(storage.red == 1)
-        {
-            storage.red = 2;
+    public void red() {
+        if(storage.red >= 1) {
             if (storage.g1 == 2) { storage.g1 = 1;db.updateG1(storage.g1); }
             if (storage.g2 == 2) { storage.g2 = 1;db.updateG2(storage.g2); }
             if (storage.g3 == 2) { storage.g3 = 1;db.updateG3(storage.g3); }
-            if (storage.r1 == 2) { storage.r1 = 1;db.updateR1(storage.r1); }
-            if (storage.r2 == 2) { storage.r2 = 1;db.updateR2(storage.r2); }
-            if (storage.r3 == 2) { storage.r3 = 1;db.updateR3(storage.r3); }
             if (storage.green == 2) { storage.green = 1;db.updateGreen(storage.green); }
             if (storage.ultimate == 2) { storage.ultimate = 1;db.updateUltimate(storage.ultimate); }
+
+            storage.red = 2;
+            db.updateRed(storage.red);
+            if (storage.r2 == 0 && storage.r3 == 0) {
+                storage.r1 = 2;
+                db.updateR1(storage.r1);
+            }
+            ship404.setImageResource(R.drawable.redship);
         }
     }
 }

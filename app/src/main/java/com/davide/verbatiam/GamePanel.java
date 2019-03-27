@@ -150,9 +150,13 @@ public class GamePanel extends Activity implements SensorEventListener {
         db = new DatabaseHelper(this);
 
         Cursor res = db.selectData();
+        if(res.getCount() == 0) {
+            db.insertData(1,storage.coinStorageF, storage.scoreT,1,0,0,1,0,0,1,0,0,0);
+        }
+
         if(res.getCount() != 0) {
             while (res.moveToNext()) {
-                storage.coinStorageF = res.getLong(1);
+                //storage.coinStorageF = res.getLong(1);
                 storage.green = res.getInt(3);
                 storage.red = res.getInt(4);
                 storage.ultimate = res.getInt(5);
@@ -772,10 +776,7 @@ public class GamePanel extends Activity implements SensorEventListener {
                     storage.scoreT = contatore;
 
                     Cursor res = db.selectData();
-                    if(res.getCount() == 0) {
-                        db.insertData(1,storage.coinStorageF, storage.scoreT,1,0,0,1,0,0,1,0,0,0);
-                    }
-                    else
+                    if(res.getCount() != 0)
                     {
                         db.updateData(storage.coinStorageF+10000);
                         db.updateScore(storage.scoreT);
