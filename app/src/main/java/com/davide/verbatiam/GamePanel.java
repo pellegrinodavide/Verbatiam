@@ -205,6 +205,7 @@ public class GamePanel extends Activity implements SensorEventListener {
         gioco.addView(shieldPlayer);
         shieldPlayer.setVisibility(View.INVISIBLE);
 
+        //Set ExplosionPlayer
         explosionPlayer = new ExplosionPlayer(this, 800, 850);
         gioco.addView(explosionPlayer);
 
@@ -467,34 +468,6 @@ public class GamePanel extends Activity implements SensorEventListener {
                 prova.postDelayed(this, 50);
             }
         });
-
-        /*player.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                int xPosPlayer = (int)event.getX() - player.getWidth()/2;
-                int yPosPlayer = (int)(event.getY() - player.getHeight()/2)-150;
-
-                int xPosShield = (int)event.getX() - shieldPlayer.getWidth()/2;
-                int yPosShield = (int)(event.getY() - shieldPlayer.getHeight()/2)-150;
-
-                switch(event.getAction())
-                {
-                    case MotionEvent.ACTION_DOWN:
-                    case MotionEvent.ACTION_MOVE:
-                        player.setX(xPosPlayer);
-                        player.setY(yPosPlayer);
-                        player.setRect(xPosPlayer,yPosPlayer,xPosPlayer,yPosPlayer);
-                        shieldPlayer.setX(xPosShield);
-                        shieldPlayer.setY(yPosShield);
-                        shieldPlayer.setRect(xPosShield,yPosShield,xPosShield,yPosShield);
-                        return true;
-                    case MotionEvent.ACTION_UP:
-                        return false;
-                }
-                return true;
-            }
-        });*/
     }
 
 
@@ -618,7 +591,6 @@ public class GamePanel extends Activity implements SensorEventListener {
                             if(storage.g1 == 2)
                             {
                                 enemyLife.setProgress(enemyLife.getProgress() - bulletG1);
-
                             }
                             if(storage.g2 == 2)
                             {
@@ -645,7 +617,6 @@ public class GamePanel extends Activity implements SensorEventListener {
                                 enemyLife.setProgress(enemyLife.getProgress() - bulletU1);
                             }
                         }
-
                     }
                 }
             }
