@@ -964,27 +964,4 @@ public class GamePanel extends Activity{
             gioco.removeView(bullet);
         }
     }
-
-    /*public boolean onTouchEvent(MotionEvent event)
-    {
-        if(isTouch)
-        {
-            switch(event.getAction())
-            {
-                case MotionEvent.ACTION_MOVE:
-                    int xPosPlayer = (int)event.getX() - player.getWidth()/2;
-                    int yPosPlayer = (int)(event.getY() - player.getHeight()/2)-150;
-                    player.setX(xPosPlayer);
-                    player.setY(yPosPlayer);
-                    player.setRect(xPosPlayer,yPosPlayer,xPosPlayer,yPosPlayer);
-                    int xPosShield = (int)event.getX() - shieldPlayer.getWidth()/2;
-                    int yPosShield = (int)(event.getY() - shieldPlayer.getHeight()/2)-150;
-                    shieldPlayer.setX(xPosShield);
-                    shieldPlayer.setY(yPosShield);
-                    shieldPlayer.setRect(xPosShield,yPosShield,xPosShield,yPosShield);
-                    break;
-            }
-        }
-        return true;
-    }*/
 }
