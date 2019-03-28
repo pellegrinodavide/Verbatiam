@@ -111,12 +111,11 @@ public class GamePanel extends Activity{
 
     private int bulletR1 = 25; //x2
     private int bulletR2 = 50; //x2
-    private int bulletR3 = 75; //x2
+    private int bulletR3 = 100; //x2
 
-    private int bulletU1 = 100; //x3
+    private int bulletU1 = 200; //x3
+
     private int maxLife = 25;
-
-    private ConstraintLayout.LayoutParams params;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -184,26 +183,40 @@ public class GamePanel extends Activity{
         gioco = (ConstraintLayout) findViewById(R.id.gioco);
 
         //Set Player
-        params = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         player = new Player(this, 400, 1500);
-        gioco.addView(player, params);
+        gioco.addView(player, 1);
 
         //Set Shield
         shieldPlayer = new ShieldPlayer(this,325,1410);
-        gioco.addView(shieldPlayer);
+        gioco.addView(shieldPlayer, 1);
         shieldPlayer.setVisibility(View.INVISIBLE);
 
         //Set ExplosionPlayer
         explosionPlayer = new ExplosionPlayer(this, 800, 850);
-        gioco.addView(explosionPlayer);
+        gioco.addView(explosionPlayer, 1);
 
         //gameover
         gameover = (TextView) findViewById(R.id.gameover);
 
         //ProgressBar Life
         life = (ProgressBar) findViewById(R.id.life);
-        life.setMax(300);
-        life.setProgress(300);
+        if(storage.green == 2)
+        {
+            life.setMax(400);
+            life.setProgress(400);
+        }
+        else if(storage.red == 2)
+        {
+            life.setMax(800);
+            life.setProgress(800);
+        }
+        else if(storage.ultimate == 2)
+        {
+            life.setMax(1600);
+            life.setProgress(1600);
+        }
+
+
 
         //Comandi
         resume = (ImageView) findViewById(R.id.resume);
@@ -620,6 +633,7 @@ public class GamePanel extends Activity{
             {
                 bullets.remove(bullet);
                 gioco.removeView(bullet);
+                System.out.println(deleteBullet.size());
                 for(EnemyLife enemyLife: deleteEnemyLife)
                 {
                     if(enemyLife.getProgress() <= 0)
@@ -723,17 +737,8 @@ public class GamePanel extends Activity{
                         }
                     });
                 }
-                lifeCount++;
                 deleteCollision.add(enemy);
-                if(life.getProgress() <= 200 && life.getProgress() > 100)
-                {
-                    life.getProgressDrawable().setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_IN);
-                }
-                else if(life.getProgress() <= 100 && life.getProgress() >= 0)
-                {
-                    life.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
-                }
-                life.setProgress(life.getProgress()-damageEnemy);
+                life.setProgress(life.getProgress()- damageEnemy);
             }
         }
 
@@ -746,7 +751,7 @@ public class GamePanel extends Activity{
                 gioco.removeView(enemy);
                 enemyLifes.remove(enemyLife);
                 gioco.removeView(enemyLife);
-                if(lifeCount==3)
+                if(life.getProgress() <= 0)
                 {
                     gameSong.stop();
                     gameOver.start();
@@ -793,16 +798,16 @@ public class GamePanel extends Activity{
         //Spawn oggetto enemy
         Enemy enemy = new Enemy(this,enemyX,enemyY);
         enemies.add(enemy);
-        gioco.addView(enemy);
+        gioco.addView(enemy, 1);
 
         //Spawn oggetto progressBar
         EnemyLife enemyLife = new EnemyLife(this,null, android.R.attr.progressBarStyleHorizontal,enemyX, enemyY, maxLife);
         enemyLifes.add(enemyLife);
-        gioco.addView(enemyLife);
+        gioco.addView(enemyLife, 1);
 
         ExplosionEnemy explosionEnemy = new ExplosionEnemy(this,enemyX,enemyY);
         explosionEnemies.add(explosionEnemy);
-        gioco.addView(explosionEnemy);
+        gioco.addView(explosionEnemy, 1);
     }
 
     public void spawnShield()
@@ -813,7 +818,7 @@ public class GamePanel extends Activity{
         //Spawn oggetto shield
         Shield shield = new Shield(this, shieldX,shieldY);
         shields.add(shield);
-        gioco.addView(shield);
+        gioco.addView(shield,1);
     }
 
     public void deleteShield()
@@ -832,6 +837,7 @@ public class GamePanel extends Activity{
             shields.remove(shield);
             gioco.removeView(shield);
         }
+
     }
 
     public void deleteEnemy()
@@ -884,21 +890,25 @@ public class GamePanel extends Activity{
         {
             Bullet bulletG = new Bullet(this,player.getX()+177, player.getY());
             bullets.add(bulletG);
-            gioco.addView(bulletG);
+            gioco.addView(bulletG,1);
             if(storage.g1 == 2)
             {
                 Drawable drawable = getResources().getDrawable(R.drawable.bullets);
                 bulletG.setImageDrawable(drawable);
+                bulletG.setMillis(20);
             }
             if(storage.g2 == 2)
             {
                 Drawable drawable = getResources().getDrawable(R.drawable.bulletm);
                 bulletG.setImageDrawable(drawable);
+                bulletG.setMillis(20);
             }
             if(storage.g3 == 2)
             {
                 Drawable drawable = getResources().getDrawable(R.drawable.bulleth);
                 bulletG.setImageDrawable(drawable);
+                bulletG.setMillis(20);
+                bulletG.setLayoutParams(new ConstraintLayout.LayoutParams(45, 75));
             }
         }
         else if(storage.r1 == 2 || storage.r2 == 2 || storage.r3 == 2)
@@ -907,25 +917,33 @@ public class GamePanel extends Activity{
             Bullet bulletR2 = new Bullet(this,player.getX()+250, player.getY()+20);
             bullets.add(bulletR1);
             bullets.add(bulletR2);
-            gioco.addView(bulletR1);
-            gioco.addView(bulletR2);
+            gioco.addView(bulletR1,1);
+            gioco.addView(bulletR2,1);
             if(storage.r1 == 2)
             {
                 Drawable drawable = getResources().getDrawable(R.drawable.bullets);
                 bulletR1.setImageDrawable(drawable);
                 bulletR2.setImageDrawable(drawable);
+                bulletR1.setMillis(15);
+                bulletR2.setMillis(15);
             }
             if(storage.r2 == 2)
             {
                 Drawable drawable = getResources().getDrawable(R.drawable.bulletm);
                 bulletR1.setImageDrawable(drawable);
                 bulletR2.setImageDrawable(drawable);
+                bulletR1.setMillis(15);
+                bulletR2.setMillis(15);
             }
             if(storage.r3 == 2)
             {
                 Drawable drawable = getResources().getDrawable(R.drawable.bulleth);
                 bulletR1.setImageDrawable(drawable);
                 bulletR2.setImageDrawable(drawable);
+                bulletR1.setMillis(15);
+                bulletR2.setMillis(15);
+                bulletR1.setLayoutParams(new ConstraintLayout.LayoutParams(45, 75));
+                bulletR2.setLayoutParams(new ConstraintLayout.LayoutParams(45, 75));
             }
         }
         else if(storage.ultimate == 2)
@@ -936,13 +954,19 @@ public class GamePanel extends Activity{
             bullets.add(bulletU1);
             bullets.add(bulletU2);
             bullets.add(bulletU3);
-            gioco.addView(bulletU1);
-            gioco.addView(bulletU2);
-            gioco.addView(bulletU3);
+            gioco.addView(bulletU1,1);
+            gioco.addView(bulletU2,1);
+            gioco.addView(bulletU3,1);
             Drawable drawable = getResources().getDrawable(R.drawable.bulleth);
             bulletU1.setImageDrawable(drawable);
             bulletU2.setImageDrawable(drawable);
             bulletU3.setImageDrawable(drawable);
+            bulletU1.setLayoutParams(new ConstraintLayout.LayoutParams(45, 75));
+            bulletU2.setLayoutParams(new ConstraintLayout.LayoutParams(45, 75));
+            bulletU3.setLayoutParams(new ConstraintLayout.LayoutParams(45, 75));
+            bulletU1.setMillis(9);
+            bulletU2.setMillis(9);
+            bulletU3.setMillis(9);
         }
         lasershootSound.start();
     }

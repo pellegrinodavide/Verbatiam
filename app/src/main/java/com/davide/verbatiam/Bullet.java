@@ -13,6 +13,7 @@ public class Bullet extends AppCompatImageView {
     private Runnable runnable;
     private Rect boundsBullet;
     private int speedY = 15;
+    private long millis;
 
     public Bullet(Context context, float x, float y) {
         super(context);
@@ -26,7 +27,7 @@ public class Bullet extends AppCompatImageView {
             @Override
             public void run() {
                 updateY();
-                handler.postDelayed(this,20);
+                handler.postDelayed(this,millis);
             }
         });
     }
@@ -35,6 +36,11 @@ public class Bullet extends AppCompatImageView {
     {
         this.setY(this.getY() - speedY);
         boundsBullet.set((int)this.getX(),(int)this.getY() - 15,(int)this.getX()+35, (int)(this.getY()+70)-15);
+    }
+
+    public void setMillis(long time)
+    {
+        millis = time;
     }
 
     public int getSpeedY()

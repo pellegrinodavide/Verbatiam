@@ -229,7 +229,6 @@ public class MainActivity extends Activity {
                 storage.g1 = 2;
                 db.updateG1(storage.g1);
                 drawableCostants.setPos(0);
-
             }
         }
 
@@ -249,6 +248,7 @@ public class MainActivity extends Activity {
                 weapon404.setImageResource(R.drawable.barrelh);
             }
         }
+
         if (storage.red == 2) {
             ship404.setImageResource(R.drawable.redship);
             gunSection.setVisibility(View.VISIBLE);
@@ -273,7 +273,6 @@ public class MainActivity extends Activity {
             gunSection.setVisibility(View.INVISIBLE);
             weapon404.setImageResource(R.drawable.barrelh);
         }
-
 
         //Fa partire il gioco (menu)
         startI.setOnClickListener(new View.OnClickListener() {
