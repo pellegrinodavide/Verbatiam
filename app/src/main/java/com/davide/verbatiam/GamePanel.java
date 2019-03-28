@@ -1,5 +1,6 @@
 package com.davide.verbatiam;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -15,6 +16,7 @@ import android.support.constraint.ConstraintLayout;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -97,6 +99,8 @@ public class GamePanel extends Activity{
     private MediaPlayer gameSong;
     private MediaPlayer gameOver;
 
+    private boolean isTouch = true;
+
     long millis = 1000L;
 
     private int length;
@@ -112,6 +116,9 @@ public class GamePanel extends Activity{
     private int bulletU1 = 100; //x3
     private int maxLife = 25;
 
+    private ConstraintLayout.LayoutParams params;
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,8 +184,9 @@ public class GamePanel extends Activity{
         gioco = (ConstraintLayout) findViewById(R.id.gioco);
 
         //Set Player
+        params = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         player = new Player(this, 400, 1500);
-        gioco.addView(player);
+        gioco.addView(player, params);
 
         //Set Shield
         shieldPlayer = new ShieldPlayer(this,325,1410);
@@ -290,6 +298,7 @@ public class GamePanel extends Activity{
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isTouch = false;
                 gameSong.pause();
                 length=gameSong.getCurrentPosition();
                 menu.setVisibility(View.VISIBLE);
@@ -327,6 +336,7 @@ public class GamePanel extends Activity{
         resume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isTouch = true;
                 gameSong.seekTo(length);
                 gameSong.start();
                 menu.setVisibility(View.INVISIBLE);
@@ -391,6 +401,33 @@ public class GamePanel extends Activity{
             public void run() {
                 backgroundScrool();
                 handlerBackground.postDelayed(this, 50);
+            }
+        });
+
+        player.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (isTouch) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            int xPosPlayer = (int) event.getRawX() - player.getWidth() / 2;
+                            int yPosPlayer = (int) (event.getRawY() - player.getHeight() / 2) - 150;
+                            player.setX(xPosPlayer);
+                            player.setY(yPosPlayer);
+                            player.setRect(xPosPlayer, yPosPlayer, xPosPlayer, yPosPlayer);
+                            int xPosShield = (int) event.getRawX() - shieldPlayer.getWidth() / 2;
+                            int yPosShield = (int) (event.getRawY() - shieldPlayer.getHeight() / 2) - 150;
+                            shieldPlayer.setX(xPosShield);
+                            shieldPlayer.setY(yPosShield);
+                            shieldPlayer.setRect(xPosShield, yPosShield, xPosShield, yPosShield);
+                            return true;
+                        case MotionEvent.ACTION_UP:
+                            return false;
+                    }
+                }
+                return true;
             }
         });
     }
@@ -928,23 +965,26 @@ public class GamePanel extends Activity{
         }
     }
 
-    public boolean onTouchEvent(MotionEvent event)
+    /*public boolean onTouchEvent(MotionEvent event)
     {
-        switch(event.getAction())
+        if(isTouch)
         {
-            case MotionEvent.ACTION_MOVE:
-                int xPosPlayer = (int)event.getX() - player.getWidth()/2;
-                int yPosPlayer = (int)(event.getY() - player.getHeight()/2)-150;
-                player.setX(xPosPlayer);
-                player.setY(yPosPlayer);
-                player.setRect(xPosPlayer,yPosPlayer,xPosPlayer,yPosPlayer);
-                int xPosShield = (int)event.getX() - shieldPlayer.getWidth()/2;
-                int yPosShield = (int)(event.getY() - shieldPlayer.getHeight()/2)-150;
-                shieldPlayer.setX(xPosShield);
-                shieldPlayer.setY(yPosShield);
-                shieldPlayer.setRect(xPosShield,yPosShield,xPosShield,yPosShield);
-                break;
+            switch(event.getAction())
+            {
+                case MotionEvent.ACTION_MOVE:
+                    int xPosPlayer = (int)event.getX() - player.getWidth()/2;
+                    int yPosPlayer = (int)(event.getY() - player.getHeight()/2)-150;
+                    player.setX(xPosPlayer);
+                    player.setY(yPosPlayer);
+                    player.setRect(xPosPlayer,yPosPlayer,xPosPlayer,yPosPlayer);
+                    int xPosShield = (int)event.getX() - shieldPlayer.getWidth()/2;
+                    int yPosShield = (int)(event.getY() - shieldPlayer.getHeight()/2)-150;
+                    shieldPlayer.setX(xPosShield);
+                    shieldPlayer.setY(yPosShield);
+                    shieldPlayer.setRect(xPosShield,yPosShield,xPosShield,yPosShield);
+                    break;
+            }
         }
         return true;
-    }
+    }*/
 }

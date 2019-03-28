@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.AppCompatImageView;
+import android.view.MotionEvent;
+import android.view.View;
 
 import java.lang.reflect.Field;
 
@@ -35,5 +37,16 @@ public class Player extends AppCompatImageView{
     {
         playerRect.set(left + 80 ,top + 80,right + 300, bottom + 184);
         return playerRect;
+    }
+
+    public boolean touch()
+    {
+        this.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+        return true;
     }
 }
