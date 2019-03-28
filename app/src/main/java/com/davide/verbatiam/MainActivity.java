@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.MediaPlayer;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
@@ -232,20 +233,9 @@ public class MainActivity extends Activity {
             }
         }
 
-        if(storage.green == 2)
-        {
-            ship404.setImageResource(R.drawable.greenship);
-        }
-        else if(storage.red == 2)
-        {
-            ship404.setImageResource(R.drawable.redship);
-        }
-        else if(storage.ultimate == 2)
-        {
-            ship404.setImageResource(R.drawable.ultimate2);
-        }
-
         if (storage.green == 2) {
+            ship404.setImageResource(R.drawable.greenship);
+            gunSection.setVisibility(View.VISIBLE);
             if(storage.g1 == 2)
             {
                 weapon404.setImageResource(R.drawable.barrels);
@@ -260,6 +250,8 @@ public class MainActivity extends Activity {
             }
         }
         if (storage.red == 2) {
+            ship404.setImageResource(R.drawable.redship);
+            gunSection.setVisibility(View.VISIBLE);
             if (storage.r2 == 0 && storage.r3 == 0) {
                 storage.r1 = 2;
                 db.updateR1(storage.r1);
@@ -276,7 +268,9 @@ public class MainActivity extends Activity {
             }
         }
         if (storage.ultimate == 2) {
+            ship404.setImageResource(R.drawable.ultimate2);
             drawableCostants.setPos(6);
+            gunSection.setVisibility(View.INVISIBLE);
             weapon404.setImageResource(R.drawable.barrelh);
         }
 
@@ -549,7 +543,6 @@ public class MainActivity extends Activity {
                 shopL.setVisibility(View.INVISIBLE);
                 gunL.setVisibility(View.VISIBLE);
                 if (storage.green == 2) {
-                    textView.setText("Green");
                     r1.setVisibility(View.INVISIBLE);
                     r2.setVisibility(View.INVISIBLE);
                     r3.setVisibility(View.INVISIBLE);
@@ -557,7 +550,6 @@ public class MainActivity extends Activity {
                     g2.setVisibility(View.VISIBLE);
                     g3.setVisibility(View.VISIBLE);
                 } else if (storage.red == 2) {
-                    textView.setText("Red");
                     r1.setVisibility(View.VISIBLE);
                     r2.setVisibility(View.VISIBLE);
                     r3.setVisibility(View.VISIBLE);
@@ -1329,6 +1321,7 @@ public class MainActivity extends Activity {
             drawableCostants.setPos(6);
             ship404.setImageResource(R.drawable.ultimate2);
             weapon404.setImageResource(R.drawable.barrelh);
+            gunSection.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -1343,6 +1336,7 @@ public class MainActivity extends Activity {
             storage.green = 2;
             db.updateGreen(storage.green);
             ship404.setImageResource(R.drawable.greenship);
+            gunSection.setVisibility(View.VISIBLE);
         }
     }
 
@@ -1361,6 +1355,7 @@ public class MainActivity extends Activity {
                 db.updateR1(storage.r1);
             }
             ship404.setImageResource(R.drawable.redship);
+            gunSection.setVisibility(View.VISIBLE);
         }
     }
 }
