@@ -358,6 +358,69 @@
             app:layout_constraintTop_toTopOf="@+id/shipLayout"
             app:layout_constraintVertical_bias="0.818" />
 
+        <TextView
+            android:id="@+id/descrizioneGreen"
+            android:layout_width="341dp"
+            android:layout_height="274dp"
+            android:visibility="invisible"
+            android:text="Questo tipo di astronave è usata dai soldati dell'esercito dei Verbatiani.
+Ha una armatura che permette di sopportare pochi colpi e non riesce a superare molte galassie perchè i componenti del motore non sono cosi efficenti.
+Le basse prestazioni di questa astronave sono dovute perchè ne vengono prodotte in grande scala per fare grandi eserciti.
+                                                    COSTO: Gratuita
+                                                    VITA ASTRONAVE: 300hp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/shipLayout"
+            app:layout_constraintEnd_toEndOf="@+id/shipLayout"
+            app:layout_constraintHorizontal_bias="0.642"
+            app:layout_constraintStart_toStartOf="@+id/shipLayout"
+            app:layout_constraintTop_toTopOf="@+id/shipLayout"
+            app:layout_constraintVertical_bias="0.561" />
+
+        <TextView
+            android:id="@+id/descrizioneRed"
+            android:layout_width="341dp"
+            android:layout_height="274dp"
+            android:text="Questa astronave viene guidata da piloti molto abili che in battaglia
+dirigono l'attacco con grandi gruppi di greenSpaceship. La sua armatura ha una
+discreta resistenza, ma la sua specialità è la possibilità di sparare con 2 cannoni.
+Questo particolare permette di sconfiggere piu nemici e quindi di evitare piu collisioni.
+                                                    COSTO: 8000
+                                                    VITA ASTRONAVE: 800hp"
+            android:visibility="invisible"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="0.642"
+            app:layout_constraintBottom_toBottomOf="@+id/shipLayout"
+            app:layout_constraintEnd_toEndOf="@+id/shipLayout"
+            app:layout_constraintStart_toStartOf="@+id/shipLayout"
+            app:layout_constraintTop_toTopOf="@+id/shipLayout"
+            app:layout_constraintVertical_bias="0.561" />
+
+        <TextView
+            android:id="@+id/descrizioneUltimate"
+            android:layout_width="341dp"
+            android:layout_height="274dp"
+            android:text="Questa astronave è molto piu forte rispetto alle precedenti, ha dei propulsori piu grandi
+e piu potenti rispetto alle altre astronavi che gli permettono di attraversare intere galassie.
+A l'acquisto l'Ultimate è equippaggiata automaticamente con l'arma heavy bluster. La sua vita è molto
+alta. Inoltre spara i proiettili con più  molta più velocita. A comando di questa astronave i nemici si
+troveranno polverizzati.
+                                                    COSTO: 18000
+                                                    VITA ASTRONAVE: 1600hp"
+            android:visibility="invisible"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="0.642"
+            app:layout_constraintBottom_toBottomOf="@+id/shipLayout"
+            app:layout_constraintEnd_toEndOf="@+id/shipLayout"
+            app:layout_constraintStart_toStartOf="@+id/shipLayout"
+            app:layout_constraintTop_toTopOf="@+id/shipLayout"
+            app:layout_constraintVertical_bias="0.561" />
+
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout

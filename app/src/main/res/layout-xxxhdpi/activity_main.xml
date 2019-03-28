@@ -101,36 +101,32 @@
         android:id="@+id/textCoin"
         android:layout_width="82dp"
         android:layout_height="34dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:scaleType="fitXY"
         android:textAlignment="textStart"
         android:textSize="18dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/mainLayout"
-        app:layout_constraintEnd_toEndOf="@+id/mainLayout"
-        app:layout_constraintHorizontal_bias="0.169"
-        app:layout_constraintStart_toStartOf="@+id/mainLayout"
-        app:layout_constraintTop_toTopOf="@+id/mainLayout"
-        app:layout_constraintVertical_bias="0.011" />
+        app:layout_constraintBottom_toBottomOf="@+id/layoutCoin"
+        app:layout_constraintEnd_toEndOf="@+id/layoutCoin"
+        app:layout_constraintHorizontal_bias="0.709"
+        app:layout_constraintStart_toStartOf="@+id/layoutCoin"
+        app:layout_constraintTop_toTopOf="@+id/layoutCoin"
+        app:layout_constraintVertical_bias="0.444" />
 
     <TextView
         android:id="@+id/score"
         android:layout_width="85dp"
         android:layout_height="26dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="3dp"
         android:scaleType="fitXY"
         android:textSize="18dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/mainLayout"
-        app:layout_constraintEnd_toEndOf="@+id/mainLayout"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/mainLayout"
-        app:layout_constraintTop_toTopOf="@+id/mainLayout"
-        app:layout_constraintVertical_bias="0.034" />
+        app:layout_constraintBottom_toTopOf="@+id/shipLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/score2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/score2"
@@ -138,7 +134,7 @@
         android:layout_height="26dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
-        android:elevation="0dp"
+        android:scaleType="fitXY"
         android:text="Max Score:"
         android:textAlignment="center"
         android:textSize="18dp"
@@ -361,6 +357,69 @@
             app:layout_constraintStart_toStartOf="@+id/shipLayout"
             app:layout_constraintTop_toTopOf="@+id/shipLayout"
             app:layout_constraintVertical_bias="0.818" />
+
+        <TextView
+            android:id="@+id/descrizioneGreen"
+            android:layout_width="341dp"
+            android:layout_height="274dp"
+            android:visibility="invisible"
+            android:text="Questo tipo di astronave è usata dai soldati dell'esercito dei Verbatiani.
+Ha una armatura che permette di sopportare pochi colpi e non riesce a superare molte galassie perchè i componenti del motore non sono cosi efficenti.
+Le basse prestazioni di questa astronave sono dovute perchè ne vengono prodotte in grande scala per fare grandi eserciti.
+                                                    COSTO: Gratuita
+                                                    VITA ASTRONAVE: 300hp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/shipLayout"
+            app:layout_constraintEnd_toEndOf="@+id/shipLayout"
+            app:layout_constraintHorizontal_bias="0.642"
+            app:layout_constraintStart_toStartOf="@+id/shipLayout"
+            app:layout_constraintTop_toTopOf="@+id/shipLayout"
+            app:layout_constraintVertical_bias="0.561" />
+
+        <TextView
+            android:id="@+id/descrizioneRed"
+            android:layout_width="341dp"
+            android:layout_height="274dp"
+            android:text="Questa astronave viene guidata da piloti molto abili che in battaglia
+dirigono l'attacco con grandi gruppi di greenSpaceship. La sua armatura ha una
+discreta resistenza, ma la sua specialità è la possibilità di sparare con 2 cannoni.
+Questo particolare permette di sconfiggere piu nemici e quindi di evitare piu collisioni.
+                                                    COSTO: 8000
+                                                    VITA ASTRONAVE: 800hp"
+            android:visibility="invisible"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="0.642"
+            app:layout_constraintBottom_toBottomOf="@+id/shipLayout"
+            app:layout_constraintEnd_toEndOf="@+id/shipLayout"
+            app:layout_constraintStart_toStartOf="@+id/shipLayout"
+            app:layout_constraintTop_toTopOf="@+id/shipLayout"
+            app:layout_constraintVertical_bias="0.561" />
+
+        <TextView
+            android:id="@+id/descrizioneUltimate"
+            android:layout_width="341dp"
+            android:layout_height="274dp"
+            android:text="Questa astronave è molto piu forte rispetto alle precedenti, ha dei propulsori piu grandi
+e piu potenti rispetto alle altre astronavi che gli permettono di attraversare intere galassie.
+A l'acquisto l'Ultimate è equippaggiata automaticamente con l'arma heavy bluster. La sua vita è molto
+alta. Inoltre spara i proiettili con più  molta più velocita. A comando di questa astronave i nemici si
+troveranno polverizzati.
+                                                    COSTO: 18000
+                                                    VITA ASTRONAVE: 1600hp"
+            android:visibility="invisible"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="0.642"
+            app:layout_constraintBottom_toBottomOf="@+id/shipLayout"
+            app:layout_constraintEnd_toEndOf="@+id/shipLayout"
+            app:layout_constraintStart_toStartOf="@+id/shipLayout"
+            app:layout_constraintTop_toTopOf="@+id/shipLayout"
+            app:layout_constraintVertical_bias="0.561" />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -742,8 +801,8 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/shopLayout"
-        android:layout_width="411dp"
-        android:layout_height="730dp"
+        android:layout_width="400dp"
+        android:layout_height="750dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -752,16 +811,15 @@
 
         <ImageView
             android:id="@+id/shopMenu"
-            android:layout_width="460dp"
-            android:layout_height="730dp"
+            android:layout_width="450dp"
+            android:layout_height="700dp"
             android:scaleType="fitXY"
             android:src="@drawable/menu"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.32" />
 
         <TextView
             android:id="@+id/textView4"
@@ -849,7 +907,7 @@
             app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/shopMenu"
-            app:layout_constraintVertical_bias="0.975" />
+            app:layout_constraintVertical_bias="0.948" />
 
         <ImageView
             android:id="@+id/Ship404"

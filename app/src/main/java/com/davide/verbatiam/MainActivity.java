@@ -1,6 +1,9 @@
 package com.davide.verbatiam;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -15,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.sql.Time;
@@ -42,6 +46,9 @@ public class MainActivity extends Activity {
     private ImageView selectionGreen;
     private ImageView selectionRed;
     private ImageView selectionUltimate;
+    private TextView descrizioneG;
+    private TextView descrizioneR;
+    private TextView descrizioneU;
 
     //Layout dello shop
     private ConstraintLayout shopL;
@@ -137,6 +144,9 @@ public class MainActivity extends Activity {
         selectionGreen = (ImageView) findViewById(R.id.selectionG);
         selectionRed = (ImageView) findViewById(R.id.selectionR);
         selectionUltimate = (ImageView) findViewById(R.id.selectionU);
+        descrizioneG = (TextView) findViewById(R.id.descrizioneGreen);
+        descrizioneR = (TextView) findViewById(R.id.descrizioneRed);
+        descrizioneU = (TextView) findViewById(R.id.descrizioneUltimate);
 
         //Layout collegato alle armi
         exitG = (ImageView) findViewById(R.id.gunExit);
@@ -208,7 +218,7 @@ public class MainActivity extends Activity {
                 storage.g1 = 2;
                 db.updateG1(storage.g1);
                 drawableCostants.setPos(0);
-                weapon404.setImageResource(R.drawable.barrels);
+
             }
         }
 
@@ -226,6 +236,10 @@ public class MainActivity extends Activity {
         }
 
         if (storage.green == 2) {
+            if(storage.g1 == 2)
+            {
+                weapon404.setImageResource(R.drawable.barrels);
+            }
             if (storage.g2 == 2) {
                 drawableCostants.setPos(1);
                 weapon404.setImageResource(R.drawable.barrelm);
@@ -261,31 +275,35 @@ public class MainActivity extends Activity {
         startI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                caricamentoBar.setVisibility(View.VISIBLE);
-                caricamentoText.setVisibility(View.VISIBLE);
-                startI.setVisibility(View.INVISIBLE);
-                exitI.setVisibility(View.INVISIBLE);
-                shopI.setVisibility(View.INVISIBLE);
                 handlerCount.post(runnableCount = new Runnable() {
                     @Override
                     public void run() {
-                        if (handlerFlag == true) {
-                            System.out.println(caricamentoBar.getProgress());
-                            if (caricamentoBar.getProgress() == 100 && count() >= 100) {
-                                startGame();
-                                startI.setOnClickListener(null);
-                                handlerCount.removeCallbacks(this);
-                                handlerFlag = false;
-                                i = 0;
-                                caricamentoBar.setProgress(i);
-                                introSong.stop();
-                            } else if (caricamentoBar.getProgress() < 100 && count() < 100) {
-                                count();
-                                caricamentoBar.setProgress(count());
-                                handlerFlag = true;
+                        if(storage.green == 2 && (storage.g1 == 2 || storage.g2 == 2 && storage.g3 == 2))
+                        {
+                            if (handlerFlag) {
+                                start();
+                                handlerCount.postDelayed(this, 500);
                             }
-                            handlerCount.postDelayed(this, 500);
                         }
+                        else if(storage.red == 2 && (storage.r1 == 2 || storage.r2 == 2 || storage.r3 == 2))
+                        {
+                            if (handlerFlag) {
+                                start();
+                                handlerCount.postDelayed(this, 500);
+                            }
+                        }
+                        else if(storage.ultimate == 2)
+                        {
+                            if (handlerFlag) {
+                                start();
+                                handlerCount.postDelayed(this, 500);
+                            }
+                        }
+                        else
+                        {
+                            Toast.makeText(MainActivity.this, "Assicurati di aver selezionato l'arma corrispondente all'astronave", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 });
             }
@@ -355,6 +373,9 @@ public class MainActivity extends Activity {
                 ultimate.setVisibility(View.INVISIBLE);
                 backButton.setVisibility(View.VISIBLE);
                 selectionGreen.setVisibility(View.VISIBLE);
+                descrizioneG.setVisibility(View.VISIBLE);
+                descrizioneR.setVisibility(View.INVISIBLE);
+                descrizioneU.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -369,6 +390,9 @@ public class MainActivity extends Activity {
                 red.setVisibility(View.VISIBLE);
                 ultimate.setVisibility(View.INVISIBLE);
                 backButton.setVisibility(View.VISIBLE);
+                descrizioneG.setVisibility(View.INVISIBLE);
+                descrizioneR.setVisibility(View.VISIBLE);
+                descrizioneU.setVisibility(View.INVISIBLE);
 
                 if (storage.red >= 1) {
                     buyButtonRed.setVisibility(View.INVISIBLE);
@@ -395,6 +419,9 @@ public class MainActivity extends Activity {
                 red.setVisibility(View.INVISIBLE);
                 ultimate.setVisibility(View.VISIBLE);
                 backButton.setVisibility(View.VISIBLE);
+                descrizioneG.setVisibility(View.INVISIBLE);
+                descrizioneR.setVisibility(View.INVISIBLE);
+                descrizioneU.setVisibility(View.VISIBLE);
 
                 if (storage.ultimate >= 1) {
                     buyButtonUltimate.setVisibility(View.INVISIBLE);
@@ -424,6 +451,10 @@ public class MainActivity extends Activity {
                 selectionUltimate.setVisibility(View.INVISIBLE);
                 buyButtonRed.setVisibility(View.INVISIBLE);
                 selectionRed.setVisibility(View.INVISIBLE);
+
+                descrizioneG.setVisibility(View.INVISIBLE);
+                descrizioneR.setVisibility(View.INVISIBLE);
+                descrizioneU.setVisibility(View.INVISIBLE);
 
                 //Ritorna alla posizione originale
                 green.setX(336);
@@ -1081,6 +1112,29 @@ public class MainActivity extends Activity {
             i = i + 2;
         }
         return i;
+    }
+
+    public void start()
+    {
+        caricamentoBar.setVisibility(View.VISIBLE);
+        caricamentoText.setVisibility(View.VISIBLE);
+        startI.setVisibility(View.INVISIBLE);
+        exitI.setVisibility(View.INVISIBLE);
+        shopI.setVisibility(View.INVISIBLE);
+        System.out.println(caricamentoBar.getProgress());
+        if (caricamentoBar.getProgress() == 100 && count() >= 100) {
+            startGame();
+            startI.setOnClickListener(null);
+            handlerCount.removeCallbacks(runnableCount);
+            handlerFlag = false;
+            i = 0;
+            caricamentoBar.setProgress(i);
+            introSong.stop();
+        } else if (caricamentoBar.getProgress() < 100 && count() < 100) {
+            count();
+            caricamentoBar.setProgress(count());
+            handlerFlag = true;
+        }
     }
 
     public void weapon(String s) {

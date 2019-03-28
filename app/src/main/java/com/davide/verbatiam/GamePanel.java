@@ -35,7 +35,6 @@ public class GamePanel extends Activity{
     private ImageView restart;
     private ImageView exitM;
     private ImageView settings;
-    private ImageView homeB;
     //Layout
     private ConstraintLayout menu;
     private ConstraintLayout gioco;
@@ -202,7 +201,6 @@ public class GamePanel extends Activity{
         restart = (ImageView) findViewById(R.id.restart);
         exitM = (ImageView) findViewById(R.id.exitM);
         settings = (ImageView) findViewById(R.id.settings);
-        homeB = (ImageView) findViewById(R.id.home);
 
         //Layout
         menu = (ConstraintLayout) findViewById(R.id.constraintLayoutPause);
@@ -383,18 +381,6 @@ public class GamePanel extends Activity{
                 finish();
                 Intent intent = new Intent(GamePanel.this, MainActivity.class);
                 startActivity(intent);
-            }
-        });
-
-        //Comando per ritornare al menu del gioco
-        homeB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handler.removeCallbacks(runnable);
-                handlerEnemy.removeCallbacks(runnableEnemy);
-                handlerShoot.removeCallbacks(runnableShoot);
-                handlerScore.removeCallbacks(runnableScore);
-                menu.setVisibility(View.VISIBLE);
             }
         });
 
