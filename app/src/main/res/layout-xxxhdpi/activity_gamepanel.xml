@@ -22,68 +22,35 @@
     <TextView
         android:id="@+id/score2"
         android:layout_width="69dp"
-        android:layout_height="28dp"
+        android:layout_height="20dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:scaleType="fitXY"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/colorPrimary"
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/right"
-        app:layout_constraintHorizontal_bias="0.828"
-        app:layout_constraintStart_toStartOf="@+id/left"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toStartOf="@+id/settings"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toEndOf="@+id/score"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/score"
         android:layout_width="69dp"
         android:layout_height="28dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:scaleType="fitXY"
         android:text="Score: "
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/colorPrimary"
         android:textSize="20dp"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/right"
-        app:layout_constraintHorizontal_bias="0.62"
-        app:layout_constraintStart_toStartOf="@+id/left"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/left"
-        android:layout_width="106dp"
-        android:layout_height="409dp"
-        android:src="@drawable/left"
-        android:visibility="invisible"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/img"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageView
-        android:id="@+id/right"
-        android:layout_width="106dp"
-        android:layout_height="409dp"
-        android:layout_marginTop="3dp"
-        android:src="@drawable/right"
-        android:visibility="invisible"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/img"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintEnd_toStartOf="@+id/settings"
+        app:layout_constraintHorizontal_bias="0.257"
+        app:layout_constraintStart_toEndOf="@+id/life"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/settings"
@@ -191,108 +158,12 @@
         app:layout_constraintVertical_bias="0.646" />
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout2"
-        android:layout_width="542dp"
-        android:layout_height="310dp"
+        android:id="@+id/constraintLayoutPause"
+        android:layout_width="305dp"
+        android:layout_height="380dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="450dp"
-            android:layout_height="315dp"
-            android:layout_marginStart="134dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="133dp"
-            android:layout_marginBottom="60dp"
-            android:src="@drawable/optionsmenu"
-            android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="300dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="244dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/contenitore"
-            android:scaleType="fitXY"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
-
-        <ImageView
-            android:id="@+id/home"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="252dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/home"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.28"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.65"/>
-
-        <ToggleButton
-            android:id="@+id/accelerometer"
-            style="@android:style/Widget.Holo.Light.Button.Toggle"
-            android:layout_width="56dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:scaleType="fitXY"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.453"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.276" />
-
-        <TextView
-            android:id="@+id/textCommands"
-            android:layout_width="128dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="Accelerometer"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="18dp"
-            android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.213"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.276" />
-
-    </android.support.constraint.ConstraintLayout>
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout1"
-        android:layout_width="305dp"
-        android:layout_height="366dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/gameover"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -304,37 +175,28 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/menu2"
             android:scaleType="fitXY"
+            android:src="@drawable/menu2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.487"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.363" />
 
         <ImageView
             android:id="@+id/restart"
             android:layout_width="119dp"
             android:layout_height="47dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="116dp"
+            android:layout_marginTop="144dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"
             android:src="@drawable/restart"
-            android:scaleType="fitXY"
+            app:layout_constraintBottom_toTopOf="@+id/exitM"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/Menu" />
-
-        <ImageView
-            android:id="@+id/option"
-            android:layout_width="119dp"
-            android:layout_height="47dp"
-            android:layout_marginTop="168dp"
-            android:src="@drawable/option"
-            android:scaleType="fitXY"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/Menu" />
 
@@ -342,25 +204,29 @@
             android:id="@+id/exitM"
             android:layout_width="119dp"
             android:layout_height="47dp"
-            android:layout_marginTop="220dp"
-            android:src="@drawable/exit"
+            android:layout_marginBottom="8dp"
             android:scaleType="fitXY"
+            android:src="@drawable/exit"
+            app:layout_constraintBottom_toBottomOf="@+id/Menu"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/Menu" />
+            app:layout_constraintTop_toTopOf="@+id/Menu"
+            app:layout_constraintVertical_bias="0.715" />
 
         <ImageView
             android:id="@+id/resume"
             android:layout_width="119dp"
             android:layout_height="47dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="76dp"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/resume"
+            android:layout_marginBottom="8dp"
             android:scaleType="fitXY"
+            android:src="@drawable/resume"
+            app:layout_constraintBottom_toTopOf="@+id/restart"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/Menu" />
 
@@ -371,8 +237,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/paused"
             android:scaleType="fitXY"
+            android:src="@drawable/paused"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/Menu" />

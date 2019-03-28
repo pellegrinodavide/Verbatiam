@@ -8,10 +8,6 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Bundle;
@@ -21,15 +17,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 import java.util.ArrayList;
 
-public class GamePanel extends Activity implements SensorEventListener {
+public class GamePanel extends Activity{
     //ProgressBar
     private ProgressBar life;
     //TextView
@@ -40,19 +33,12 @@ public class GamePanel extends Activity implements SensorEventListener {
     //Image
     private ImageView resume;
     private ImageView restart;
-    private ImageView option;
     private ImageView exitM;
     private ImageView settings;
     private ImageView homeB;
-    //Immagini per le freccie
-    private ImageView left;
-    private ImageView right;
     //Layout
     private ConstraintLayout menu;
-    private ConstraintLayout optionsMenu;
     private ConstraintLayout gioco;
-    //ToggleButton
-    private ToggleButton accelerometer;
     //Class
     private Runnable runnable;
     private Handler handler = new Handler();
@@ -61,15 +47,7 @@ public class GamePanel extends Activity implements SensorEventListener {
     private ShieldPlayer shieldPlayer;
     private Storage storage = new Storage();
     //Boolean
-    private boolean rect_actionFlagDX = false;
-    private boolean rect_actionFlagSX = false;
     private boolean handlerFlag = true;
-    private boolean touchFlag = true;
-    private boolean accelerometerFlag = false;
-    private boolean menuFlag = true;
-    //Sensor
-    private Sensor sensor;
-    private SensorManager sensorManager;
     //timer
     private int lifeCount=0;
     private int damageEnemy=100;
@@ -91,12 +69,8 @@ public class GamePanel extends Activity implements SensorEventListener {
     private Handler handlerCollisionBullets = new Handler();
     private Runnable runnableCollisionBullets;
 
-    private Handler handlerSpawnExplosion = new Handler();
-    private Runnable runnableSpawnExplosion;
-
-    private TextView score;
     private int speedBullet = 15;
-    private int contatore = 0;
+    private int contatoreTimer = 0;
     private int increaseEnemy = 3;
     private int increaseProgressBar = 3;
     private int coin = 0;
@@ -114,8 +88,8 @@ public class GamePanel extends Activity implements SensorEventListener {
     private Handler handlerShield = new Handler();
     private Runnable runnableShield;
 
-    private Handler prova = new Handler();
-    private Runnable provaRunnable;
+    private Handler handlerBackground = new Handler();
+    private Runnable runnableBackground;
 
     private DatabaseHelper db;
 
@@ -124,7 +98,6 @@ public class GamePanel extends Activity implements SensorEventListener {
     private MediaPlayer gameSong;
     private MediaPlayer gameOver;
 
-    private boolean coinFlag = false;
     long millis = 1000L;
 
     private int length;
@@ -196,7 +169,6 @@ public class GamePanel extends Activity implements SensorEventListener {
         gameSong.setLooping(true);
 
         //TextView
-        score = (TextView) findViewById(R.id.score);
         score2 = (TextView) findViewById(R.id.score2);
         coinView = (TextView) findViewById(R.id.coinText);
         coinViewAll = (TextView) findViewById(R.id.coinAll);
@@ -228,27 +200,12 @@ public class GamePanel extends Activity implements SensorEventListener {
         //Comandi
         resume = (ImageView) findViewById(R.id.resume);
         restart = (ImageView) findViewById(R.id.restart);
-        option = (ImageView) findViewById(R.id.option);
         exitM = (ImageView) findViewById(R.id.exitM);
         settings = (ImageView) findViewById(R.id.settings);
         homeB = (ImageView) findViewById(R.id.home);
 
         //Layout
-        menu = (ConstraintLayout) findViewById(R.id.constraintLayout1);
-        optionsMenu = (ConstraintLayout) findViewById(R.id.constraintLayout2);
-
-        //Switch
-        accelerometer = (ToggleButton) findViewById(R.id.accelerometer);
-
-
-        //Porzione di schermo da toccare
-        left = (ImageView) findViewById(R.id.left);
-        right = (ImageView) findViewById(R.id.right);
-
-        //Manage Sensor
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+        menu = (ConstraintLayout) findViewById(R.id.constraintLayoutPause);
 
         handlerScore.post(runnableScore = new Runnable() {
             @Override
@@ -374,7 +331,6 @@ public class GamePanel extends Activity implements SensorEventListener {
                 gameSong.seekTo(length);
                 gameSong.start();
                 menu.setVisibility(View.INVISIBLE);
-                menuFlag = true;
                 handler.postDelayed(runnable, 20);
                 handlerScore.postDelayed(runnableScore,30);
                 handlerEnemy.postDelayed(runnableEnemy, 20);
@@ -420,7 +376,6 @@ public class GamePanel extends Activity implements SensorEventListener {
         exitM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                coinFlag = true;
                 handler.removeCallbacks(runnable);
                 handlerEnemy.removeCallbacks(runnableEnemy);
                 handlerShoot.removeCallbacks(runnableShoot);
@@ -428,39 +383,6 @@ public class GamePanel extends Activity implements SensorEventListener {
                 finish();
                 Intent intent = new Intent(GamePanel.this, MainActivity.class);
                 startActivity(intent);
-            }
-        });
-
-        //Comando per entrare nel menu option
-        option.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                menuFlag = false;
-                handler.removeCallbacks(runnable);
-                handlerEnemy.removeCallbacks(runnableEnemy);
-                handlerShoot.removeCallbacks(runnableShoot);
-                handlerScore.removeCallbacks(runnableScore);
-                optionsMenu.setVisibility(View.VISIBLE);
-                menu.setVisibility(View.INVISIBLE);
-            }
-        });
-
-        //Comando per attivare l'accelerometro
-        accelerometer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                {
-                    touchFlag = false;
-                    accelerometerFlag = true;
-                    Toast.makeText(getBaseContext(),"On Accelerometer", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    touchFlag = true;
-                    accelerometerFlag = false;
-                    Toast.makeText(getBaseContext(),"On TouchEvent", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
@@ -472,16 +394,15 @@ public class GamePanel extends Activity implements SensorEventListener {
                 handlerEnemy.removeCallbacks(runnableEnemy);
                 handlerShoot.removeCallbacks(runnableShoot);
                 handlerScore.removeCallbacks(runnableScore);
-                optionsMenu.setVisibility(View.INVISIBLE);
                 menu.setVisibility(View.VISIBLE);
             }
         });
 
-        prova.post(provaRunnable = new Runnable() {
+        handlerBackground.post(runnableBackground = new Runnable() {
             @Override
             public void run() {
                 backgroundScrool();
-                prova.postDelayed(this, 50);
+                handlerBackground.postDelayed(this, 50);
             }
         });
     }
@@ -528,10 +449,10 @@ public class GamePanel extends Activity implements SensorEventListener {
 
     public void timer()
     {
-        contatore = contatore + 1;
-        score2.setText(contatore+"");
+        contatoreTimer = contatoreTimer + 1;
+        score2.setText(contatoreTimer+"");
 
-        if(contatore >= 500)
+        if(contatoreTimer >= 500)
         {
             for(Enemy enemy: enemies)
             {
@@ -815,7 +736,7 @@ public class GamePanel extends Activity implements SensorEventListener {
                     handlerCollisionBullets.removeCallbacks(runnableCollisionBullets);
                     gameover.setVisibility(View.VISIBLE);
                     storage.coinStorageF = storage.coinStorageF + coin;
-                    storage.scoreT = contatore;
+                    storage.scoreT = contatoreTimer;
 
                     Cursor res = db.selectData();
                     if(res.getCount() != 0)
@@ -1032,80 +953,5 @@ public class GamePanel extends Activity implements SensorEventListener {
                 break;
         }
         return true;
-    }
-
-    /*
-    //Metodo usato per il movimento dell'oggetto tramite due immagini
-    public boolean onTouchEvent(MotionEvent event)
-    {
-        final Region region1 = new Region(left.getLeft(), left.getTop(),left.getRight(), left.getBottom());
-        final Region region2 = new Region(right.getLeft(), right.getTop(),right.getRight(), right.getBottom());
-        final float xRegion1 = event.getX();
-        final float yRegion1 = event.getY();
-        final float xRegion2 = event.getX();
-        final float yRegion2 = event.getY();
-        if(touchFlag == true)
-        {
-            if(region1.contains((int)xRegion1,(int)yRegion1))
-            {
-                if(event.getAction() == MotionEvent.ACTION_DOWN)
-                {
-                    rect_actionFlagSX = true;
-                }
-                else if(event.getAction() == MotionEvent.ACTION_UP)
-                {
-                    rect_actionFlagSX = false;
-                }
-            }
-            else if(region2.contains((int)xRegion2,(int)yRegion2))
-            {
-                if(event.getAction() == MotionEvent.ACTION_DOWN)
-                {
-                    rect_actionFlagDX = true;
-                }
-                else if(event.getAction() == MotionEvent.ACTION_UP)
-                {
-                    rect_actionFlagDX = false;
-                }
-            }
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }*/
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        /*
-        destra x = 8 y = 1
-        sinistra x = 8 y = -1
-        normale x=9 y=0
-        */
-        if(accelerometerFlag == true)
-        {
-            if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER && event.values[0]<8.5 && event.values[1]>1.5)
-            {
-                rect_actionFlagDX = true;
-            }
-            else
-            {
-                rect_actionFlagDX = false;
-            }
-            if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER && event.values[0]<8.5 && event.values[1]<-2)
-            {
-                rect_actionFlagSX = true;
-            }
-            else
-            {
-                rect_actionFlagSX = false;
-            }
-        }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
     }
 }
