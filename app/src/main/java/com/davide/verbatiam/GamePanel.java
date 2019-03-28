@@ -134,6 +134,7 @@ public class GamePanel extends Activity implements SensorEventListener {
     private int bulletR3 = 150;
     private int bulletU1 = 200;
     private int bulletU2 = 300;
+    private int maxLife = 50;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -257,7 +258,7 @@ public class GamePanel extends Activity implements SensorEventListener {
         handlerIncreaseEnemy.post(runnableIncreaseEnemy = new Runnable() {
             @Override
             public void run() {
-                handlerIncreaseEnemy.postDelayed(this,20000);
+                handlerIncreaseEnemy.postDelayed(this,30000);
                 increaseSpeedEnemy();
             }
         });
@@ -546,6 +547,16 @@ public class GamePanel extends Activity implements SensorEventListener {
         increaseProgressBar = increaseProgressBar + 1;
         increaseEnemy = increaseEnemy + 1;
         damageEnemy = damageEnemy + 20;
+        maxLife = maxLife +25;
+
+        for(EnemyLife enemyLife: enemyLifes)
+        {
+            enemyLife.setMax(maxLife);
+            enemyLife.setProgress(maxLife);
+            System.out.println("Max "+enemyLife.getMax());
+            System.out.println("Progress "+enemyLife.getProgress());
+        }
+
         if(millis == 300)
         {
             millis = 300;
@@ -567,10 +578,11 @@ public class GamePanel extends Activity implements SensorEventListener {
         {
             for(final Enemy enemy: enemies)
             {
-                if (bullet.collide(enemy))
+                for(EnemyLife enemyLife: enemyLifes)
                 {
-                    for(EnemyLife enemyLife: enemyLifes)
+                    if (bullet.collide(enemy))
                     {
+
                         for(final ExplosionEnemy explosionEnemy : explosionEnemies)
                         {
                             explosionEnemy.post(new Runnable() {
@@ -586,39 +598,52 @@ public class GamePanel extends Activity implements SensorEventListener {
                             });
                         }
                         deleteBullet.add(bullet);
-                        deleteEnemy.add(enemy);
-                        System.out.println(enemyLife.getMax() + "||" + enemyLife.getProgress());
+
+                        //System.out.println(enemyLife.getMax() + "||" + enemyLife.getProgress());
                         if(enemyLife.getX() == enemy.getX() || enemyLife.getY() == enemy.getY())
                         {
-                            deleteEnemyLife.add(enemyLife);
                             coin = coin + 2;
                             if(storage.g1 == 2)
                             {
                                 enemyLife.setProgress(enemyLife.getProgress() - bulletG1);
+                                deleteEnemyLife.add(enemyLife);
+                                deleteEnemy.add(enemy);
                             }
                             if(storage.g2 == 2)
                             {
                                 enemyLife.setProgress(enemyLife.getProgress() - bulletG2);
+                                deleteEnemyLife.add(enemyLife);
+                                deleteEnemy.add(enemy);
                             }
                             if(storage.g3 == 2)
                             {
                                 enemyLife.setProgress(enemyLife.getProgress() - bulletG3);
+                                deleteEnemyLife.add(enemyLife);
+                                deleteEnemy.add(enemy);
                             }
                             if(storage.r1 == 2)
                             {
                                 enemyLife.setProgress(enemyLife.getProgress() - bulletR1);
+                                deleteEnemyLife.add(enemyLife);
+                                deleteEnemy.add(enemy);
                             }
                             if(storage.r2 == 2)
                             {
                                 enemyLife.setProgress(enemyLife.getProgress() - bulletR2);
+                                deleteEnemyLife.add(enemyLife);
+                                deleteEnemy.add(enemy);
                             }
                             if(storage.r3 == 2)
                             {
                                 enemyLife.setProgress(enemyLife.getProgress() - bulletR3);
+                                deleteEnemyLife.add(enemyLife);
+                                deleteEnemy.add(enemy);
                             }
                             if(storage.ultimate == 2)
                             {
                                 enemyLife.setProgress(enemyLife.getProgress() - bulletU1);
+                                deleteEnemyLife.add(enemyLife);
+                                deleteEnemy.add(enemy);
                             }
                         }
                     }
@@ -677,17 +702,17 @@ public class GamePanel extends Activity implements SensorEventListener {
 
         for(final Enemy enemy: enemies)
         {
-                if (enemy.collideShield(shieldPlayer))
+            if (enemy.collideShield(shieldPlayer))
+            {
+                for(EnemyLife enemyLife: enemyLifes)
                 {
-                    for(EnemyLife enemyLife: enemyLifes)
-                    {
-                        if (enemyLife.getX() == enemy.getX() || enemyLife.getY() == enemy.getY()) {
-                            deleteEnemyLife.add(enemyLife);
-                            shieldPlayer.setVisibility(View.INVISIBLE);
-                            deleteEnemy.add(enemy);
-                        }
+                    if (enemyLife.getX() == enemy.getX() || enemyLife.getY() == enemy.getY()) {
+                        deleteEnemyLife.add(enemyLife);
+                        shieldPlayer.setVisibility(View.INVISIBLE);
+                        deleteEnemy.add(enemy);
                     }
                 }
+            }
         }
 
         for (Enemy enemy : deleteEnemy)
@@ -711,41 +736,41 @@ public class GamePanel extends Activity implements SensorEventListener {
 
         for(final Enemy enemy: enemies)
         {
-                if(enemy.collide(player))
+            if(enemy.collide(player))
+            {
+                for(EnemyLife enemyLife: enemyLifes)
                 {
-                    for(EnemyLife enemyLife: enemyLifes)
-                    {
-                        if (enemyLife.getX() == enemy.getX() || enemyLife.getY() == enemy.getY()) {
-                            deleteEnemyLife.add(enemyLife);
-                        }
+                    if (enemyLife.getX() == enemy.getX() || enemyLife.getY() == enemy.getY()) {
+                        deleteEnemyLife.add(enemyLife);
                     }
-                    for(final ExplosionEnemy explosionEnemy : explosionEnemies)
-                    {
+                }
+                for(final ExplosionEnemy explosionEnemy : explosionEnemies)
+                {
 
-                        explosionEnemy.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                if(explosionEnemy.getX() == enemy.getX() || explosionEnemy.getY() == enemy.getY())
-                                {
-                                    explosionSound.start();
-                                    explosionEnemy.setVisibility(View.VISIBLE);
-                                    explosionEnemy.startAnimation();
-                                }
-
+                    explosionEnemy.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(explosionEnemy.getX() == enemy.getX() || explosionEnemy.getY() == enemy.getY())
+                            {
+                                explosionSound.start();
+                                explosionEnemy.setVisibility(View.VISIBLE);
+                                explosionEnemy.startAnimation();
                             }
-                        });
-                    }
-                    lifeCount++;
-                    deleteCollision.add(enemy);
-                    if(life.getProgress() <= 200 && life.getProgress() > 100)
-                    {
-                        life.getProgressDrawable().setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_IN);
-                    }
-                    else if(life.getProgress() <= 100 && life.getProgress() >= 0)
-                    {
-                        life.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
-                    }
-                    life.setProgress(life.getProgress()-damageEnemy);
+
+                        }
+                    });
+                }
+                lifeCount++;
+                deleteCollision.add(enemy);
+                if(life.getProgress() <= 200 && life.getProgress() > 100)
+                {
+                    life.getProgressDrawable().setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_IN);
+                }
+                else if(life.getProgress() <= 100 && life.getProgress() >= 0)
+                {
+                    life.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+                }
+                life.setProgress(life.getProgress()-damageEnemy);
             }
         }
 
@@ -801,15 +826,15 @@ public class GamePanel extends Activity implements SensorEventListener {
         float enemyX = (float) Math.floor(Math.random() * (costants.SCREEN_WIDTH - 150));
         float enemyY = -100;
 
-        //Spawn oggetto progressBar
-        EnemyLife enemyLife = new EnemyLife(this,null, android.R.attr.progressBarStyleHorizontal,enemyX, enemyY);
-        enemyLifes.add(enemyLife);
-        gioco.addView(enemyLife);
-
         //Spawn oggetto enemy
         Enemy enemy = new Enemy(this,enemyX,enemyY);
         enemies.add(enemy);
         gioco.addView(enemy);
+
+        //Spawn oggetto progressBar
+        EnemyLife enemyLife = new EnemyLife(this,null, android.R.attr.progressBarStyleHorizontal,enemyX, enemyY, maxLife);
+        enemyLifes.add(enemyLife);
+        gioco.addView(enemyLife);
 
         ExplosionEnemy explosionEnemy = new ExplosionEnemy(this,enemyX,enemyY);
         explosionEnemies.add(explosionEnemy);
@@ -851,10 +876,10 @@ public class GamePanel extends Activity implements SensorEventListener {
 
         for(Enemy enemy : enemies)
         {
-                if(enemy.getY() > costants.SCREEN_HEIGHT)
-                {
-                    delete.add(enemy);
-                }
+            if(enemy.getY() > costants.SCREEN_HEIGHT)
+            {
+                delete.add(enemy);
+            }
         }
 
         for(Enemy enemy : delete)
@@ -879,6 +904,7 @@ public class GamePanel extends Activity implements SensorEventListener {
 
         for(EnemyLife enemyLife : deleteEnemyLife)
         {
+            enemyLife.stopHandler();
             enemyLifes.remove(enemyLife);
             gioco.removeView(enemyLife);
         }
@@ -1066,4 +1092,3 @@ public class GamePanel extends Activity implements SensorEventListener {
 
     }
 }
-

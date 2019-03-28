@@ -13,29 +13,15 @@ public class EnemyLife extends ProgressBar {
     private Handler handler = new Handler();
     private Runnable runnable;
 
-    private Handler handlerLife = new Handler();
-    private Runnable runnableLife;
     private int speedY = 3;
-    private int life = 50;
-    private int contLife = 0;
 
-    public EnemyLife(final Context context, AttributeSet attrs, int defStyleAttr, float x, float y) {
+    public EnemyLife(final Context context, AttributeSet attrs, int defStyleAttr, float x, float y, int maxLife) {
         super(context, attrs, defStyleAttr);
         this.setLayoutParams(new ConstraintLayout.LayoutParams(140, 15));
         this.setX(x);
         this.setY(y);
-        this.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
-
-        handlerLife.post(runnableLife = new Runnable() {
-            @Override
-            public void run() {
-                setMaxLife();
-                setProgressLife();
-                handlerLife.postDelayed(this,10000);
-                contLife = contLife + 25;
-            }
-        });
-
+        this.setMax(maxLife);
+        this.setProgress(maxLife);
         handler.post(runnable = new Runnable() {
             @Override
             public void run() {
@@ -43,16 +29,6 @@ public class EnemyLife extends ProgressBar {
                 handler.postDelayed(this,10);
             }
         });
-    }
-
-    public void setMaxLife()
-    {
-        this.setMax(life + contLife);
-    }
-
-    public void setProgressLife()
-    {
-        this.setProgress(life + contLife);
     }
 
     public void updateY()
