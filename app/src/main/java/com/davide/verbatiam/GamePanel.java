@@ -101,14 +101,15 @@ public class GamePanel extends Activity{
 
     private int length;
 
-    private int bulletG1 = 25;
-    private int bulletG2 = 50;
-    private int bulletG3 = 75;
-    private int bulletR1 = 50;
-    private int bulletR2 = 100;
-    private int bulletR3 = 150;
-    private int bulletU1 = 200;
-    private int bulletU2 = 300;
+    private int bulletG1 = 25; //x1
+    private int bulletG2 = 50; //x1
+    private int bulletG3 = 75; //x1
+
+    private int bulletR1 = 25; //x2
+    private int bulletR2 = 50; //x2
+    private int bulletR3 = 75; //x2
+
+    private int bulletU1 = 100; //x3
     private int maxLife = 25;
 
     @Override
@@ -378,9 +379,10 @@ public class GamePanel extends Activity{
                 handlerEnemy.removeCallbacks(runnableEnemy);
                 handlerShoot.removeCallbacks(runnableShoot);
                 handlerScore.removeCallbacks(runnableScore);
-                finish();
+                finishAffinity();
                 Intent intent = new Intent(GamePanel.this, MainActivity.class);
                 startActivity(intent);
+                System.exit(0);
             }
         });
 
@@ -721,6 +723,7 @@ public class GamePanel extends Activity{
                     handlerCollisionEnemy.removeCallbacks(runnableCollisionEnemy);
                     handlerCollisionBullets.removeCallbacks(runnableCollisionBullets);
                     gameover.setVisibility(View.VISIBLE);
+                    storage.coinStorageI = storage.coinStorageI + coin;
                     storage.coinStorageF = storage.coinStorageF + coin;
                     storage.scoreT = contatoreTimer;
 
@@ -890,15 +893,19 @@ public class GamePanel extends Activity{
         }
         else if(storage.ultimate == 2)
         {
-            Bullet bulletU1 = new Bullet(this,player.getX()+50, player.getY()+20);
-            Bullet bulletU2 = new Bullet(this,player.getX()+325, player.getY()+20);
+            Bullet bulletU1 = new Bullet(this,player.getX()+10, player.getY()+50);
+            Bullet bulletU2 = new Bullet(this,player.getX()+145, player.getY());
+            Bullet bulletU3 = new Bullet(this,player.getX()+280, player.getY()+50);
             bullets.add(bulletU1);
             bullets.add(bulletU2);
+            bullets.add(bulletU3);
             gioco.addView(bulletU1);
             gioco.addView(bulletU2);
+            gioco.addView(bulletU3);
             Drawable drawable = getResources().getDrawable(R.drawable.bulleth);
             bulletU1.setImageDrawable(drawable);
             bulletU2.setImageDrawable(drawable);
+            bulletU3.setImageDrawable(drawable);
         }
         lasershootSound.start();
     }

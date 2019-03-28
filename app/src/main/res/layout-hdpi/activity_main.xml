@@ -215,20 +215,19 @@
 
         <ImageView
             android:id="@+id/ultimateS"
-            android:layout_width="154dp"
-            android:layout_height="131dp"
+            android:layout_width="149dp"
+            android:layout_height="168dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:scaleType="fitXY"
-            android:src="@drawable/ultimate"
+            android:src="@drawable/ultimate2"
             app:layout_constraintBottom_toBottomOf="@+id/shipLayout"
             app:layout_constraintEnd_toEndOf="@+id/shipLayout"
-            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="@+id/shipLayout"
             app:layout_constraintTop_toTopOf="@+id/shipLayout"
-            app:layout_constraintVertical_bias="0.699" />
+            app:layout_constraintVertical_bias="0.749" />
 
         <TextView
             android:id="@+id/textView"
@@ -362,8 +361,8 @@
             android:id="@+id/descrizioneGreen"
             android:layout_width="341dp"
             android:layout_height="274dp"
-            android:visibility="invisible"
-            android:text="Questo tipo di astronave è usata dai soldati dell'esercito dei Verbatiani.
+            android:text="GREENSPACESHIP
+                                            Questo tipo di astronave è usata dai soldati dell'esercito dei Verbatiani.
 Ha una armatura che permette di sopportare pochi colpi e non riesce a superare molte galassie perchè i componenti del motore non sono cosi efficenti.
 Le basse prestazioni di questa astronave sono dovute perchè ne vengono prodotte in grande scala per fare grandi eserciti.
                                                     COSTO: Gratuita
@@ -371,6 +370,7 @@ Le basse prestazioni di questa astronave sono dovute perchè ne vengono prodotte
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18dp"
             android:textStyle="bold"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/shipLayout"
             app:layout_constraintEnd_toEndOf="@+id/shipLayout"
             app:layout_constraintHorizontal_bias="0.642"
@@ -382,19 +382,20 @@ Le basse prestazioni di questa astronave sono dovute perchè ne vengono prodotte
             android:id="@+id/descrizioneRed"
             android:layout_width="341dp"
             android:layout_height="274dp"
-            android:text="Questa astronave viene guidata da piloti molto abili che in battaglia
+            android:text="REDSPACESHIP
+                                        Questa astronave viene guidata da piloti molto abili che in battaglia
 dirigono l'attacco con grandi gruppi di greenSpaceship. La sua armatura ha una
 discreta resistenza, ma la sua specialità è la possibilità di sparare con 2 cannoni.
 Questo particolare permette di sconfiggere piu nemici e quindi di evitare piu collisioni.
                                                     COSTO: 8000
                                                     VITA ASTRONAVE: 800hp"
-            android:visibility="invisible"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18dp"
             android:textStyle="bold"
-            app:layout_constraintHorizontal_bias="0.642"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/shipLayout"
             app:layout_constraintEnd_toEndOf="@+id/shipLayout"
+            app:layout_constraintHorizontal_bias="0.642"
             app:layout_constraintStart_toStartOf="@+id/shipLayout"
             app:layout_constraintTop_toTopOf="@+id/shipLayout"
             app:layout_constraintVertical_bias="0.561" />
@@ -403,20 +404,22 @@ Questo particolare permette di sconfiggere piu nemici e quindi di evitare piu co
             android:id="@+id/descrizioneUltimate"
             android:layout_width="341dp"
             android:layout_height="274dp"
-            android:text="Questa astronave è molto piu forte rispetto alle precedenti, ha dei propulsori piu grandi
+            android:text="ULTIMATE
+                                            Questa astronave è molto piu forte rispetto alle precedenti, ha dei propulsori piu grandi
 e piu potenti rispetto alle altre astronavi che gli permettono di attraversare intere galassie.
 A l'acquisto l'Ultimate è equippaggiata automaticamente con l'arma heavy bluster. La sua vita è molto
-alta. Inoltre spara i proiettili con più  molta più velocita. A comando di questa astronave i nemici si
+alta. Inoltre spara i proiettili con molta più velocita. A comando di questa astronave i nemici si
 troveranno polverizzati.
                                                     COSTO: 18000
-                                                    VITA ASTRONAVE: 1600hp"
-            android:visibility="invisible"
+                                                    VITA ASTRONAVE: 1600hp
+                                                    DANNO: 100hp moltiplicatore x3"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18dp"
             android:textStyle="bold"
-            app:layout_constraintHorizontal_bias="0.642"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/shipLayout"
             app:layout_constraintEnd_toEndOf="@+id/shipLayout"
+            app:layout_constraintHorizontal_bias="0.642"
             app:layout_constraintStart_toStartOf="@+id/shipLayout"
             app:layout_constraintTop_toTopOf="@+id/shipLayout"
             app:layout_constraintVertical_bias="0.561" />
@@ -796,6 +799,154 @@ troveranno polverizzati.
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.818" />
+
+        <TextView
+            android:id="@+id/descrizioneG1"
+            android:layout_width="335dp"
+            android:layout_height="257dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="LIGHT BLUSTER GREENSPACESHIP
+            Quest'arma è l’arma base da cui si inizia.
+Spara proiettili di piccolo spessore e la potenza di fuoco è molto bassa.
+Questo influenza molto la velocità con cui i proiettili sono sparati.
+                                                    COSTO: Gratuita
+                                                    DANNO: 25hp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.55"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gunMenu"
+            app:layout_constraintVertical_bias="0.597" />
+
+        <TextView
+            android:id="@+id/descrizioneG2"
+            android:layout_width="335dp"
+            android:layout_height="257dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="MEDIUM BLUSTER GREENSPACESHIP
+            Quest'arma è un’arma piuttosto avanzata rispetto a quella precedente.
+Spara proiettili più grandi e il danno arrecato ai nemici sara maggiore.
+                                                    COSTO: 2000
+                                                    DANNO: 50hp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.55"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gunMenu"
+            app:layout_constraintVertical_bias="0.597" />
+
+        <TextView
+            android:id="@+id/descrizioneG3"
+            android:layout_width="335dp"
+            android:layout_height="257dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="HEAVY BLUSTER GREENSPACESHIP
+            Questa è l’arma con potenza di fuoco maggiore ed è anche la più forte di tutto il gioco.
+Spara i proiettili ad una velocità molto alta ed infligge seri danni agli Scrool.
+I proiettili hanno una dimensione gigantesca e causano un danno enorme.
+                                                    COSTO: 4000
+                                                    DANNO: 75hp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.55"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gunMenu"
+            app:layout_constraintVertical_bias="0.597" />
+
+        <TextView
+            android:id="@+id/descrizioneR1"
+            android:layout_width="335dp"
+            android:layout_height="257dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="LIGHT BLUSTER REDSPACESHIP X2
+            Quest'arma è l’arma base da cui si inizia.
+Spara proiettili di piccolo spessore e la potenza di fuoco è molto bassa.
+Questo influenza molto la velocità con cui i proiettili sono sparati.
+                                                    COSTO: Gratuita
+                                                    DANNO: 25hp moltiplicatore x2"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.55"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gunMenu"
+            app:layout_constraintVertical_bias="0.597" />
+
+        <TextView
+            android:id="@+id/descrizioneR2"
+            android:layout_width="335dp"
+            android:layout_height="257dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="MEDIUM BLUSTER REDSPACESHIP X2
+            Quest'arma è un’arma piuttosto avanzata rispetto a quella precedente.
+Spara proiettili più grandi e il danno arrecato ai nemici sara maggiore.
+                                                    COSTO: 10000
+                                                    DANNO: 50hp moltiplicatore x2"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.55"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gunMenu"
+            app:layout_constraintVertical_bias="0.597" />
+
+        <TextView
+            android:id="@+id/descrizioneR3"
+            android:layout_width="335dp"
+            android:layout_height="257dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="HEAVY BLUSTER REDSPACESHIP X2
+            Questa è l’arma con potenza di fuoco maggiore ed è anche la più forte di tutto il gioco.
+Spara i proiettili ad una velocità molto alta ed infligge seri danni agli Scrool.
+I proiettili hanno una dimensione gigantesca e causano un danno enorme.
+                                                    COSTO: 14000
+                                                    DANNO: 75hp moltiplicatore x2"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.55"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gunMenu"
+            app:layout_constraintVertical_bias="0.597" />
 
     </android.support.constraint.ConstraintLayout>
 

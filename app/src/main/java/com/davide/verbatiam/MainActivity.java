@@ -33,6 +33,8 @@ public class MainActivity extends Activity {
     private ImageView layoutcoin;
     private TextView textcoin;
     private TextView textScore;
+    private TextView caricamentoText;
+    private ProgressBar caricamentoBar;
 
     //Layout dello ship
     private ConstraintLayout shipL;
@@ -78,10 +80,12 @@ public class MainActivity extends Activity {
     private ImageView selectionR2;
     private ImageView selectionR3;
     private TextView textView;
-
-    //Caricamento del gioco quando si preme su start
-    private TextView caricamentoText;
-    private ProgressBar caricamentoBar;
+    private TextView descrizioneG1;
+    private TextView descrizioneG2;
+    private TextView descrizioneG3;
+    private TextView descrizioneR1;
+    private TextView descrizioneR2;
+    private TextView descrizioneR3;
 
     //Handler usato per l'incemento della variabile "i" (fa partire il gioco)
     public Handler handlerCount = new Handler();
@@ -94,12 +98,12 @@ public class MainActivity extends Activity {
     private Storage storage = new Storage();
     private Costants costants = new Costants();
 
+    //boolean
     private boolean handlerFlag = true;
-
-    private MediaPlayer introSong;
-
     private Boolean firstTime = null;
 
+    //Oggetto MediaPlayer
+    private MediaPlayer introSong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,6 +173,12 @@ public class MainActivity extends Activity {
         selectionR1 = (ImageView) findViewById(R.id.selectionR1);
         selectionR2 = (ImageView) findViewById(R.id.selectionR2);
         selectionR3 = (ImageView) findViewById(R.id.selectionR3);
+        descrizioneG1 = (TextView) findViewById(R.id.descrizioneG1);
+        descrizioneG2 = (TextView) findViewById(R.id.descrizioneG2);
+        descrizioneG3 = (TextView) findViewById(R.id.descrizioneG3);
+        descrizioneR1 = (TextView) findViewById(R.id.descrizioneR1);
+        descrizioneR2 = (TextView) findViewById(R.id.descrizioneR2);
+        descrizioneR3 = (TextView) findViewById(R.id.descrizioneR3);
 
         //Layout collegato allo shop
         shopL = (ConstraintLayout) findViewById(R.id.shopLayout);
@@ -232,7 +242,7 @@ public class MainActivity extends Activity {
         }
         else if(storage.ultimate == 2)
         {
-            ship404.setImageResource(R.drawable.ultimate);
+            ship404.setImageResource(R.drawable.ultimate2);
         }
 
         if (storage.green == 2) {
@@ -434,7 +444,7 @@ public class MainActivity extends Activity {
 
                 //Va alla posizione della astronave verde
                 ultimate.setX(336);
-                ultimate.setY(290);
+                ultimate.setY(285);
             }
         });
 
@@ -622,6 +632,12 @@ public class MainActivity extends Activity {
                 g2.setVisibility(View.INVISIBLE);
                 g3.setVisibility(View.INVISIBLE);
                 backButtonG.setVisibility(View.VISIBLE);
+                descrizioneG1.setVisibility(View.VISIBLE);
+                descrizioneG2.setVisibility(View.INVISIBLE);
+                descrizioneG3.setVisibility(View.INVISIBLE);
+                descrizioneR1.setVisibility(View.INVISIBLE);
+                descrizioneR2.setVisibility(View.INVISIBLE);
+                descrizioneR3.setVisibility(View.INVISIBLE);
 
                 if (storage.g1 >= 1) {
                     selectionG1.setVisibility(View.VISIBLE);
@@ -639,6 +655,12 @@ public class MainActivity extends Activity {
                 g2.setVisibility(View.VISIBLE);
                 g3.setVisibility(View.INVISIBLE);
                 backButtonG.setVisibility(View.VISIBLE);
+                descrizioneG1.setVisibility(View.INVISIBLE);
+                descrizioneG2.setVisibility(View.VISIBLE);
+                descrizioneG3.setVisibility(View.INVISIBLE);
+                descrizioneR1.setVisibility(View.INVISIBLE);
+                descrizioneR2.setVisibility(View.INVISIBLE);
+                descrizioneR3.setVisibility(View.INVISIBLE);
 
                 //Va alla posizione della astronave verde
                 g2.setX(336);
@@ -663,6 +685,12 @@ public class MainActivity extends Activity {
                 g3.setVisibility(View.VISIBLE);
                 backButtonG.setVisibility(View.VISIBLE);
                 buyButtonG3.setVisibility(View.VISIBLE);
+                descrizioneG1.setVisibility(View.INVISIBLE);
+                descrizioneG2.setVisibility(View.INVISIBLE);
+                descrizioneG3.setVisibility(View.VISIBLE);
+                descrizioneR1.setVisibility(View.INVISIBLE);
+                descrizioneR2.setVisibility(View.INVISIBLE);
+                descrizioneR3.setVisibility(View.INVISIBLE);
 
                 //Va alla posizione della astronave verde
                 g3.setX(336);
@@ -687,6 +715,12 @@ public class MainActivity extends Activity {
                 r2.setVisibility(View.INVISIBLE);
                 r3.setVisibility(View.INVISIBLE);
                 backButtonG.setVisibility(View.VISIBLE);
+                descrizioneG1.setVisibility(View.INVISIBLE);
+                descrizioneG2.setVisibility(View.INVISIBLE);
+                descrizioneG3.setVisibility(View.INVISIBLE);
+                descrizioneR1.setVisibility(View.VISIBLE);
+                descrizioneR2.setVisibility(View.INVISIBLE);
+                descrizioneR3.setVisibility(View.INVISIBLE);
 
                 if (storage.r1 >= 1) {
                     selectionR1.setVisibility(View.VISIBLE);
@@ -705,6 +739,12 @@ public class MainActivity extends Activity {
                 r3.setVisibility(View.INVISIBLE);
                 backButtonG.setVisibility(View.VISIBLE);
                 buyButtonG2.setVisibility(View.VISIBLE);
+                descrizioneG1.setVisibility(View.INVISIBLE);
+                descrizioneG2.setVisibility(View.INVISIBLE);
+                descrizioneG3.setVisibility(View.INVISIBLE);
+                descrizioneR1.setVisibility(View.INVISIBLE);
+                descrizioneR2.setVisibility(View.VISIBLE);
+                descrizioneR3.setVisibility(View.INVISIBLE);
 
                 //Va alla posizione della astronave verde
                 r2.setX(336);
@@ -729,6 +769,12 @@ public class MainActivity extends Activity {
                 r3.setVisibility(View.VISIBLE);
                 backButtonG.setVisibility(View.VISIBLE);
                 buyButtonG3.setVisibility(View.VISIBLE);
+                descrizioneG1.setVisibility(View.INVISIBLE);
+                descrizioneG2.setVisibility(View.INVISIBLE);
+                descrizioneG3.setVisibility(View.INVISIBLE);
+                descrizioneR1.setVisibility(View.INVISIBLE);
+                descrizioneR2.setVisibility(View.INVISIBLE);
+                descrizioneR3.setVisibility(View.VISIBLE);
 
                 //Va alla posizione della astronave verde
                 r3.setX(336);
@@ -761,6 +807,12 @@ public class MainActivity extends Activity {
                 selectionR1.setVisibility(View.INVISIBLE);
                 selectionR2.setVisibility(View.INVISIBLE);
                 selectionR3.setVisibility(View.INVISIBLE);
+                descrizioneG1.setVisibility(View.INVISIBLE);
+                descrizioneG2.setVisibility(View.INVISIBLE);
+                descrizioneG3.setVisibility(View.INVISIBLE);
+                descrizioneR1.setVisibility(View.INVISIBLE);
+                descrizioneR2.setVisibility(View.INVISIBLE);
+                descrizioneR3.setVisibility(View.INVISIBLE);
 
                 if (storage.green == 2) {
                     r1.setVisibility(View.INVISIBLE);
@@ -1275,7 +1327,7 @@ public class MainActivity extends Activity {
             storage.ultimate = 2;
             db.updateUltimate(storage.ultimate);
             drawableCostants.setPos(6);
-            ship404.setImageResource(R.drawable.ultimate);
+            ship404.setImageResource(R.drawable.ultimate2);
             weapon404.setImageResource(R.drawable.barrelh);
         }
     }
