@@ -107,6 +107,9 @@ public class GamePanel extends Activity implements SensorEventListener {
     private Handler handlerIncreaseEnemy = new Handler();
     private Runnable runnableIncreaseEnemy;
 
+    private Handler handlerIncreaseProgress = new Handler();
+    private Runnable runnableIncreaseProgress;
+
     private ArrayList<Shield> shields = new ArrayList<>();
     private Handler handlerShield = new Handler();
     private Runnable runnableShield;
@@ -134,7 +137,7 @@ public class GamePanel extends Activity implements SensorEventListener {
     private int bulletR3 = 150;
     private int bulletU1 = 200;
     private int bulletU2 = 300;
-    private int maxLife = 50;
+    private int maxLife = 25;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -252,6 +255,14 @@ public class GamePanel extends Activity implements SensorEventListener {
             public void run() {
                 timer();
                 handlerScore.postDelayed(this, 30);
+            }
+        });
+
+        handlerIncreaseProgress.post(runnableIncreaseProgress = new Runnable() {
+            @Override
+            public void run() {
+                increaseProgressBar();
+                handlerIncreaseProgress.postDelayed(this,30000);
             }
         });
 
@@ -542,12 +553,9 @@ public class GamePanel extends Activity implements SensorEventListener {
         }
     }
 
-    public void increaseSpeedEnemy()
+    public void increaseProgressBar()
     {
-        increaseProgressBar = increaseProgressBar + 1;
-        increaseEnemy = increaseEnemy + 1;
-        damageEnemy = damageEnemy + 20;
-        maxLife = maxLife +25;
+        maxLife = maxLife + 25;
 
         for(EnemyLife enemyLife: enemyLifes)
         {
@@ -556,6 +564,14 @@ public class GamePanel extends Activity implements SensorEventListener {
             System.out.println("Max "+enemyLife.getMax());
             System.out.println("Progress "+enemyLife.getProgress());
         }
+    }
+
+    public void increaseSpeedEnemy()
+    {
+        increaseProgressBar = increaseProgressBar + 1;
+        increaseEnemy = increaseEnemy + 1;
+        damageEnemy = damageEnemy + 20;
+
 
         if(millis == 300)
         {
@@ -582,27 +598,10 @@ public class GamePanel extends Activity implements SensorEventListener {
                 {
                     if (bullet.collide(enemy))
                     {
-
-                        for(final ExplosionEnemy explosionEnemy : explosionEnemies)
-                        {
-                            explosionEnemy.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if(explosionEnemy.getX() == enemy.getX() || explosionEnemy.getY() == enemy.getY())
-                                    {
-                                        explosionSound.start();
-                                        explosionEnemy.setVisibility(View.VISIBLE);
-                                        explosionEnemy.startAnimation();
-                                    }
-                                }
-                            });
-                        }
                         deleteBullet.add(bullet);
 
-                        //System.out.println(enemyLife.getMax() + "||" + enemyLife.getProgress());
                         if(enemyLife.getX() == enemy.getX() || enemyLife.getY() == enemy.getY())
                         {
-                            coin = coin + 2;
                             if(storage.g1 == 2)
                             {
                                 enemyLife.setProgress(enemyLife.getProgress() - bulletG1);
@@ -644,6 +643,24 @@ public class GamePanel extends Activity implements SensorEventListener {
                                 enemyLife.setProgress(enemyLife.getProgress() - bulletU1);
                                 deleteEnemyLife.add(enemyLife);
                                 deleteEnemy.add(enemy);
+                            }
+                        }
+                        if(enemyLife.getProgress()<=0)
+                        {
+                            coin = coin + 2;
+                            for(final ExplosionEnemy explosionEnemy : explosionEnemies)
+                            {
+                                explosionEnemy.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if(explosionEnemy.getX() == enemy.getX() || explosionEnemy.getY() == enemy.getY())
+                                        {
+                                            explosionSound.start();
+                                            explosionEnemy.setVisibility(View.VISIBLE);
+                                            explosionEnemy.startAnimation();
+                                        }
+                                    }
+                                });
                             }
                         }
                     }
