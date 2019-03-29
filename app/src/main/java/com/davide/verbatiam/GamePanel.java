@@ -131,7 +131,8 @@ public class GamePanel extends Activity{
 
         Cursor res = db.selectData();
         if(res.getCount() == 0) {
-            db.insertData(1,storage.coinStorageF, storage.scoreT,1,0,0,1,0,0,1,0,0,0);
+            db.insertData(1,storage.coinStorageF, storage.scoreT,1,0,0,1,0,
+                    0,1,0,0,0);
         }
 
         if(res.getCount() != 0) {
@@ -213,8 +214,6 @@ public class GamePanel extends Activity{
             life.setProgress(1600);
         }
 
-
-
         //Comandi
         resume = (ImageView) findViewById(R.id.resume);
         restart = (ImageView) findViewById(R.id.restart);
@@ -282,7 +281,7 @@ public class GamePanel extends Activity{
                 {
                     hitCheckShieldEnemy();
                 }
-                handlerCollisionEnemy.postDelayed(this, 1);
+                handlerCollisionEnemy.postDelayed(this, 100);
             }
         });
 
@@ -291,7 +290,7 @@ public class GamePanel extends Activity{
             public void run() {
                 hitCheckBulletEnemy();
                 coinView.setText(coin+"");
-                handlerCollisionBullets.postDelayed(this,1);
+                handlerCollisionBullets.postDelayed(this,100);
             }
         });
 
@@ -609,7 +608,8 @@ public class GamePanel extends Activity{
                                 explosionEnemy.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        if(explosionEnemy.getX() == enemy.getX() || explosionEnemy.getY() == enemy.getY())
+                                        if(explosionEnemy.getX() == enemy.getX()
+                                                || explosionEnemy.getY() == enemy.getY())
                                         {
                                             explosionSound.start();
                                             explosionEnemy.setVisibility(View.VISIBLE);
@@ -649,7 +649,6 @@ public class GamePanel extends Activity{
     }
 
     public void hitCheckShieldPlayer() {
-        //Spawn oggetto esplosione
         ArrayList<Shield> deleteShield = new ArrayList<>();
 
         for (Shield shield : shields) {
@@ -669,8 +668,6 @@ public class GamePanel extends Activity{
     }
 
     public void hitCheckShieldEnemy() {
-
-        //Spawn oggetto esplosione
         ArrayList<Enemy> deleteEnemy = new ArrayList<>();
         ArrayList<EnemyLife> deleteEnemyLife = new ArrayList<>();
 
@@ -695,16 +692,13 @@ public class GamePanel extends Activity{
             {
                 enemies.remove(enemy);
                 gioco.removeView(enemy);
-
                 enemyLifes.remove(enemyLife);
                 gioco.removeView(enemyLife);
             }
-
         }
     }
 
-    public void hitCheckEnemyPlayer()
-    {
+    public void hitCheckEnemyPlayer() {
         ArrayList<Enemy> deleteCollision = new ArrayList<>();
         ArrayList<EnemyLife> deleteEnemyLife = new ArrayList<>();
 
@@ -720,7 +714,6 @@ public class GamePanel extends Activity{
                 }
                 for(final ExplosionEnemy explosionEnemy : explosionEnemies)
                 {
-
                     explosionEnemy.post(new Runnable() {
                         @Override
                         public void run() {
@@ -730,7 +723,6 @@ public class GamePanel extends Activity{
                                 explosionEnemy.setVisibility(View.VISIBLE);
                                 explosionEnemy.startAnimation();
                             }
-
                         }
                     });
                 }
@@ -739,17 +731,14 @@ public class GamePanel extends Activity{
             }
         }
 
-        for(Enemy enemy : deleteCollision)
-        {
-            for(EnemyLife enemyLife: deleteEnemyLife)
-            {
+        for(Enemy enemy : deleteCollision) {
+            for(EnemyLife enemyLife: deleteEnemyLife) {
                 enemy.stopHandler();
                 enemies.remove(enemy);
                 gioco.removeView(enemy);
                 enemyLifes.remove(enemyLife);
                 gioco.removeView(enemyLife);
-                if(life.getProgress() <= 0)
-                {
+                if(life.getProgress() <= 0) {
                     gameSong.stop();
                     gameOver.start();
                     gioco.removeView(player);
@@ -765,24 +754,20 @@ public class GamePanel extends Activity{
                     storage.coinStorageI = storage.coinStorageI + coin;
                     storage.coinStorageF = storage.coinStorageF + coin;
                     storage.scoreT = contatoreTimer;
-
                     Cursor res = db.selectData();
                     if(res.getCount() != 0)
                     {
                         db.updateData(storage.coinStorageF+10000);
                         db.updateScore(storage.scoreT);
                     }
-
                     String risultato="";
-
                     while (res.moveToNext()) {
-                        risultato = "Coin Totali " + res.getString(1) +"\nNe hai ottenuti "+ storage.coinStorageI;
+                        risultato = "Coin Totali " + res.getString(1)
+                                +"\nNe hai ottenuti "+ storage.coinStorageI;
                     }
-
                     coinViewAll.setText(risultato);
                 }
             }
-
         }
 
     }
@@ -798,10 +783,12 @@ public class GamePanel extends Activity{
         gioco.addView(enemy, 1);
 
         //Spawn oggetto progressBar
-        EnemyLife enemyLife = new EnemyLife(this,null, android.R.attr.progressBarStyleHorizontal,enemyX, enemyY, maxLife);
+        EnemyLife enemyLife = new EnemyLife(this,null, android.R.attr.progressBarStyleHorizontal,
+                enemyX, enemyY, maxLife);
         enemyLifes.add(enemyLife);
         gioco.addView(enemyLife, 1);
 
+        //Spawn oggetto explosionEnemy
         ExplosionEnemy explosionEnemy = new ExplosionEnemy(this,enemyX,enemyY);
         explosionEnemies.add(explosionEnemy);
         gioco.addView(explosionEnemy, 1);
@@ -834,7 +821,6 @@ public class GamePanel extends Activity{
             shields.remove(shield);
             gioco.removeView(shield);
         }
-
     }
 
     public void deleteEnemy()
@@ -879,10 +865,6 @@ public class GamePanel extends Activity{
 
     public void spawnBullet()
     {
-        /*System.out.println("Green: " + storage.g1 + storage.g2 + storage.g3);
-        System.out.println("Red: " + storage.r1 + storage.r2 + storage.r3);
-        System.out.println("Ultimate: " + storage.ultimate);
-        System.out.println("Tot: " + storage.green + storage.red + storage.ultimate);*/
         if(storage.g1 == 2 || storage.g2 == 2 || storage.g3 == 2)
         {
             Bullet bulletG = new Bullet(this,player.getX()+177, player.getY());
