@@ -1,8 +1,6 @@
 package com.davide.verbatiam;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
@@ -34,11 +32,6 @@ public class EnemyLife extends ProgressBar {
     public void updateY()
     {
         this.setY(this.getY() + speedY);
-    }
-
-    public int getSpeedY()
-    {
-        return speedY;
     }
 
     public void setSpeedY(int speedY)

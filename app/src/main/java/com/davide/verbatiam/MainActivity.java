@@ -193,7 +193,8 @@ public class MainActivity extends Activity {
 
         Cursor res = db.selectData();
         if(res.getCount() == 0) {
-            db.insertData(1,0, 0,1,0,0,1,0,0,0,0,0,0);
+            db.insertData(1,0, 0,1,0,0,1,
+                    0,0,0,0,0,0);
         }
 
         if (res.getCount() != 0) {
