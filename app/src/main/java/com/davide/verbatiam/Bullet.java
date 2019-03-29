@@ -32,29 +32,21 @@ public class Bullet extends AppCompatImageView {
         });
     }
 
-    public void updateY()
-    {
+    public void updateY() {
         this.setY(this.getY() - speedY);
-        boundsBullet.set((int)this.getX(),(int)this.getY() - 15,(int)this.getX()+35, (int)(this.getY()+70)-15);
+        boundsBullet.set((int)this.getX(),(int)this.getY() - 15,(int)this.getX()+35,
+                (int)(this.getY()+70)-15);
     }
 
-    public void setMillis(long time)
-    {
+    public void setMillis(long time) {
         millis = time;
     }
 
-    public int getSpeedY()
-    {
-        return speedY;
-    }
-
-    public void setSpeedY(int speedY)
-    {
+    public void setSpeedY(int speedY) {
         this.speedY = speedY;
     }
 
-    public void stopHandler()
-    {
+    public void stopHandler() {
         handler.removeCallbacks(runnable);
     }
 

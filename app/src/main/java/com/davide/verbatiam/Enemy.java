@@ -49,7 +49,8 @@ public class Enemy extends AppCompatImageView {
     public void updateY()
     {
         this.setY(this.getY() + speedY);
-        boundsEnemy.set((int)this.getX(),(int)this.getY() + speedY,(int)this.getX()+150, (int)(this.getY()+150)+ speedY);
+        boundsEnemy.set((int)this.getX(),(int)this.getY() + speedY,(int)this.getX()+150,
+                (int)(this.getY()+150)+ speedY);
     }
 
     public int getSpeedY()

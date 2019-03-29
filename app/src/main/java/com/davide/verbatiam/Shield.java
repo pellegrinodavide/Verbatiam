@@ -31,24 +31,17 @@ public class Shield extends AppCompatImageView {
         });
     }
 
-    public void updateY()
-    {
+    public void updateY() {
         this.setY(this.getY() + speedY);
-        shieldRect.set((int)this.getX(),(int)this.getY() + speedY,(int)this.getX()+75, (int)(this.getY()+75)+ speedY);
+        shieldRect.set((int)this.getX(),(int)this.getY() + speedY,(int)this.getX()+75,
+                (int)(this.getY()+75)+ speedY);
     }
 
-    public int getSpeedY()
-    {
-        return speedY;
-    }
-
-    public void setSpeedY(int speedY)
-    {
+    public void setSpeedY(int speedY) {
         this.speedY = speedY;
     }
 
-    public void stopHandler()
-    {
+    public void stopHandler() {
         handler.removeCallbacks(runnable);
     }
 
@@ -59,10 +52,5 @@ public class Shield extends AppCompatImageView {
             return true;
         }
         return false;
-    }
-
-    public Rect getBoundsEnemy()
-    {
-        return shieldRect;
     }
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list
+    android:oneshot="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:drawable="@drawable/explosion1"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/explosion2"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/explosion3"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/explosion4"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/explosion5"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/explosion6"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/explosion7"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/explosion8"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/explosion9"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/explosion10"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/explosion11"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/explosion12"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/explosion13"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/explosion14"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/explosion15"
+        android:duration="30" />
+    <item
+        android:drawable="@drawable/explosion16"
+        android:duration="30" />
+</animation-list>

@@ -304,7 +304,8 @@ public class MainActivity extends Activity {
                         }
                         else
                         {
-                            Toast.makeText(MainActivity.this, "Assicurati di aver selezionato l'arma corrispondente all'astronave", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Assicurati di aver selezionato l'arma " +
+                                    "corrispondente all'astronave", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -454,7 +455,6 @@ public class MainActivity extends Activity {
                 selectionUltimate.setVisibility(View.INVISIBLE);
                 buyButtonRed.setVisibility(View.INVISIBLE);
                 selectionRed.setVisibility(View.INVISIBLE);
-
                 descrizioneG.setVisibility(View.INVISIBLE);
                 descrizioneR.setVisibility(View.INVISIBLE);
                 descrizioneU.setVisibility(View.INVISIBLE);
@@ -462,11 +462,9 @@ public class MainActivity extends Activity {
                 //Ritorna alla posizione originale
                 green.setX(336);
                 green.setY(306);
-
                 //Ritorna alla posizione originale
                 red.setX(339);
                 red.setY(685);
-
                 //Ritorna alla posizione originale
                 ultimate.setX(339);
                 ultimate.setY(1083);
@@ -488,7 +486,6 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 buyRed();
-
                 if (storage.red >= 1) {
                     buyButtonRed.setVisibility(View.INVISIBLE);
                     selectionRed.setVisibility(View.VISIBLE);
@@ -581,11 +578,9 @@ public class MainActivity extends Activity {
                     //Ritorna alla posizione originale
                     g1.setX(336);
                     g1.setY(306);
-
                     //Ritorna alla posizione originale
                     g2.setX(339);
                     g2.setY(685);
-
                     //Ritorna alla posizione originale
                     g3.setX(336);
                     g3.setY(1155);
@@ -603,11 +598,9 @@ public class MainActivity extends Activity {
                     //Ritorna alla posizione originale
                     r1.setX(336);
                     r1.setY(306);
-
                     //Ritorna alla posizione originale
                     r2.setX(339);
                     r2.setY(685);
-
                     //Ritorna alla posizione originale
                     r3.setX(336);
                     r3.setY(1155);
@@ -736,11 +729,9 @@ public class MainActivity extends Activity {
                 descrizioneR1.setVisibility(View.INVISIBLE);
                 descrizioneR2.setVisibility(View.VISIBLE);
                 descrizioneR3.setVisibility(View.INVISIBLE);
-
                 //Va alla posizione della astronave verde
                 r2.setX(336);
                 r2.setY(300);
-
                 if (storage.r2 >= 1) {
                     buyButtonR2.setVisibility(View.INVISIBLE);
                     selectionR2.setVisibility(View.VISIBLE);
@@ -766,11 +757,9 @@ public class MainActivity extends Activity {
                 descrizioneR1.setVisibility(View.INVISIBLE);
                 descrizioneR2.setVisibility(View.INVISIBLE);
                 descrizioneR3.setVisibility(View.VISIBLE);
-
                 //Va alla posizione della astronave verde
                 r3.setX(336);
                 r3.setY(306);
-
                 if (storage.r3 >= 1) {
                     buyButtonR3.setVisibility(View.INVISIBLE);
                     selectionR3.setVisibility(View.VISIBLE);
@@ -778,7 +767,6 @@ public class MainActivity extends Activity {
                     buyButtonR3.setVisibility(View.VISIBLE);
                     selectionR3.setVisibility(View.INVISIBLE);
                 }
-
             }
         });
 
@@ -786,7 +774,6 @@ public class MainActivity extends Activity {
         backButtonG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 backButtonG.setVisibility(View.INVISIBLE);
                 buyButtonG3.setVisibility(View.INVISIBLE);
                 buyButtonG2.setVisibility(View.INVISIBLE);
@@ -804,47 +791,27 @@ public class MainActivity extends Activity {
                 descrizioneR1.setVisibility(View.INVISIBLE);
                 descrizioneR2.setVisibility(View.INVISIBLE);
                 descrizioneR3.setVisibility(View.INVISIBLE);
-
                 if (storage.green == 2) {
-                    r1.setVisibility(View.INVISIBLE);
-                    r2.setVisibility(View.INVISIBLE);
-                    r3.setVisibility(View.INVISIBLE);
-                    g1.setVisibility(View.VISIBLE);
-                    g2.setVisibility(View.VISIBLE);
-                    g3.setVisibility(View.VISIBLE);
-
+                    r1.setVisibility(View.INVISIBLE);r2.setVisibility(View.INVISIBLE);
+                    r3.setVisibility(View.INVISIBLE);g1.setVisibility(View.VISIBLE);
+                    g2.setVisibility(View.VISIBLE);g3.setVisibility(View.VISIBLE);
                     //Ritorna alla posizione originale
-                    g1.setX(336);
-                    g1.setY(306);
-
+                    g1.setX(336);g1.setY(306);
                     //Ritorna alla posizione originale
-                    g2.setX(339);
-                    g2.setY(685);
-
+                    g2.setX(339);g2.setY(685);
                     //Ritorna alla posizione originale
-                    g3.setX(336);
-                    g3.setY(1155);
+                    g3.setX(336);g3.setY(1155);
                 } else if (storage.red == 2) {
-                    r1.setVisibility(View.VISIBLE);
-                    r2.setVisibility(View.VISIBLE);
-                    r3.setVisibility(View.VISIBLE);
-                    g1.setVisibility(View.INVISIBLE);
-                    g2.setVisibility(View.INVISIBLE);
-                    g3.setVisibility(View.INVISIBLE);
-
+                    r1.setVisibility(View.VISIBLE);r2.setVisibility(View.VISIBLE);
+                    r3.setVisibility(View.VISIBLE);g1.setVisibility(View.INVISIBLE);
+                    g2.setVisibility(View.INVISIBLE);g3.setVisibility(View.INVISIBLE);
                     //Ritorna alla posizione originale
-                    r1.setX(336);
-                    r1.setY(306);
-
+                    r1.setX(336);r1.setY(306);
                     //Ritorna alla posizione originale
-                    r2.setX(339);
-                    r2.setY(685);
-
+                    r2.setX(339);r2.setY(685);
                     //Ritorna alla posizione originale
-                    r3.setX(336);
-                    r3.setY(1155);
+                    r3.setX(336);r3.setY(1155);
                 }
-
             }
         });
 
@@ -990,7 +957,9 @@ public class MainActivity extends Activity {
                 db.updateR1(storage.r1);
             }
         } else {
-            System.out.println("Mi dispiace ma non puoi acquistare questa nave, perchè non hai abbastanza soldi. \n L'astronave costa 5000 coin mentre tu ne possiedi " + currentCoin + "\nOppure e' perche' hai gia' acquistato questa astronave");
+            System.out.println("Mi dispiace ma non puoi acquistare questa nave, perchè non hai " +
+                    "abbastanza soldi. \n L'astronave costa 5000 coin mentre tu ne possiedi" +
+                    " " + currentCoin + "\nOppure e' perche' hai gia' acquistato questa astronave");
         }
     }
 
@@ -1016,7 +985,9 @@ public class MainActivity extends Activity {
             db.updateUltimate(storage.ultimate);
 
         } else {
-            System.out.println("Mi dispiace ma non puoi acquistare questa nave, perchè non hai abbastanza soldi. \n L'astronave costa 5000 coin mentre tu ne possiedi " + currentCoin + "\nOppure e' perche' hai gia' acquistato questa astronave");
+            System.out.println("Mi dispiace ma non puoi acquistare questa nave, perchè non hai " +
+                    "abbastanza soldi. \n L'astronave costa 5000 coin mentre tu ne possiedi" +
+                    " " + currentCoin + "\nOppure e' perche' hai gia' acquistato questa astronave");
         }
     }
 
@@ -1055,7 +1026,9 @@ public class MainActivity extends Activity {
             db.updateG2(storage.g2);
             System.out.println("Acquistato");
         } else {
-            System.out.println("Mi dispiace ma non puoi acquistare questa arma perchè non hai abbastanza soldi. \n L'arma costa 5000 coin mentre tu ne possiedi " + currentCoin + "\nOppure e' perche' hai gia' acquistato questa arma");
+            System.out.println("Mi dispiace ma non puoi acquistare questa arma perchè " +
+                    "non hai abbastanza soldi. \n L'arma costa 5000 coin mentre tu ne possiedi" +
+                    " " + currentCoin + "\nOppure e' perche' hai gia' acquistato questa arma");
         }
     }
 
@@ -1081,7 +1054,9 @@ public class MainActivity extends Activity {
             db.updateG3(storage.g3);
             System.out.println("Acquistato");
         } else {
-            System.out.println("Mi dispiace ma non puoi acquistare questa arma perchè non hai abbastanza soldi. \n L'arma costa 5000 coin mentre tu ne possiedi " + currentCoin + "\nOppure e' perche' hai gia' acquistato questa arma");
+            System.out.println("Mi dispiace ma non puoi acquistare questa arma perchè" +
+                    " non hai abbastanza soldi. \n L'arma costa 5000 coin mentre tu ne possiedi" +
+                    " " + currentCoin + "\nOppure e' perche' hai gia' acquistato questa arma");
         }
     }
 
@@ -1107,7 +1082,9 @@ public class MainActivity extends Activity {
             db.updateR2(storage.r2);
             System.out.println("Acquistato");
         } else {
-            System.out.println("Mi dispiace ma non puoi acquistare questa arma perchè non hai abbastanza soldi. \n L'arma costa 5000 coin mentre tu ne possiedi " + currentCoin + "\nOppure e' perche' hai gia' acquistato questa arma");
+            System.out.println("Mi dispiace ma non puoi acquistare questa arma perchè" +
+                    " non hai abbastanza soldi. \n L'arma costa 5000 coin mentre tu ne possiedi" +
+                    " " + currentCoin + "\nOppure e' perche' hai gia' acquistato questa arma");
         }
     }
 
@@ -1133,7 +1110,9 @@ public class MainActivity extends Activity {
             db.updateR3(storage.r3);
             System.out.println("Acquistato");
         } else {
-            System.out.println("Mi dispiace ma non puoi acquistare questa arma perchè non hai abbastanza soldi. \n L'arma costa 5000 coin mentre tu ne possiedi " + currentCoin + "\nOppure e' perche' hai gia' acquistato questa arma");
+            System.out.println("Mi dispiace ma non puoi acquistare questa arma perchè" +
+                    " non hai abbastanza soldi. \n L'arma costa 5000 coin mentre tu ne possiedi" +
+                    " " + currentCoin + "\nOppure e' perche' hai gia' acquistato questa arma");
         }
     }
 
@@ -1211,7 +1190,6 @@ public class MainActivity extends Activity {
             if (storage.r3 == 2) { storage.r3 = 1;db.updateR3(storage.r3); }
             if (storage.red == 2) { storage.red = 1;db.updateRed(storage.red); }
             if (storage.ultimate == 2) { storage.ultimate = 1;db.updateUltimate(storage.ultimate); }
-
             storage.g1 = 2;
             db.updateG1(storage.g1);
             drawableCostants.setPos(0);
@@ -1228,7 +1206,6 @@ public class MainActivity extends Activity {
             if (storage.r3 == 2) { storage.r3 = 1;db.updateR3(storage.r3); }
             if (storage.red == 2) { storage.red = 1;db.updateRed(storage.red); }
             if (storage.ultimate == 2) { storage.ultimate = 1;db.updateUltimate(storage.ultimate); }
-
             storage.g2 = 2;
             db.updateG2(storage.g2);
             drawableCostants.setPos(1);
@@ -1245,7 +1222,6 @@ public class MainActivity extends Activity {
             if (storage.r3 == 2) { storage.r3 = 1;db.updateR3(storage.r3); }
             if (storage.red == 2) { storage.red = 1;db.updateRed(storage.red); }
             if (storage.ultimate == 2) { storage.ultimate = 1;db.updateUltimate(storage.ultimate); }
-
             storage.g3 = 2;
             db.updateG3(storage.g3);
             drawableCostants.setPos(2);
@@ -1262,7 +1238,6 @@ public class MainActivity extends Activity {
             if (storage.r3 == 2) { storage.r3 = 1;db.updateR3(storage.r3); }
             if (storage.green == 2) { storage.green = 1;db.updateGreen(storage.green); }
             if (storage.ultimate == 2) { storage.ultimate = 1;db.updateUltimate(storage.ultimate); }
-
             storage.r1 = 2;
             db.updateR1(storage.r1);
             drawableCostants.setPos(3);
@@ -1279,7 +1254,6 @@ public class MainActivity extends Activity {
             if (storage.r3 == 2) { storage.r3 = 1;db.updateR3(storage.r3); }
             if (storage.green == 2) { storage.green = 1;db.updateGreen(storage.green); }
             if (storage.ultimate == 2) { storage.ultimate = 1;db.updateUltimate(storage.ultimate); }
-
             storage.r2 = 2;
             db.updateR2(storage.r2);
             drawableCostants.setPos(4);
@@ -1296,7 +1270,6 @@ public class MainActivity extends Activity {
             if (storage.r2 == 2) { storage.r2 = 1;db.updateR2(storage.r2); }
             if (storage.green == 2) { storage.green = 1;db.updateGreen(storage.green); }
             if (storage.ultimate == 2) { storage.ultimate = 1;db.updateUltimate(storage.ultimate); }
-
             storage.r3 = 2;
             db.updateR3(storage.r3);
             drawableCostants.setPos(5);
@@ -1314,7 +1287,6 @@ public class MainActivity extends Activity {
             if (storage.r3 == 2) { storage.r3 = 1;db.updateR3(storage.r3); }
             if (storage.green == 2) { storage.green = 1;db.updateGreen(storage.green); }
             if (storage.red == 2) { storage.red = 1;db.updateRed(storage.red); }
-
             storage.ultimate = 2;
             db.updateUltimate(storage.ultimate);
             drawableCostants.setPos(6);
@@ -1323,7 +1295,6 @@ public class MainActivity extends Activity {
             gunSection.setVisibility(View.INVISIBLE);
         }
     }
-
     public void green() {
         if(storage.green >= 1) {
             if (storage.r1 == 2) { storage.r1 = 1;db.updateR1(storage.r1); }
@@ -1331,14 +1302,12 @@ public class MainActivity extends Activity {
             if (storage.r3 == 2) { storage.r3 = 1;db.updateR3(storage.r3); }
             if (storage.ultimate == 2) { storage.ultimate = 1;db.updateUltimate(storage.ultimate); }
             if (storage.red == 2) { storage.red = 1;db.updateRed(storage.red); }
-
             storage.green = 2;
             db.updateGreen(storage.green);
             ship404.setImageResource(R.drawable.greenship);
             gunSection.setVisibility(View.VISIBLE);
         }
     }
-
     public void red() {
         if(storage.red >= 1) {
             if (storage.g1 == 2) { storage.g1 = 1;db.updateG1(storage.g1); }
@@ -1346,13 +1315,11 @@ public class MainActivity extends Activity {
             if (storage.g3 == 2) { storage.g3 = 1;db.updateG3(storage.g3); }
             if (storage.green == 2) { storage.green = 1;db.updateGreen(storage.green); }
             if (storage.ultimate == 2) { storage.ultimate = 1;db.updateUltimate(storage.ultimate); }
-
             storage.red = 2;
             db.updateRed(storage.red);
             if (storage.r2 == 0 && storage.r3 == 0) {
                 storage.r1 = 2;
-                db.updateR1(storage.r1);
-            }
+                db.updateR1(storage.r1); }
             ship404.setImageResource(R.drawable.redship);
             gunSection.setVisibility(View.VISIBLE);
         }

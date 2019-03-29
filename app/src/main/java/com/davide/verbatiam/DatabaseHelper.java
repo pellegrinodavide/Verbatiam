@@ -25,12 +25,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public DatabaseHelper( Context context) {
 
         super(context, DATABASE_NAME, null, 1);
-        //SQLiteDatabase db= this.getWritableDatabase();
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE storage(ID INTEGER PRIMARY KEY, RESULT LONG DEFAULT 0, SCORE INT DEFAULT 0, GREEN INT DEFAULT 1, RED INT, ULTIMATE INT, G1 INT DEFAULT 1, G2 INT, G3 INT, R1 INT DEFAULT 1, R2 INT, R3 INT , U2 INT)");
+        db.execSQL("CREATE TABLE storage(ID INTEGER PRIMARY KEY, RESULT LONG DEFAULT 0, " +
+                "SCORE INT DEFAULT 0, GREEN INT DEFAULT 1, RED INT, ULTIMATE INT, G1 INT DEFAULT 1, G2 INT, G3 INT, " +
+                "R1 INT DEFAULT 1, R2 INT, R3 INT , U2 INT)");
     }
 
     @Override
@@ -39,7 +40,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(int id2,long result2, int score2, int green, int red, int ultimate, int g1, int g2, int g3, int r1, int r2, int r3, int u2)
+    public boolean insertData(int id2,long result2, int score2, int green, int red, int ultimate,
+                              int g1, int g2, int g3, int r1, int r2, int r3, int u2)
     {
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
@@ -160,20 +162,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_12,r3);
         db.update("storage", contentValues, null, null);
-    }
-
-    public void updateU2(int u2) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_12,u2);
-        db.update("storage", contentValues, null, null);
-    }
-
-    public void deleteAll()
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete("storage",null,null);
-        db.execSQL("delete from "+ "storage");
     }
 }

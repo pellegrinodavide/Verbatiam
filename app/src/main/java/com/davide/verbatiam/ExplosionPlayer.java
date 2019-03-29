@@ -23,21 +23,6 @@ public class ExplosionPlayer extends AppCompatImageView {
         runExplosion = (AnimationDrawable)this.getBackground();
     }
 
-    public void changePos(boolean rect_actionFlagDX, boolean rect_actionFlagSX)
-    {
-        //Move rectangle
-        if(rect_actionFlagDX && (this.getX()+350) < costants.SCREEN_WIDTH)
-        {
-            //Destra
-            this.setX(this.getX() + 15);
-        }
-        if(rect_actionFlagSX && this.getX() > 0)
-        {
-            //Sinistra
-            this.setX(this.getX() - 15);
-        }
-    }
-
     public void startAnimation()
     {
         runExplosion.start();

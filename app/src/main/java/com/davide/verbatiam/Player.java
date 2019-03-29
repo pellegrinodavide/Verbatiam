@@ -33,14 +33,11 @@ public class Player extends AppCompatImageView{
         return playerRect;
     }
 
-    public Rect setRect(int left, int top, int right, int bottom)
-    {
+    public Rect setRect(int left, int top, int right, int bottom) {
         playerRect.set(left + 80 ,top + 80,right + 300, bottom + 184);
         return playerRect;
     }
-
-    public boolean touch()
-    {
+    public boolean touch() {
         this.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

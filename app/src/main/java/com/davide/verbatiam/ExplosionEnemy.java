@@ -35,18 +35,10 @@ public class ExplosionEnemy extends AppCompatImageView {
         this.setY(this.getY() + speedY);
     }
 
-    public int getSpeedY()
-    {
-        return speedY;
-    }
-
     public void setSpeedY(int speedY)
     {
         this.speedY = speedY;
     }
 
-    public void startAnimation()
-    {
-        runExplosion.start();
-    }
+    public void startAnimation() { runExplosion.start(); }
 }
